@@ -7,7 +7,8 @@ Key Features:
 3. Should allow the user to predict objects of interest at a given location in the near future, so that they may plan their trips accordingly.
 
 ## UW Flow Enhanced
-An app that allows students to search for desired course for their subsequent terms based on an automated marking system, where the formula used to generate marks are highly customizable. E.g MARK=50\*LIKED+50\*USEFUL-5\*(12-NUMBERofRATINGS)-3\*(5-NUMBERofCOMMENTS)
+An app that allows students to search for desired course for their subsequent terms based on an automated marking system, where the formula used to generate marks are highly customizable.
+E.g MARK=50\*LIKED(%)+50\*USEFUL(%)-5\*(12-NUMBERofRATINGS)-3\*(5-NUMBERofCOMMENTS)
 
 Key Features:
 1.
