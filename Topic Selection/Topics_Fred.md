@@ -11,4 +11,6 @@ An app that allows students to search for desired course for their subsequent te
 E.g MARK=50\*LIKED(%)+50\*USEFUL(%)-5\*(12-NUMBERofRATINGS)-3\*(5-NUMBERofCOMMENTS)
 
 Key Features:
-1.
+1. Should be highly customizable! The whole marking formula should be modifiable.
+2. Link courses to their syllabuses. Like the ones here: https://uwaterloo.ca/electrical-computer-engineering/undergraduate-students/academic-planning-and-support/technical-electives-tes
+3. Add support for course dependency check and some other options?
