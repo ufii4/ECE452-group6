@@ -8,3 +8,4 @@
 | 2023/05/26 | 3         |            |        |          | 3           | 3          | Proposal presentation prepration & script           |
 | 2023/05/26 |           |            |        | 1        |             |           | Organized functional properties in deliverable      |
 | 2023/05/27 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting                                       |
+| 2023/05/30 |           |            |        | 3        | 3           |           | Project starter code & small UI updates             |
