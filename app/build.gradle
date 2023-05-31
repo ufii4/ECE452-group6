@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -61,12 +62,24 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-    implementation "androidx.room:room-rxjava2:$room_version"
     implementation "androidx.room:room-rxjava3:$room_version"
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
     // optional - Guava support for Room, including Optional and ListenableFuture
     implementation "androidx.room:room-guava:$room_version"
 
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+    // Hilt
+    implementation 'com.google.dagger:hilt-android:2.46.1'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.46.1'
+
+    // For instrumentation tests
+    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.46.1'
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-compiler:2.46.1'
+
+    // For local unit tests
+    testImplementation 'com.google.dagger:hilt-android-testing:2.46.1'
+    testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.46.1'
 }

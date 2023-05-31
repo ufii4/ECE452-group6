@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ece452.watfit.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
+public class DashboardFragment extends Fragment {
     private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

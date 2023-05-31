@@ -2,6 +2,7 @@ package com.ece452.watfit;
 
 import android.os.Bundle;
 
+import com.ece452.watfit.data.DietaryRepository;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +13,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.ece452.watfit.databinding.ActivityMainBinding;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    @Inject
+    DietaryRepository dietaryRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
