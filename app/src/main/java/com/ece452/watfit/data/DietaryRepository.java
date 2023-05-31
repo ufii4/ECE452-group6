@@ -23,10 +23,6 @@ public class DietaryRepository {
         return dietaryLogDao.getDietaryLog(date).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Flowable<DietaryLogWithEntries> getDietaryLogWithEntries(String date) {
-        return dietaryLogDao.getDietaryLogWithEntries(date).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-    }
-
     public Completable insertDietaryLog(DietaryLog dietaryLog) {
         return dietaryLogDao.insert(dietaryLog).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }

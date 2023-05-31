@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel;
 import com.ece452.watfit.data.DietaryLogWithEntries;
 import com.ece452.watfit.data.DietaryRepository;
 
+import java.time.LocalDate;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
@@ -24,12 +26,8 @@ public class DashboardViewModel extends ViewModel {
         this.dietaryRepository = dietaryRepository;
 
         dietaryRepository.getDietaryLog("2023-05-30").subscribe(dietaryLog -> {
-            mText.setValue(dietaryLog.date);
+            mText.setValue(dietaryLog.date.toString());
         });
-    }
-
-    public Flowable<DietaryLogWithEntries> getDietaryLogWithEntries() {
-        return this.dietaryRepository.getDietaryLogWithEntries("2023-05-30");
     }
 
     public LiveData<String> getText() {
