@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.ece452.watfit.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_tracker"
+        android:name="com.ece452.watfit.ui.tracker.TrackerFragment"
         android:label="@string/title_fitness_tracker"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_tracker" />
 </navigation>

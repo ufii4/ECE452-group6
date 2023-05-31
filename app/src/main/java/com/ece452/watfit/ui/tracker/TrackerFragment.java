@@ -1,4 +1,4 @@
-package com.ece452.watfit.ui.notifications;
+package com.ece452.watfit.ui.tracker;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ece452.watfit.databinding.FragmentNotificationsBinding;
+import com.ece452.watfit.databinding.FragmentTrackerBinding;
 
-public class NotificationsFragment extends Fragment {
+public class TrackerFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentTrackerBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        TrackerViewModel trackerViewModel =
+                new ViewModelProvider(this).get(TrackerViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentTrackerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textTracker;
+        trackerViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

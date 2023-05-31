@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_tracker"
         android:icon="@drawable/ic_fitness_tracker"
         android:title="@string/title_fitness_tracker" />
     <item
