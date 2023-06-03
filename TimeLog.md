@@ -10,3 +10,4 @@
 | 2023/05/27 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting                                       |
 | 2023/05/30 |           |            |        | 3        | 3           |           | Project starter code & small UI updates             |
 | 2023/05/31 |           |            |        | 3        | 3           |           | Data layer setup, dependency injection setup, and determine detailed app design             |
+| 2023/06/03 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting                                       |
