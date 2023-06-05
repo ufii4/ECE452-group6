@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1026231894442",
-    "project_id": "watfit-64b8d",
-    "storage_bucket": "watfit-64b8d.appspot.com"
+    "project_number": "636540615873",
+    "project_id": "watfit-aaca3",
+    "storage_bucket": "watfit-aaca3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1026231894442:android:09a176ab13d46895e16bd3",
+        "mobilesdk_app_id": "1:636540615873:android:efaf724e09e750115de840",
         "android_client_info": {
           "package_name": "com.ece452.watfit"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1026231894442-vvqprbrvbq7sdjuopdd5crumpt282sas.apps.googleusercontent.com",
+          "client_id": "636540615873-fuheu71ss3ma3r7n2q1t2ppjpbp3uij7.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAX0ykYEjoh6jd_SCE0nqn70YbYJqjrtvA"
+          "current_key": "AIzaSyBUqumuV9kLwU6Nu0ZxTS00V1DULi6wqVs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1026231894442-vvqprbrvbq7sdjuopdd5crumpt282sas.apps.googleusercontent.com",
+              "client_id": "636540615873-fuheu71ss3ma3r7n2q1t2ppjpbp3uij7.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
