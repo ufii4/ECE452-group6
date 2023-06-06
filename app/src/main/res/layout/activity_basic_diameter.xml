@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="1dp"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".BasicDiameterActivity">
+
+        <TextView
+            android:id="@+id/lb_height_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:text="Height:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.212"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lb_title_bd" />
+
+        <TextView
+            android:id="@+id/lb_weight_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:text="Weight:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/lb_height_bd"
+            app:layout_constraintStart_toStartOf="@+id/lb_height_bd"
+            app:layout_constraintTop_toBottomOf="@+id/lb_height_bd" />
+
+        <TextView
+            android:id="@+id/lb_age_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:text="Age:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/lb_weight_bd"
+            app:layout_constraintStart_toStartOf="@+id/lb_weight_bd"
+            app:layout_constraintTop_toBottomOf="@+id/lb_weight_bd" />
+
+        <TextView
+            android:id="@+id/lb_gender_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:text="Gender:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/lb_age_bd"
+            app:layout_constraintStart_toStartOf="@+id/lb_age_bd"
+            app:layout_constraintTop_toBottomOf="@+id/lb_age_bd" />
+
+        <TextView
+            android:id="@+id/lb_waist_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:text="Waist Circumference:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/lb_gender_bd"
+            app:layout_constraintStart_toStartOf="@+id/lb_gender_bd"
+            app:layout_constraintTop_toBottomOf="@+id/lb_gender_bd" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:text="Hip Circumference:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/lb_waist_bd"
+            app:layout_constraintStart_toStartOf="@+id/lb_waist_bd"
+            app:layout_constraintTop_toBottomOf="@+id/lb_waist_bd" />
+
+        <Button
+            android:id="@+id/bt_submit_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="50dp"
+            android:text="SUBMIT"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/lb_title_bd"
+            android:layout_width="285dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="80dp"
+            android:gravity="center"
+            android:text="TELL US ABOUT YOURSELF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_height_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="75dp"
+            android:width="150dp"
+            android:ems="10"
+            android:hint="cm"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lb_height_bd"
+            app:layout_constraintTop_toBottomOf="@+id/lb_title_bd" />
+
+        <EditText
+            android:id="@+id/et_weight_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:width="150dp"
+            android:ems="10"
+            android:hint="kg"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="@+id/et_height_bd"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/et_height_bd"
+            app:layout_constraintTop_toBottomOf="@+id/et_height_bd" />
+
+        <EditText
+            android:id="@+id/et_age_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:width="150dp"
+            android:ems="10"
+            android:hint="years old"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="@+id/et_weight_bd"
+            app:layout_constraintStart_toStartOf="@+id/et_weight_bd"
+            app:layout_constraintTop_toBottomOf="@+id/et_weight_bd" />
+
+        <Spinner
+            android:id="@+id/sp_gender_bd"
+            android:layout_width="170dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="80dp"
+            android:dropDownWidth="150dp"
+            app:layout_constraintEnd_toEndOf="@+id/et_age_bd"
+            app:layout_constraintStart_toStartOf="@+id/et_age_bd"
+            app:layout_constraintTop_toBottomOf="@+id/et_age_bd" />
+
+        <EditText
+            android:id="@+id/et_waist_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:width="150dp"
+            android:ems="10"
+            android:hint="cm"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="@+id/sp_gender_bd"
+            app:layout_constraintStart_toStartOf="@+id/sp_gender_bd"
+            app:layout_constraintTop_toBottomOf="@+id/sp_gender_bd" />
+
+        <EditText
+            android:id="@+id/et_hip_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="67dp"
+            android:width="150dp"
+            android:ems="10"
+            android:hint="cm"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="@+id/et_waist_bd"
+            app:layout_constraintStart_toStartOf="@+id/et_waist_bd"
+            app:layout_constraintTop_toBottomOf="@+id/et_waist_bd" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

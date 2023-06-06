@@ -3,4 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_fitness_tracker">Fitness Tracker</string>
     <string name="title_fitness_dashboard">Fitness Dashboard</string>
+    <string name="title_start">WatFit Sign-In</string>
+    <string name="title_login">Account Login</string>
+    <string name="title_register">Account Register</string>
+    <string name="title_basic_diameter">Body Diameter</string>
 </resources>
