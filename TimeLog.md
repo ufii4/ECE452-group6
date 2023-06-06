@@ -13,3 +13,4 @@
 | 2023/05/31 |           |            |        | 3        | 3           |           | Data layer setup, dependency injection setup, and determine detailed app design             |
 | 2023/06/03 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting                                       |
 | 2023/06/05 |           |            |        | 4        | 4           |           | Firebase setup, login screen & fitness API research                                       |
+| 2023/06/06 |           |            |        |          | 3           |           | Basic Body Diameter screen, Update app theme                                       |
