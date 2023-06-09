@@ -7,4 +7,12 @@
     <string name="title_login">Account Login</string>
     <string name="title_register">Account Register</string>
     <string name="title_basic_diameter">Body Diameter</string>
+    <string name="intake_text">Calorie Intake</string>
+    <string name="exercise_textview">Exercise</string>
+    <string name="body_diameter_textview">Body Diameter</string>
+    <string name="search_hint">Enter Your Food</string>
+    <string name="calorie_intake_estimate">Estimated Calorie is</string>
+    <string name="add_button_text">Add</string>
+    <string name="submit_button_text">Submit</string>
+    <string name="total_calorie">Your daily calorie intake is:</string>
 </resources>
