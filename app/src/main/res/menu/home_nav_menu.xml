@@ -10,4 +10,12 @@
         android:id="@+id/navigation_training_scheduler"
         android:icon="@drawable/common_google_signin_btn_icon_dark"
         android:title="@string/title_training_scheduler" />
+    <item
+        android:id="@+id/navigation_recommendations"
+        android:icon="@drawable/common_google_signin_btn_icon_dark"
+        android:title="@string/title_recommendations" />
+    <item
+        android:id="@+id/navigation_social_sharing"
+        android:icon="@drawable/common_google_signin_btn_icon_dark"
+        android:title="@string/title_social_sharing" />
 </menu>
