@@ -9,4 +9,6 @@
     <string name="title_basic_diameter">Body Diameter</string>
     <string name="title_recipe_generator">Recipe Generator</string>
     <string name="title_training_scheduler">Training scheduler</string>
+    <string name="title_recommendations">Recommendations</string>
+    <string name="title_social_sharing">Social Sharing</string>
 </resources>
