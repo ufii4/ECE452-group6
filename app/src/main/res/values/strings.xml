@@ -11,4 +11,8 @@
     <string name="title_training_scheduler">Training scheduler</string>
     <string name="title_recommendations">Recommendations</string>
     <string name="title_social_sharing">Social Sharing</string>
+    <string name="navbar_recommendations">Recommendations</string>
+    <string name="navbar_social_sharing">Social Sharing</string>
+    <string name="navbar_recipe_generator">Recipe Generator</string>
+    <string name="navbar_plan_generator">Plan Generator</string>
 </resources>
