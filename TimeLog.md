@@ -15,3 +15,4 @@
 | 2023/06/05 |           |            |        | 4        | 4           |           | Firebase setup, login screen & fitness API research                             |
 | 2023/06/06 |           |            |        |          | 3           |           | Basic Body Diameter screen, Update app theme                                    |
 | 2023/06/10 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting & Deliverable 2                                                   |
+| 2023/06/10 | 6         | 0          | 0      | 0        | 0           | 0         | Working on the Creation of the 2nd Menu (Homepage Navbar)                       |
