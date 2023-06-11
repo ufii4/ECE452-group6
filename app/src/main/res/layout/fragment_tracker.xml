@@ -37,7 +37,7 @@
 
     <!-- Cell 1, Row 1 -->
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/calorieLog"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -50,7 +50,7 @@
 
     <!-- Cell 2, Row 1 -->
     <RadioButton
-        android:id="@+id/textView2"
+        android:id="@+id/calorieLogButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -61,7 +61,7 @@
 
     <!-- Cell 1, Row 2 -->
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/exerciseLog"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -74,7 +74,7 @@
 
     <!-- Cell 2, Row 2 -->
     <RadioButton
-        android:id="@+id/textView4"
+        android:id="@+id/exerciseLogButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -85,7 +85,7 @@
 
     <!-- Cell 1, Row 3 -->
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/diameterLog"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
@@ -98,7 +98,7 @@
 
     <!-- Cell 2, Row 3 -->
     <RadioButton
-        android:id="@+id/textView6"
+        android:id="@+id/diameterLogButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
