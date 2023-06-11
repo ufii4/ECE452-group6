@@ -19,4 +19,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/navbar_recommendations" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/navbar_social_sharing" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/navbar_recipe_generator" />
+
+        <Button
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/navbar_plan_generator" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
