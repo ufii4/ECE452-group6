@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".ui.tracker.CalorieFragment">
-
+    tools:context=".ui.tracker.ExerciseFragment">
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_vertical"
         android:layout_width="wrap_content"
@@ -35,6 +34,39 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66" />
 
+    <android.widget.SearchView
+        android:id="@+id/searchViewExercise"
+        android:queryHint="@string/exercise_search_hint"
+        android:background="@android:color/darker_gray"
+        android:iconifiedByDefault="false"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <EditText
+        android:id="@+id/estimateTime"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:hint="@string/exercise_time_hint"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewExercise"
+        app:layout_constraintBottom_toTopOf="@+id/exerciseCalorieText" />
+    <TextView
+        android:id="@+id/exerciseCalorieText"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/exercise_calorie"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/calorieExercise"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/estimateTime"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_1"/>
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
@@ -44,45 +76,8 @@
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <android.widget.SearchView
-    android:id="@+id/searchViewCalorie"
-    android:queryHint="@string/search_hint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintHorizontal_bias="0.806"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/estimateCalorie"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:hint="@string/food_amount_hint"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
-        app:layout_constraintBottom_toTopOf="@+id/calorieHint" />
-
     <TextView
-        android:id="@+id/calorieHint"
-        android:layout_width="157dp"
-        android:layout_height="56dp"
-        android:gravity="center"
-        android:text="@string/calorie_intake_estimate"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_1"
-        app:layout_constraintEnd_toStartOf="@+id/calorieInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/estimateCalorie" />
-
-    <TextView
-        android:id="@+id/calorieInput"
+        android:id="@+id/calorieExercise"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:gravity="center"
@@ -90,57 +85,50 @@
         android:textSize="15sp"
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintStart_toEndOf="@+id/calorieHint"
-        app:layout_constraintTop_toBottomOf="@+id/estimateCalorie"
+        app:layout_constraintStart_toEndOf="@+id/exerciseCalorieText"
+        app:layout_constraintTop_toBottomOf="@+id/estimateTime"
         app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_1"/>
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/addButtonExercise"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:gravity="center"
         android:text="@string/add_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/estimateCalorie"
+        app:layout_constraintTop_toBottomOf="@+id/estimateTime"
         app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_1" />
 
     <TextView
-        android:id="@+id/calorieTotalText"
+        android:id="@+id/calorieTotalExerciseText"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
-        android:background="@android:color/darker_gray"
         android:gravity="center"
-        android:text="@string/total_calorie"
+        android:text="@string/daily_exercise_calorie"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@id/submitButton"
-        app:layout_constraintEnd_toStartOf="@+id/calorieTotal"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2" />
+        app:layout_constraintEnd_toStartOf="@+id/calorieTotalExercise"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+        app:layout_constraintBottom_toTopOf="@id/submitButtonExercise"/>
 
     <TextView
-        android:id="@+id/calorieTotal"
+        android:id="@+id/calorieTotalExercise"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
-        android:background="@android:color/darker_gray"
         android:gravity="center"
         android:text="300"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@id/submitButton"
+        android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintStart_toEndOf="@+id/calorieTotalText" />
-
+        app:layout_constraintStart_toEndOf="@+id/calorieTotalExerciseText"
+        app:layout_constraintBottom_toTopOf="@id/submitButtonExercise"/>
     <Button
-        android:id="@+id/submitButton"
+        android:id="@+id/submitButtonExercise"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginBottom="60dp"
         android:gravity="center"
         android:text="@string/submit_button_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2" />
-
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

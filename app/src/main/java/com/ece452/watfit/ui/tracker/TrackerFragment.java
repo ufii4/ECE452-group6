@@ -39,6 +39,19 @@ public class TrackerFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        Button exerciseButton = root.findViewById(R.id.exerciseLogButton);
+        exerciseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                container.removeAllViews();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, new ExerciseFragment(),null);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
         return root;
     }
 
