@@ -44,8 +44,6 @@ public class TrackerFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        ViewGroup mContainer = (ViewGroup) getActivity().findViewById(R.id.nav_host_fragment_activity_main);
-        mContainer.removeAllViews();
         super.onDestroyView();
         binding = null;
     }
