@@ -17,4 +17,5 @@
 | 2023/06/10 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting & Deliverable 2                                                              |
 | 2023/06/10 | 6         | 0          | 0      | 0        | 0           | 6         | Working on the Creation of the 2nd Menu (Homepage Navbar)                                  |
 | 2023/06/11 | 0         | 0          | 4      | 0        | 0           | 6         | Add back button to come back to previous page, fixed bugs for re entering.                 |
-| 2023/06/11 | 0         | 0          | 0      | 0        | 8           | 0         | Add AccountAcitivity & PasswordResetActivity. Add back buttons and logout button to header |
+| 2023/06/12 | 0         | 0          | 0      | 0        | 8           | 0         | Add AccountAcitivity & PasswordResetActivity. Add back buttons and logout button to header |
+| 2023/06/13 | 0         | 0          | 0      | 0        | 3           | 0         | Add content to AccountAcitivity. Create SharedWithMeActivity & FitnessGoalActivity         |

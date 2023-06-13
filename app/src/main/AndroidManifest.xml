@@ -14,6 +14,14 @@
         android:theme="@style/Theme.WatFit"
         tools:targetApi="31">
         <activity
+            android:name=".SharedWithMeActivity"
+            android:exported="false"
+            android:label="@string/title_shared_with_me"/>
+        <activity
+            android:name=".FitnessGoalActivity"
+            android:exported="false"
+            android:label="@string/title_fitness_goal"/>
+        <activity
             android:name=".PasswordResetActivity"
             android:exported="false"
             android:label="@string/title_password_reset" />
@@ -21,7 +29,6 @@
             android:name=".AccountActivity"
             android:exported="false"
             android:label="@string/title_account" />
-        <!-- parentActivityName determines where the back arrow in AccountActivity title bar will navigate to -->
         <activity
             android:name=".BasicDiameterActivity"
             android:exported="false"

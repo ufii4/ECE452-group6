@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 public class BasicDiameterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
+    private EditText et_name;
     private EditText et_height;
     private EditText et_weight;
     private EditText et_age;
@@ -22,13 +23,23 @@ public class BasicDiameterActivity extends AppCompatActivity implements AdapterV
     private EditText et_hip;
     private Spinner sp_gender;
     private Button bt_submit;
-    private String selected_gender;
+
+    // before the database sets up, AccountActivity needs to retrieve user name from BasicDiamaterActivity.name
+    // TODO: once DB is setup, remove these public variables. Except selected_gender
+    public static String selected_gender;
+    public static String name;
+    public static double height;
+    public static double weight;
+    public static double age;
+    public static double waist;
+    public static double hip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basic_diameter);
 
+        et_name = findViewById(R.id.et_name_bd);
         et_height = findViewById(R.id.et_height_bd);
         et_weight = findViewById(R.id.et_weight_bd);
         et_age = findViewById(R.id.et_age_bd);
@@ -49,15 +60,16 @@ public class BasicDiameterActivity extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View v) {
                 // read EditText values
-                double height = Double.parseDouble(et_height.getText().toString());
-                double weight = Double.parseDouble(et_weight.getText().toString());
-                double age = Double.parseDouble(et_age.getText().toString());
-                double waist = Double.parseDouble(et_waist.getText().toString());
-                double hip = Double.parseDouble(et_hip.getText().toString());
+                name = et_name.getText().toString();
+                height = Double.parseDouble(et_height.getText().toString());
+                weight = Double.parseDouble(et_weight.getText().toString());
+                age = Double.parseDouble(et_age.getText().toString());
+                waist = Double.parseDouble(et_waist.getText().toString());
+                hip = Double.parseDouble(et_hip.getText().toString());
 
-                // TODO: save user body diameters to database
+                // TODO: save user body diameter & name to database
 
-                Toast.makeText(BasicDiameterActivity.this, "Body Diameter Updated Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BasicDiameterActivity.this, "User Profile Updated Successfully", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(BasicDiameterActivity.this, MainActivity.class)); // navigate to home screen
                 finish();
             }

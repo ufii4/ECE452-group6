@@ -8,11 +8,11 @@
 
     <Button
         android:id="@+id/bt_editprofile_ac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
         android:layout_marginTop="350dp"
-        android:text="Edit Profile"
         android:drawableLeft="@drawable/ic_edit_profile"
+        android:text="Edit Profile"
         android:textSize="14sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,34 +21,118 @@
 
     <Button
         android:id="@+id/bt_setgoal_ac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:text="Set Fitness Goals"
         android:drawableLeft="@drawable/ic_goal"
+        android:text="Set Fitness Goals"
         app:layout_constraintEnd_toEndOf="@+id/bt_changepass.ac"
         app:layout_constraintStart_toStartOf="@+id/bt_changepass.ac"
         app:layout_constraintTop_toBottomOf="@+id/bt_changepass.ac" />
 
     <Button
         android:id="@+id/bt_changepass.ac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:text="Change Password"
         android:drawableLeft="@drawable/ic_change_password"
+        android:text="Change Password"
         app:layout_constraintEnd_toEndOf="@+id/bt_editprofile_ac"
         app:layout_constraintStart_toStartOf="@+id/bt_editprofile_ac"
         app:layout_constraintTop_toBottomOf="@+id/bt_editprofile_ac" />
 
     <Button
         android:id="@+id/bt_share_ac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:text="Shared With Me"
         android:drawableLeft="@drawable/ic_shared_with_me"
+        android:text="Shared With Me"
         app:layout_constraintEnd_toEndOf="@+id/bt_setgoal_ac"
         app:layout_constraintStart_toStartOf="@+id/bt_setgoal_ac"
         app:layout_constraintTop_toBottomOf="@+id/bt_setgoal_ac" />
+
+    <TextView
+        android:id="@+id/lb_title_ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="Welcome"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="BMI:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.314"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lb_title_ac" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Body Fat Percentage:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Waist-Hip Ratio:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/lb_bmi_ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/lb_bodyfat_ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/lb_bmi_ac"
+        app:layout_constraintStart_toStartOf="@+id/lb_bmi_ac"
+        app:layout_constraintTop_toBottomOf="@+id/lb_bmi_ac" />
+
+    <TextView
+        android:id="@+id/lb_waisthip_ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/lb_bodyfat_ac"
+        app:layout_constraintStart_toStartOf="@+id/lb_bodyfat_ac"
+        app:layout_constraintTop_toBottomOf="@+id/lb_bodyfat_ac" />
 </androidx.constraintlayout.widget.ConstraintLayout>
