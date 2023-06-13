@@ -29,7 +29,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private Button logout;
     private FirebaseAuth auth; // firebase authentication variable
 
     @Inject
@@ -55,17 +54,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        // logout button functionality
-        logout = findViewById(R.id.bt_logout_m);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(MainActivity.this, "Log Out Successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, StartActivity.class));
-                finish();
-            }
-        });
+
+
+
     }
 
     @Override
@@ -83,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     // add account button to action bar (header)
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_account_button, menu);
         return true;
     }
 
@@ -91,8 +82,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_button) {
-            Toast.makeText(MainActivity.this, "Hello World", Toast.LENGTH_SHORT).show();
+        if (id == R.id.account_button) {
+            // handle account button click
+            startActivity(new Intent(MainActivity.this, AccountActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -15,4 +15,6 @@
     <string name="navbar_social_sharing">Social Sharing</string>
     <string name="navbar_recipe_generator">Recipe Generator</string>
     <string name="navbar_plan_generator">Plan Generator</string>
+    <string name="title_password_reset">Change Your Password</string>
+    <string name="title_account">My Profile</string>
 </resources>

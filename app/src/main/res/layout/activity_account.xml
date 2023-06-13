@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AccountActivity">
+
+    <Button
+        android:id="@+id/bt_editprofile_ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:text="Edit Profile"
+        android:drawableLeft="@drawable/ic_edit_profile"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bt_setgoal_ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Set Fitness Goals"
+        android:drawableLeft="@drawable/ic_goal"
+        app:layout_constraintEnd_toEndOf="@+id/bt_changepass.ac"
+        app:layout_constraintStart_toStartOf="@+id/bt_changepass.ac"
+        app:layout_constraintTop_toBottomOf="@+id/bt_changepass.ac" />
+
+    <Button
+        android:id="@+id/bt_changepass.ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Change Password"
+        android:drawableLeft="@drawable/ic_change_password"
+        app:layout_constraintEnd_toEndOf="@+id/bt_editprofile_ac"
+        app:layout_constraintStart_toStartOf="@+id/bt_editprofile_ac"
+        app:layout_constraintTop_toBottomOf="@+id/bt_editprofile_ac" />
+
+    <Button
+        android:id="@+id/bt_share_ac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Shared With Me"
+        android:drawableLeft="@drawable/ic_shared_with_me"
+        app:layout_constraintEnd_toEndOf="@+id/bt_setgoal_ac"
+        app:layout_constraintStart_toStartOf="@+id/bt_setgoal_ac"
+        app:layout_constraintTop_toBottomOf="@+id/bt_setgoal_ac" />
+</androidx.constraintlayout.widget.ConstraintLayout>

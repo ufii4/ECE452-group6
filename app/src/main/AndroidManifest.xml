@@ -14,21 +14,30 @@
         android:theme="@style/Theme.WatFit"
         tools:targetApi="31">
         <activity
+            android:name=".PasswordResetActivity"
+            android:exported="false"
+            android:label="@string/title_password_reset" />
+        <activity
+            android:name=".AccountActivity"
+            android:exported="false"
+            android:label="@string/title_account" />
+        <!-- parentActivityName determines where the back arrow in AccountActivity title bar will navigate to -->
+        <activity
             android:name=".BasicDiameterActivity"
             android:exported="false"
-            android:label="@string/title_basic_diameter"/>
+            android:label="@string/title_basic_diameter" />
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:label="@string/title_login"/>
+            android:label="@string/title_login" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
-            android:label="@string/title_register"/>
+            android:label="@string/title_register" />
         <activity
             android:name=".StartActivity"
             android:exported="true"
-            android:label="@string/title_start"/>
+            android:label="@string/title_start" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
