@@ -83,30 +83,6 @@
         app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_1"
         app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_2" />
 
-    <!-- Cell 1, Row 3 -->
-    <TextView
-        android:id="@+id/diameterLog"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/body_diameter_textview"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_2"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_3" />
-
-    <!-- Cell 2, Row 3 -->
-    <RadioButton
-        android:id="@+id/diameterLogButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline_vertical"
-        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_2"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_3" />
-
 
 
 
