@@ -2,6 +2,7 @@ package com.ece452.watfit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +12,14 @@ public class StartActivity extends AppCompatActivity {
 
     private Button register;
     private Button login;
+    public static Activity sa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        sa= this;
         register = findViewById(R.id.register);
         login = findViewById(R.id.login);
 
@@ -25,7 +28,6 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartActivity.this, RegisterActivity.class));
-                finish();
             }
         });
 
@@ -34,7 +36,6 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartActivity.this, LoginActivity.class));
-                finish();
             }
         });
     }

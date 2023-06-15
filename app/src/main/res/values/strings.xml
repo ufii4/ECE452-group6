@@ -20,4 +20,16 @@
     <string name="exercise_calorie">Estimated calorie burnt:</string>
     <string name="daily_exercise_calorie">Your daily calorie consumption is:</string>
     <string name="total_calorie">Your daily calorie intake is:</string>
+    <string name="title_recipe_generator">Recipe Generator</string>
+    <string name="title_training_scheduler">Training scheduler</string>
+    <string name="title_recommendations">Recommendations</string>
+    <string name="title_social_sharing">Social Sharing</string>
+    <string name="navbar_recommendations">Recommendations</string>
+    <string name="navbar_social_sharing">Social Sharing</string>
+    <string name="navbar_recipe_generator">Recipe Generator</string>
+    <string name="navbar_plan_generator">Plan Generator</string>
+    <string name="title_password_reset">Change Your Password</string>
+    <string name="title_account">My Profile</string>
+    <string name="title_fitness_goal">Set Fitness Goals</string>
+    <string name="title_shared_with_me">Shared With Me</string>
 </resources>

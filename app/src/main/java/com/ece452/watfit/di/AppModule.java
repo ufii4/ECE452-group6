@@ -3,6 +3,7 @@ package com.ece452.watfit.di;
 import androidx.room.Room;
 
 import com.ece452.watfit.data.source.local.AppDatabase;
+import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
 
 import javax.inject.Singleton;
 
@@ -19,5 +20,11 @@ public class AppModule {
     static public AppDatabase provideAppDatabase() {
         return Room.databaseBuilder(com.ece452.watfit.MainApplication.getInstance().getApplicationContext(),
                 AppDatabase.class, "watfit-db").build();
+    }
+
+    @Singleton
+    @Provides
+    static public SpoonacularDataSource provideSpoonacularDataSource() {
+        return new SpoonacularDataSource();
     }
 }

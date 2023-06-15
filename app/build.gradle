@@ -86,4 +86,9 @@ dependencies {
     testAnnotationProcessor 'com.google.dagger:hilt-compiler:2.46.1'
 
     implementation platform('com.google.firebase:firebase-bom:32.1.0')
+
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:converter-scalars:2.3.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
 }
