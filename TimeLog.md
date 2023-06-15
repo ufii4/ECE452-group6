@@ -1,4 +1,4 @@
-| Date       | Peisen Hu | Haoyu Song | Xu Tao | Alex Xie | Yutong Yang | Emily Tao | Task                                                                                       |
+ | Date       | Peisen Hu | Haoyu Song | Xu Tao | Alex Xie | Yutong Yang | Emily Tao | Task                                                                                       |
 |------------|-----------|------------|--------|----------|-------------|-----------|--------------------------------------------------------------------------------------------|
 | 2023/05/13 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting                                                                              |
 | 2023/05/14 |           |            |        |          | 1.5         |           | Brainstorm Project Topics                                                                  |
@@ -13,9 +13,11 @@
 | 2023/05/31 |           |            |        | 3        | 3           |           | Data layer setup, dependency injection setup, and determine detailed app design            |
 | 2023/06/03 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting                                                                              |
 | 2023/06/05 |           |            |        | 4        | 4           |           | Firebase setup, login screen & fitness API research                                        |
-| 2023/06/06 |           |            |        |          | 3           |           | Basic Body Diameter screen, Update app theme                                               |
+| 2023/06/06 |           |            |        |          | 3           |           | Basic Body Diameter screen, Update app theme 
+| 2023/06/08 |           | 6          |        |          |            |           | Basic Daily Journal Selection and Calorie Intake screen
 | 2023/06/10 | 1.5       | 1.5        | 1.5    | 1.5      | 1.5         | 1.5       | Group Meeting & Deliverable 2                                                              |
 | 2023/06/10 | 6         | 0          | 0      | 0        | 0           | 6         | Working on the Creation of the 2nd Menu (Homepage Navbar)                                  |
 | 2023/06/11 | 0         | 0          | 4      | 0        | 0           | 6         | Add back button to come back to previous page, fixed bugs for re entering.                 |
 | 2023/06/12 | 0         | 0          | 0      | 0        | 8           | 0         | Add AccountAcitivity & PasswordResetActivity. Add back buttons and logout button to header |
 | 2023/06/13 | 0         | 0          | 0      | 0        | 3           | 0         | Add content to AccountAcitivity. Create SharedWithMeActivity & FitnessGoalActivity         |
+
