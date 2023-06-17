@@ -11,32 +11,25 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+public class NinjaDataSource {
+    public final ExerciseService exerciseService;
 
-public class SpoonacularDataSource {
-    public final RecipeService recipeService;
-    public final FoodService foodService;
-
-    public SpoonacularDataSource() {
+    public NinjaDataSource() {
         OkHttpClient httpClient = new OkHttpClient.Builder()
                 .addInterceptor(this::addApiKeyToRequests)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.spoonacular.com/")
+                .baseUrl("https://api.api-ninjas.com/")
                 .client(httpClient)
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        recipeService = retrofit.create(RecipeService.class);
-        foodService = retrofit.create(FoodService.class);
+        exerciseService = retrofit.create(ExerciseService.class);
     }
 
     private Response addApiKeyToRequests(Interceptor.Chain chain) throws IOException {
-        Request.Builder request = chain.request().newBuilder();
-        HttpUrl originalHttpUrl = chain.request().url();
-        HttpUrl newUrl = originalHttpUrl.newBuilder()
-                .addQueryParameter("apiKey", "6f17fb2ff05d4fa49853c852baf46b38").build();
-        request.url(newUrl);
+        Request.Builder request = chain.request().newBuilder().addHeader("X-Api-Key", "nJRWQhFSXDcc1naAFGOW2g==i23iW9M0REO1zF2U");
         return chain.proceed(request.build());
     }
 }

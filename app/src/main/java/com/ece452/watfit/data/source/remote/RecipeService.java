@@ -8,6 +8,10 @@ import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.http.GET;
 
 public interface RecipeService {
+    class Result<T> {
+        List<Recipe> results;
+    }
+
     @GET("recipes/complexSearch")
     Flowable<Result<Recipe>> searchRecipes(
             @retrofit2.http.Query("query") String query,
