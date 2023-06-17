@@ -73,8 +73,12 @@ public class AccountActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 UserProfile profile = documentSnapshot.toObject(UserProfile.class);
 
+                if (profile == null) {
+                    profile = new UserProfile();
+                }
+
                 // Display name of user in title
-                lb_title.setText("Welcome " + profile.name);
+                lb_title.setText("Welcome " + profile.getName());
                 double bmi = calculateBMI(profile.height, profile.weight);
                 double bodyfat = calculateBodyfat(bmi, profile.age, profile.gender);
                 double waisthip = calculatWaisthip(profile.getWaist(), profile.getHip());
