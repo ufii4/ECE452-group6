@@ -22,6 +22,9 @@ public class UserProfile {
     }
 
     public String getName() {
+        if (name == null) {
+            return "Anonymous";
+        }
         return name;
     }
 
