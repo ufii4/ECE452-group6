@@ -1,15 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="166dp"
-        android:layout_height="133dp"
-        android:text="HIHIHI"
-        android:textSize="34sp"
-        tools:layout_editor_absoluteX="107dp"
-        tools:layout_editor_absoluteY="299dp" />
+    <LinearLayout
+        android:id="@+id/header_linearlayout_nav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="5dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- A CardView that contains a TextView -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_breakfast"
+            android:layout_width="352dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/gold_1"
+            app:cardCornerRadius="1dp">
+
+            <TextView
+                android:id="@+id/breakfast_title"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Breakfast"
+                android:textSize="20sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_lunch"
+            android:layout_width="352dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/gold_1"
+            app:cardCornerRadius="1dp">
+
+            <TextView
+                android:id="@+id/lunch_title"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Lunch"
+                android:textSize="20sp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_dinner"
+            android:layout_width="349dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/gold_1"
+            app:cardCornerRadius="1dp">
+
+            <TextView
+                android:id="@+id/breakfast_dinner"
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Dinner"
+                android:textSize="20sp" />
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
