@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ece452.watfit.databinding.FragmentDashboardBinding;
+import com.ece452.watfit.ui.dashboard.CircleDiagramView;
+
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -26,8 +28,6 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

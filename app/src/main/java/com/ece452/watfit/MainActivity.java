@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.ece452.watfit.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
+
+import androidx.annotation.NonNull;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
@@ -54,7 +57,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.navigation_home) {
+                    navController.navigate(R.id.navigation_home);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_dashboard) {
+                    navController.navigate(R.id.navigation_dashboard);
+                    return true;
+                } else if (item.getItemId() == R.id.navigation_tracker) {
+                    navController.navigate(R.id.navigation_tracker);
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
     }
