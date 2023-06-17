@@ -24,3 +24,4 @@
 | 2023/06/16 | 6         | 0          | 0      | 0        | 0           | 0         | Add the video recommendation list in the home fragment. Also wrote part of the generating code for VideoView         |
 | 2023/06/16 | 0         | 0          | 0      | 0        | 0           | 6         | Completed the Generation of the UI for Recipe Generator page and its navigation                                      |
 | 2023/06/16 |           |            |        | 6        |             |           | Setup user profile database using firebase firestore, wired in user profile to UI, added Ninja api for exercise data |
+| 2023/06/16 |           |            |7       | 6        |             |           | Fixed the bug that nav to other page didn't clean the origin page, use arrow instead of back button, add ui to dashborad. |
