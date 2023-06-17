@@ -21,5 +21,34 @@
         android:id="@+id/navigation_tracker"
         android:name="com.ece452.watfit.ui.tracker.TrackerFragment"
         android:label="@string/title_fitness_tracker"
-        tools:layout="@layout/fragment_tracker" />
+        tools:layout="@layout/fragment_tracker" >
+        
+        <action
+            android:id="@+id/action_trackerFragment_to_calorieFragment"
+            app:destination="@id/calorieFragment" />
+        <action
+            android:id="@+id/action_trackerFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/calorieFragment"
+        android:name="com.ece452.watfit.ui.tracker.CalorieFragment"
+        tools:layout="@layout/fragment_calorie" >
+        
+        <action
+            android:id="@+id/action_calorieFragment_to_trackerFragment"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.ece452.watfit.ui.tracker.ExerciseFragment"
+        tools:layout="@layout/fragment_exercise" >
+        
+        <action
+            android:id="@+id/action_exerciseFragment_to_trackerFragment"
+            app:destination="@id/navigation_tracker" />
+    </fragment>
+
 </navigation>
