@@ -56,4 +56,135 @@
             android:layout_gravity="right"
             android:text="@string/navbar_plan_generator" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".BasicDiameterActivity">
+
+        <TextView
+            android:id="@+id/rec_v1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Recommended Video #1:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <VideoView
+            android:id="@+id/rec_v1"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v1_text"
+            app:layout_constraintStart_toStartOf="@+id/rec_v1_text"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v1_text" />
+
+        <TextView
+            android:id="@+id/rec_v2_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="Recommended Video #2:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v1"
+            app:layout_constraintStart_toStartOf="@+id/rec_v1"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v1" />
+
+        <VideoView
+            android:id="@+id/rec_v2"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v2_text"
+            app:layout_constraintStart_toStartOf="@+id/rec_v2_text"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v2_text" />
+
+        <TextView
+            android:id="@+id/rec_v3_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="Recommended Video #3:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v2"
+            app:layout_constraintStart_toStartOf="@+id/rec_v2"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v2" />
+
+        <VideoView
+            android:id="@+id/rec_v3"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v3_text"
+            app:layout_constraintStart_toStartOf="@+id/rec_v3_text"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v3_text" />
+
+        <TextView
+            android:id="@+id/rec_v4_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="Recommended Video #4:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v3"
+            app:layout_constraintStart_toStartOf="@+id/rec_v3"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v3" />
+
+        <VideoView
+            android:id="@+id/rec_v4"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v4_text"
+            app:layout_constraintStart_toStartOf="@+id/rec_v4_text"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v4_text" />
+
+
+        <TextView
+            android:id="@+id/rec_v5_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="Recommended Video #5:"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v4"
+            app:layout_constraintStart_toStartOf="@+id/rec_v4"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v4" />
+
+        <VideoView
+            android:id="@+id/rec_v5"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintEnd_toEndOf="@+id/rec_v5_text"
+            app:layout_constraintStart_toStartOf="@+id/rec_v5_text"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v5_text" />
+
+        <Button
+            android:id="@+id/bt_submit_bd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="50dp"
+            android:text="REFRESH"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rec_v5" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
