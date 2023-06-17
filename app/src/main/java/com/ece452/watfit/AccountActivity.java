@@ -43,9 +43,6 @@ public class AccountActivity extends AppCompatActivity {
     @Inject
     FirebaseFirestore db;
 
-    @Inject
-    FirebaseUser user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +64,7 @@ public class AccountActivity extends AppCompatActivity {
         lb_bodyfat = findViewById(R.id.lb_bodyfat_ac);
         lb_waisthip = findViewById(R.id.lb_waisthip_ac);
 
-        DocumentReference docRef = db.collection("users").document(user.getUid());
+        DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

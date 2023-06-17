@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.ece452.watfit.data.UserProfile;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -39,9 +40,6 @@ public class BasicDiameterActivity extends AppCompatActivity implements AdapterV
 
     @Inject
     FirebaseFirestore db;
-
-    @Inject
-    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +75,7 @@ public class BasicDiameterActivity extends AppCompatActivity implements AdapterV
                 Double hip = Double.parseDouble(et_hip.getText().toString());
 
                 UserProfile profile = new UserProfile(name, height, weight, age, selected_gender, waist, hip);
-                db.collection("users").document(user.getUid()).set(profile)
+                db.collection("users").document(FirebaseAuth.getInstance().getUid()).set(profile)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
