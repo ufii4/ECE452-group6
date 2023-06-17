@@ -20,4 +20,6 @@
 | 2023/06/11 | 0         | 0          | 4      | 0        | 0           | 6         | Add back button to come back to previous page, fixed bugs for re entering.                 |
 | 2023/06/12 | 0         | 0          | 0      | 0        | 8           | 0         | Add AccountAcitivity & PasswordResetActivity. Add back buttons and logout button to header |
 | 2023/06/13 | 0         | 0          | 0      | 0        | 3           | 0         | Add content to AccountAcitivity. Create SharedWithMeActivity & FitnessGoalActivity         |
-| 2023/06/16 | 6         | 0          | 0      | 0        | 0           | 0         | Add the video recommendation list in the home fragment. Also wrote part of the generating code for VideoView
+| 2023/06/16 | 6         | 0          | 0      | 0        | 0           | 0         | Add the video recommendation list in the home fragment. Also
+wrote part of the generating code for VideoView
+| 2023/06/16 | 0         | 0          | 0      | 0        | 0           | 6         | Completed the Generation the UI for Recipe Generator page and its navigation 
