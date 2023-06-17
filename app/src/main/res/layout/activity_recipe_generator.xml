@@ -76,6 +76,20 @@
                 android:textSize="20sp" />
 
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_width="199dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="@string/button_Regenerate"
+            android:textSize="18sp"
+            android:drawableLeft="@android:drawable/ic_menu_rotate"
+            android:drawableTint="#000000"
+            android:drawableTintMode="src_in"
+            android:textColor="@color/black" />
     </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
