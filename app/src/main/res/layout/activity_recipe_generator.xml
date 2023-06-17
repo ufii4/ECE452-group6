@@ -23,7 +23,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_breakfast"
             android:layout_width="352dp"
-            android:layout_height="200dp"
+            android:layout_height="168dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
@@ -42,7 +42,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_lunch"
             android:layout_width="352dp"
-            android:layout_height="200dp"
+            android:layout_height="168dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
@@ -61,7 +61,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_dinner"
             android:layout_width="349dp"
-            android:layout_height="200dp"
+            android:layout_height="168dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
