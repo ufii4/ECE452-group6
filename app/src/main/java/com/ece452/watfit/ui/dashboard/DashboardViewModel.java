@@ -16,21 +16,27 @@ import io.reactivex.rxjava3.core.Flowable;
 
 @HiltViewModel
 public class DashboardViewModel extends ViewModel {
-    private final MutableLiveData<String> mText;
+    private final MutableLiveData<Integer> healthScore;
+    private final MutableLiveData<String> suggestion1;
+    private final MutableLiveData<String> suggestion2;
+    private final MutableLiveData<String> suggestion3;
+
     private final DietaryRepository dietaryRepository;
 
     @Inject
     public DashboardViewModel(DietaryRepository dietaryRepository) {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
         this.dietaryRepository = dietaryRepository;
+        
+        healthScore = new MutableLiveData<>();
+        suggestion1 = new MutableLiveData<>();
+        suggestion2 = new MutableLiveData<>();
+        suggestion3 = new MutableLiveData<>();
 
-        dietaryRepository.getDietaryLog("2023-05-30").subscribe(dietaryLog -> {
-            mText.setValue(dietaryLog.date.toString());
-        });
-    }
+        // Set initial values
+        healthScore.setValue(80);
+        suggestion1.setValue("");
+        suggestion2.setValue("");
+        suggestion3.setValue("");
 
-    public LiveData<String> getText() {
-        return mText;
     }
 }
