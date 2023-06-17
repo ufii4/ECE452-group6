@@ -3,6 +3,7 @@ package com.ece452.watfit.di;
 import androidx.room.Room;
 
 import com.ece452.watfit.data.source.local.AppDatabase;
+import com.ece452.watfit.data.source.remote.NinjaDataSource;
 import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +30,12 @@ public class AppModule {
     @Provides
     static public SpoonacularDataSource provideSpoonacularDataSource() {
         return new SpoonacularDataSource();
+    }
+
+    @Singleton
+    @Provides
+    static public NinjaDataSource provideNinjaDataSource() {
+        return new NinjaDataSource();
     }
 
     @Singleton
