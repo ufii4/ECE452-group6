@@ -1,13 +1,13 @@
 package com.ece452.watfit.data;
 
 public class UserProfile {
-    public String name;
-    public double height;
-    public double weight;
-    public int age;
-    public String gender;
-    public Double waist;
-    public Double hip;
+    public String name = "Anonymous";
+    public double height = 0;
+    public double weight = 0;
+    public int age = 0;
+    public String gender = "Male";
+    public double waist = 0;
+    public double hip = 0;
 
     public UserProfile() {}
 
@@ -38,20 +38,17 @@ public class UserProfile {
     }
 
     public String getGender() {
+        if (gender == null) {
+            return "Male";
+        }
         return gender;
     }
 
-    public Double getWaist() {
-        if (waist == null) {
-            return 0.0;
-        }
+    public double getWaist() {
         return waist;
     }
 
-    public Double getHip() {
-        if (hip == null) {
-            return 0.0;
-        }
+    public double getHip() {
         return hip;
     }
 }
