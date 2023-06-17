@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <LinearLayout android:id="@+id/header_linearlayout_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
