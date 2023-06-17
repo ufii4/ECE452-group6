@@ -1,4 +1,4 @@
-package com.ece452.watfit.data;
+package com.ece452.watfit.data.source.local;
 
 import androidx.room.TypeConverter;
 
