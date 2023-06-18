@@ -22,8 +22,10 @@ public class CalorieFragment extends Fragment {
         binding = FragmentCalorieIntakeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_arrow);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         setHasOptionsMenu(true);
 

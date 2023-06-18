@@ -22,6 +22,7 @@ public class ExerciseFragment extends Fragment {
         binding = FragmentExerciseBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_arrow);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
