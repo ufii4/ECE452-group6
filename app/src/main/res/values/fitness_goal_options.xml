@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="fitness_goal_options">
-        <item>Target Weight</item>
-        <item>Target Calorie Intake</item>
-        <item>Target Calorie Consumption</item>
-        <item>Target BMI</item>
-    </string-array>
-</resources>

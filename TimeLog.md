@@ -27,3 +27,4 @@
 | 2023/06/16 |           |            | 7      |          |             |           | Fixed the bug that nav to other page didn't clean the origin page, use arrow instead of back button, add ui to dashborad. |
 | 2023/06/17 | 1         | 1          | 1      | 1        | 1           | 1         | Group Meeting                                                                                                             |
 | 2023/06/18 |           |            |        |          | 4           |           | FitnessGaolActivity UI Add cards functionality. The remove card functionality has bug to be fixed                         |
+| 2023/06/18 |           |            |        | 4        |             |           | Fixed FitnessGoalActivity, wired in data with firestore                                                                   |
