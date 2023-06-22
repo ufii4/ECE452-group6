@@ -18,6 +18,7 @@ public class TrackerFragment extends Fragment {
 
     private FragmentTrackerBinding binding;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentTrackerBinding.inflate(inflater, container, false);
@@ -28,7 +29,6 @@ public class TrackerFragment extends Fragment {
 
         binding.exerciseLogButton.setOnClickListener(v ->
                 Navigation.findNavController(root).navigate(R.id.action_trackerFragment_to_exerciseFragment));
-
         return root;
     }
 
@@ -37,4 +37,5 @@ public class TrackerFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

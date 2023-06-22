@@ -9,9 +9,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.ece452.watfit.data.DietaryRepository;
+import com.ece452.watfit.ui.dashboard.DashboardFragment;
+import com.ece452.watfit.ui.home.HomeFragment;
+import com.ece452.watfit.ui.tracker.TrackerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -74,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @Override
@@ -107,5 +111,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }
