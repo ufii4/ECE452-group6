@@ -7,6 +7,8 @@ import static org.junit.Assert.fail;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.ece452.watfit.data.Ingredient;
+import com.ece452.watfit.data.MenuItem;
+import com.ece452.watfit.data.Nutrition;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +33,23 @@ public class IngredientServiceTest {
 
     @Test
     public void searchIngredients() {
-        ingredientService.searchIngredient("banana");
+
+//        ingredientService.searchIngredient("banana");
+        ingredientService.searchIngredient("banana").test().awaitCount(1).assertValue(response -> {
+            List<Ingredient> menuItems = response.results;
+            System.out.println();
+            return menuItems != null;
+        });
+    }
+
+    @Test
+    public void searchIngredientInformation() {
+
+//        ingredientService.searchIngredient("banana");
+        ingredientService.getIngredientInformation(9040,1,"medium").test().awaitCount(1).assertValue(response -> {
+            Nutrition menuItems = response.nutrition;
+            System.out.println(menuItems);
+            return menuItems != null;
+        });
     }
 }

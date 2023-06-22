@@ -23,9 +23,9 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.ece452.watfit.R;
 import com.ece452.watfit.data.Ingredient;
+import com.ece452.watfit.data.Nutrition;
 import com.ece452.watfit.data.Recipe;
 import com.ece452.watfit.data.source.remote.IngredientService;
-import com.ece452.watfit.data.source.remote.Result;
 import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
 import com.ece452.watfit.databinding.FragmentCalorieIntakeBinding;
 import com.ece452.watfit.ui.dashboard.DashboardFragment;
@@ -49,9 +49,8 @@ import io.reactivex.rxjava3.subscribers.TestSubscriber;
 public class CalorieFragment extends Fragment {
     private FragmentCalorieIntakeBinding binding;
     String[] ingredientList;
+    int[] ingredientIDList;
     ArrayList<String> foodList = new ArrayList<>();
-    String[] ingredientList1 = {"Android","IPhone","WindowsMobile","Blackberry",
-            "WebOS","Ubuntu","Windows7","Max OS X"};;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCalorieIntakeBinding.inflate(inflater, container, false);
@@ -98,11 +97,17 @@ public class CalorieFragment extends Fragment {
         ingredientSelectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                ingredientDisplayList.setText(ingredientList[i]);
                 foodList.add(ingredientList[i]);
+                Nutrition nutrition = ingredientService.getIngredientInformation(ingredientIDList[i],1,"medium").blockingFirst().nutrition;
+                Nutrition.Nutrient nutrients[] = nutrition.nutrients;
+                for (Nutrition.Nutrient n:nutrients) {
+                    if(n.name.equals("Calories")){
+                        double calorie = n.amount;
+                    }
+                }
                 ingredientList = null;
+                ingredientIDList = null;
                 ingredientSelectList.setAdapter(null);
-//                foodList.add(ingredientList1[i]);
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(root.getContext(), R.layout.food_selected_listview, foodList);
                 ListView listView = root.findViewById(R.id.foodSelectList);
                 listView.setAdapter(adapter);
@@ -135,35 +140,15 @@ public class CalorieFragment extends Fragment {
         // For example, you can update a RecyclerView adapter with the filtered results
             spoonacularDataSource = new SpoonacularDataSource();
             ingredientService = spoonacularDataSource.ingredientService;
-//            ingredientService.searchIngredient(query).subscribe(new DisposableSubscriber<Result<Ingredient>>() {
-//                @Override
-//                public void onNext(Result<Ingredient> ingredientResult) {
-//                    for (int i = 0; i < ingredientResult.results.size(); i++) {
-//                        System.out.println("result:"+ingredientResult.results.get(i).name);
-////                        ingredientList[i] = ingredientResult.results.get(i).name;
-////                        System.out.println("result"+ingredientList[i]);
-//
-//                    }
-//
-//                    System.out.println(ingredientResult.results.size());
-//                }
-//
-//                @Override
-//                public void onError(Throwable t) {
-//
-//                }
-//
-//                @Override
-//                public void onComplete() {
-//                }
-//            });
-        Result<Ingredient> list = ingredientService.searchIngredient(query).blockingFirst();
-        ingredientList = new String[list.results.size()];
-        for (int i = 0; i < list.results.size(); i++) {
-//            System.out.println(list.results.get(i).name);
-            ingredientList[i] = list.results.get(i).name;
-        }
-        }
+
+        List<Ingredient> list = ingredientService.searchIngredient(query).blockingFirst().results;
+            ingredientList = new String[list.size()];
+            ingredientIDList = new int[list.size()];
+            for (int i = 0; i < list.size(); i++) {
+                ingredientList[i] = list.get(i).name;
+                ingredientIDList[i] = list.get(i).id;
+            }
+    }
 
     private void hideElementExceptList(View root){
         TextView t1 = root.findViewById(R.id.calorieHint);
@@ -171,7 +156,6 @@ public class CalorieFragment extends Fragment {
         TextView t3 = root.findViewById(R.id.estimateCalorie);
         TextView t4 = root.findViewById(R.id.calorieTotalText);
         TextView t5 = root.findViewById(R.id.calorieTotal);
-        Button b1 = root.findViewById(R.id.backButton);
         Button b2 = root.findViewById(R.id.addButton);
         Button b3 = root.findViewById(R.id.submitButton);
         ListView list = root.findViewById(R.id.listview);
@@ -181,7 +165,6 @@ public class CalorieFragment extends Fragment {
         t3.setVisibility(View.INVISIBLE);
         t4.setVisibility(View.INVISIBLE);
         t5.setVisibility(View.INVISIBLE);
-        b1.setVisibility(View.INVISIBLE);
         b2.setVisibility(View.INVISIBLE);
         b3.setVisibility(View.INVISIBLE);
         list.setVisibility(View.VISIBLE);
@@ -193,7 +176,6 @@ public class CalorieFragment extends Fragment {
         TextView t3 = root.findViewById(R.id.estimateCalorie);
         TextView t4 = root.findViewById(R.id.calorieTotalText);
         TextView t5 = root.findViewById(R.id.calorieTotal);
-        Button b1 = root.findViewById(R.id.backButton);
         Button b2 = root.findViewById(R.id.addButton);
         Button b3 = root.findViewById(R.id.submitButton);
         ListView list = root.findViewById(R.id.listview);
@@ -203,11 +185,10 @@ public class CalorieFragment extends Fragment {
         t3.setVisibility(View.VISIBLE);
         t4.setVisibility(View.VISIBLE);
         t5.setVisibility(View.VISIBLE);
-        b1.setVisibility(View.VISIBLE);
         b2.setVisibility(View.VISIBLE);
         b3.setVisibility(View.VISIBLE);
         list.setVisibility(View.INVISIBLE);
         list1.setVisibility(View.VISIBLE);
     }
-    }
+
 }
