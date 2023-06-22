@@ -20,6 +20,7 @@ public class TrackerFragment extends Fragment {
 
     private FragmentTrackerBinding binding;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         TrackerViewModel trackerViewModel =
@@ -35,8 +36,9 @@ public class TrackerFragment extends Fragment {
                 FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, new CalorieFragment(),null);
-                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+//                switchToChildFragment();
             }
         });
 
@@ -52,6 +54,9 @@ public class TrackerFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+
+
         return root;
     }
 
@@ -60,4 +65,5 @@ public class TrackerFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

@@ -33,7 +33,6 @@ public class ExerciseFragment extends Fragment {
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
                 fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, trackerFragment);
                 fragmentTransaction.addToBackStack(null);  // This line is optional, and will add the transaction to the back stack
 
