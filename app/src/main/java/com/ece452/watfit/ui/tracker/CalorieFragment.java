@@ -13,11 +13,13 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.ece452.watfit.R;
 import com.ece452.watfit.data.Ingredient;
@@ -52,27 +54,14 @@ public class CalorieFragment extends Fragment {
             "WebOS","Ubuntu","Windows7","Max OS X"};;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        TrackerViewModel trackerViewModel =
-                new ViewModelProvider(this).get(TrackerViewModel.class);
-
         binding = FragmentCalorieIntakeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        Button backButton = root.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            TrackerFragment trackerFragment = new TrackerFragment();
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_arrow);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, trackerFragment);
-//            fragmentTransaction.addToBackStack(null);  // This line is optional, and will add the transaction to the back stack
-
-            fragmentTransaction.commit();
-            }
-        });
+        setHasOptionsMenu(true);
 
         //Search ingredients
         SearchView searchView = root.findViewById(R.id.searchViewCalorie);
@@ -122,6 +111,15 @@ public class CalorieFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            NavHostFragment.findNavController(this).navigate(R.id.navigation_tracker);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -212,3 +210,4 @@ public class CalorieFragment extends Fragment {
         list1.setVisibility(View.VISIBLE);
     }
     }
+}

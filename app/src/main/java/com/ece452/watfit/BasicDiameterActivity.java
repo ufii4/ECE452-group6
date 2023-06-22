@@ -13,7 +13,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class BasicDiameterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+import com.ece452.watfit.data.UserProfile;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class BasicDiameterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText et_name;
     private EditText et_height;
@@ -25,14 +36,10 @@ public class BasicDiameterActivity extends AppCompatActivity implements AdapterV
     private Button bt_submit;
 
     // before the database sets up, AccountActivity needs to retrieve user name from BasicDiamaterActivity.name
-    // TODO: once DB is setup, remove these public variables. Except selected_gender
-    public static String selected_gender;
-    public static String name;
-    public static double height;
-    public static double weight;
-    public static double age;
-    public static double waist;
-    public static double hip;
+    private String selected_gender;
+
+    @Inject
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +67,27 @@ public class BasicDiameterActivity extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View v) {
                 // read EditText values
-                name = et_name.getText().toString();
-                height = Double.parseDouble(et_height.getText().toString());
-                weight = Double.parseDouble(et_weight.getText().toString());
-                age = Double.parseDouble(et_age.getText().toString());
-                waist = Double.parseDouble(et_waist.getText().toString());
-                hip = Double.parseDouble(et_hip.getText().toString());
+                String name = et_name.getText().toString();
+                Double height = Double.parseDouble(et_height.getText().toString());
+                Double weight = Double.parseDouble(et_weight.getText().toString());
+                Integer age = Integer.parseInt(et_age.getText().toString());
+                Double waist = Double.parseDouble(et_waist.getText().toString());
+                Double hip = Double.parseDouble(et_hip.getText().toString());
 
-                // TODO: save user body diameter & name to database
-
-                Toast.makeText(BasicDiameterActivity.this, "User Profile Updated Successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(BasicDiameterActivity.this, MainActivity.class)); // navigate to home screen
-                finish();
+                UserProfile profile = new UserProfile(name, height, weight, age, selected_gender, waist, hip);
+                db.collection("users").document(FirebaseAuth.getInstance().getUid()).set(profile)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(BasicDiameterActivity.this, "User Profile Updated Successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(BasicDiameterActivity.this, MainActivity.class)); // navigate to home screen
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.d("Error", e.toString());
+                            Toast.makeText(BasicDiameterActivity.this, "User Profile Update Failed", Toast.LENGTH_SHORT).show();
+                        });
             }
         });
     }
@@ -79,7 +95,7 @@ public class BasicDiameterActivity extends AppCompatActivity implements AdapterV
     // take actions based on item selected in spinner
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if(parent.getId() == R.id.sp_gender_bd){
+        if (parent.getId() == R.id.sp_gender_bd) {
             selected_gender = parent.getItemAtPosition(position).toString(); // read selected string in dropdown
             // Log.d("Info", selected_gender); validate string value
         }

@@ -4,7 +4,6 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.ece452.watfit.data.Converters;
 import com.ece452.watfit.data.DietaryLog;
 import com.ece452.watfit.data.DietaryLogEntry;
 

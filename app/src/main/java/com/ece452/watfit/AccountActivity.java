@@ -13,10 +13,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ece452.watfit.data.UserProfile;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DecimalFormat;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class AccountActivity extends AppCompatActivity {
 
 
@@ -28,6 +39,9 @@ public class AccountActivity extends AppCompatActivity {
     private TextView lb_bmi;
     private TextView lb_bodyfat;
     private TextView lb_waisthip;
+
+    @Inject
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,39 +64,50 @@ public class AccountActivity extends AppCompatActivity {
         lb_bodyfat = findViewById(R.id.lb_bodyfat_ac);
         lb_waisthip = findViewById(R.id.lb_waisthip_ac);
 
-        // Display name of user in title
-        // TODO: replace the following BasicDiameterActivity public variables by data from database once DB is setup
-        lb_title.setText("Welcome " + BasicDiameterActivity.name);
-        double bmi = calculateBMI(BasicDiameterActivity.height, BasicDiameterActivity.weight);
-        double bodyfat = calculateBodyfat(bmi, BasicDiameterActivity.age, BasicDiameterActivity.selected_gender);
-        double waisthip = calculatWaisthip(BasicDiameterActivity.waist, BasicDiameterActivity.hip);
-        DecimalFormat df = new DecimalFormat("#.##");
-        if(bmi == -1){
-            lb_bmi.setText("N/A");
-        }
-        else{
-            lb_bmi.setText(df.format(bmi));
-            if(bmi >= 25){
-                lb_bmi.setTextColor(Color.RED);
-            }
-            else{
-                lb_bmi.setTextColor(Color.GREEN);
-            }
-        }
+        DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                UserProfile profile = documentSnapshot.toObject(UserProfile.class);
 
-        if(bodyfat == -1){
-            lb_bodyfat.setText("N/A");
-        }
-        else{
-            lb_bodyfat.setText(df.format(bodyfat));
-        }
+                if (profile == null) {
+                    profile = new UserProfile();
+                }
 
-        if(waisthip == -1){
-            lb_waisthip.setText("N/A");
-        }
-        else{
-            lb_waisthip.setText(df.format(waisthip));
-        }
+                // Display name of user in title
+                lb_title.setText("Welcome " + profile.getName());
+                double bmi = calculateBMI(profile.height, profile.weight);
+                double bodyfat = calculateBodyfat(bmi, profile.age, profile.gender);
+                double waisthip = calculatWaisthip(profile.getWaist(), profile.getHip());
+                DecimalFormat df = new DecimalFormat("#.##");
+                if(bmi == -1){
+                    lb_bmi.setText("N/A");
+                }
+                else{
+                    lb_bmi.setText(df.format(bmi));
+                    if(bmi >= 25){
+                        lb_bmi.setTextColor(Color.RED);
+                    }
+                    else{
+                        lb_bmi.setTextColor(Color.GREEN);
+                    }
+                }
+
+                if(bodyfat == -1){
+                    lb_bodyfat.setText("N/A");
+                }
+                else{
+                    lb_bodyfat.setText(df.format(bodyfat));
+                }
+
+                if(waisthip == -1){
+                    lb_waisthip.setText("N/A");
+                }
+                else{
+                    lb_waisthip.setText(df.format(waisthip));
+                }
+            }
+        });
 
         // nav to BasicDiameterActivity if Edit Profile button is clicked
         edit_profile.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +185,7 @@ public class AccountActivity extends AppCompatActivity {
 
     public double calculateBodyfat(double BMI, double age, String gender){
         // error handling
-        if(BMI == -1 || age < 0){
+        if(BMI == -1 || age < 0 || gender == null){
             return -1;
         }
         // formula based on https://en.wikipedia.org/wiki/Body_fat_percentage#:~:text=The%20body%20fat%20percentage%20(BFP,fat%20and%20storage%20body%20fat.

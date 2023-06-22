@@ -4,17 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.ece452.watfit.R;
 import com.ece452.watfit.databinding.FragmentTrackerBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class TrackerFragment extends Fragment {
 
@@ -23,40 +21,14 @@ public class TrackerFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        TrackerViewModel trackerViewModel =
-                new ViewModelProvider(this).get(TrackerViewModel.class);
-
         binding = FragmentTrackerBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        Button calorieButton = root.findViewById(R.id.calorieLogButton);
-        calorieButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                container.removeAllViews();
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, new CalorieFragment(),null);
-//                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-//                switchToChildFragment();
-            }
-        });
 
-        Button exerciseButton = root.findViewById(R.id.exerciseLogButton);
-        exerciseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                container.removeAllViews();
-                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, new ExerciseFragment(),null);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        binding.calorieLogButton.setOnClickListener(v ->
+                Navigation.findNavController(root).navigate(R.id.action_trackerFragment_to_calorieFragment));
 
-
-
+        binding.exerciseLogButton.setOnClickListener(v ->
+                Navigation.findNavController(root).navigate(R.id.action_trackerFragment_to_exerciseFragment));
         return root;
     }
 
