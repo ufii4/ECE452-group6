@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        ///////The Recipe Generator Button
         LinearLayout linearLayout = findViewById(R.id.header_linearlayout_nav);
         Button recipGenButton = (Button) linearLayout.getChildAt(2);
         Log.d("MainActivity", recipGenButton.toString());
@@ -66,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, RecipeGeneratorActivity.class));
             }
         });
-
+        ///////
+        
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
