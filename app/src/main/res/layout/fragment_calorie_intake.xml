@@ -13,6 +13,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.78" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_vertical_2"
@@ -51,6 +57,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie" />
+    <ImageView
+        android:id="@+id/imageViewCalorieSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
+        app:layout_constraintBottom_toTopOf="@+id/calorieHint"
+        android:scaleType="fitCenter" />
 
     <EditText
         android:id="@+id/estimateCalorie"
@@ -59,7 +74,18 @@
         android:gravity="center"
         android:hint="@string/food_amount_hint"
         android:background="@android:color/darker_gray"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_1"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
+        app:layout_constraintBottom_toTopOf="@+id/calorieHint" />
+    <Spinner
+        android:id="@+id/spinnerCalorie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_1"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
         app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
         app:layout_constraintBottom_toTopOf="@+id/calorieHint" />
@@ -81,7 +107,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="300"
         android:textSize="15sp"
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
@@ -140,7 +165,6 @@
         android:layout_marginBottom="40dp"
         android:background="@android:color/darker_gray"
         android:gravity="center"
-        android:text="300"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/submitButton"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"

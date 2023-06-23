@@ -11,7 +11,7 @@
     <string name="exercise_textview">Exercise</string>
     <string name="body_diameter_textview">Body Diameter</string>
     <string name="search_hint">Enter Your Food</string>
-    <string name="food_amount_hint">Enter your consumed amount here</string>
+    <string name="food_amount_hint">Consumed amount</string>
     <string name="calorie_intake_estimate">Estimated Calorie is</string>
     <string name="add_button_text">Add</string>
     <string name="submit_button_text">Submit</string>

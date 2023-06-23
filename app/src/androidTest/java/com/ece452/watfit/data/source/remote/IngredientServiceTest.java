@@ -47,9 +47,17 @@ public class IngredientServiceTest {
 
 //        ingredientService.searchIngredient("banana");
         ingredientService.getIngredientInformation(9040,1,"medium").test().awaitCount(1).assertValue(response -> {
-            Nutrition menuItems = response.nutrition;
-            System.out.println(menuItems);
+            Nutrition.Nutrient[] menuItems = response.nutrition.nutrients;
+            System.out.println(menuItems[1].name);
             return menuItems != null;
         });
+    }
+
+    @Test
+    public void searchIngredientInformationBasic() {
+
+//        ingredientService.searchIngredient("banana");
+        Nutrition.Nutrient n[] = ingredientService.getIngredientInformation(9040,1,"small").blockingFirst().nutrition.nutrients;
+        System.out.println(n[0].name);
     }
 }

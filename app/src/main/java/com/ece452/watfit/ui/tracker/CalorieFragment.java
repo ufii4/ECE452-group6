@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +23,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.ece452.watfit.CalorieDisplayAdapter;
+import com.ece452.watfit.CalorieSearchAdapter;
 import com.ece452.watfit.R;
 import com.ece452.watfit.data.Ingredient;
 import com.ece452.watfit.data.Nutrition;
@@ -32,6 +36,7 @@ import com.ece452.watfit.ui.dashboard.DashboardFragment;
 import com.ece452.watfit.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
 import org.reactivestreams.Subscription;
 
@@ -48,9 +53,13 @@ import io.reactivex.rxjava3.subscribers.TestSubscriber;
 
 public class CalorieFragment extends Fragment {
     private FragmentCalorieIntakeBinding binding;
-    String[] ingredientList;
-    int[] ingredientIDList;
-    ArrayList<String> foodList = new ArrayList<>();
+    private String[] ingredientList;
+    private List<Ingredient> ingredientList1;
+    private String[] ingredientImageList;
+    private int[] ingredientIDList;
+    private String selectedUnit;
+    private double dailyCalorie = 0;
+    private List<Ingredient>  foodList = new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCalorieIntakeBinding.inflate(inflater, container, false);
@@ -64,7 +73,8 @@ public class CalorieFragment extends Fragment {
 
         //Search ingredients
         SearchView searchView = root.findViewById(R.id.searchViewCalorie);
-
+        TextView calorieTotal = root.findViewById(R.id.calorieTotal);
+        calorieTotal.setText(Double.toString(dailyCalorie));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -72,8 +82,9 @@ public class CalorieFragment extends Fragment {
                 performSearch(query);
                 //add search result to the page
                 ListView list = root.findViewById(R.id.listview);
-                ArrayAdapter adapterSearch=new ArrayAdapter<String>(root.getContext(), R.layout.calorie_listview,ingredientList);
+//                ArrayAdapter adapterSearch=new ArrayAdapter<String>(root.getContext(), R.layout.calorie_listview,ingredientList);
 //                ArrayAdapter adapter=new ArrayAdapter<String>(root.getContext(), R.layout.calorie_listview,ingredientList1);
+                CalorieSearchAdapter adapterSearch = new CalorieSearchAdapter(root.getContext(), ingredientList1);
                 list.setAdapter(adapterSearch);
                 return true;
             }
@@ -82,7 +93,8 @@ public class CalorieFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty()) {
                     displayElementExceptList(root);
-
+//                    ingredientIDList = null;
+//                    ingredientList = null;
                 } else {
                     hideElementExceptList(root);
                 }
@@ -97,24 +109,60 @@ public class CalorieFragment extends Fragment {
         ingredientSelectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                foodList.add(ingredientList[i]);
-                Nutrition nutrition = ingredientService.getIngredientInformation(ingredientIDList[i],1,"medium").blockingFirst().nutrition;
-                Nutrition.Nutrient nutrients[] = nutrition.nutrients;
-                for (Nutrition.Nutrient n:nutrients) {
-                    if(n.name.equals("Calories")){
-                        double calorie = n.amount;
-                    }
-                }
-                ingredientList = null;
-                ingredientIDList = null;
                 ingredientSelectList.setAdapter(null);
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(root.getContext(), R.layout.food_selected_listview, foodList);
-                ListView listView = root.findViewById(R.id.foodSelectList);
-                listView.setAdapter(adapter);
                 displayElementExceptList(root);
+                //display selected ingredient pic on the page
+                ImageView ingredientSelected = root.findViewById(R.id.imageViewCalorieSelected);
+                Picasso.get().load("https://spoonacular.com/cdn/ingredients_250x250/"+ingredientList1.get(i).image).into(ingredientSelected);
+                //search for calorie information and get possible units
+                List<String> possibleUnits = ingredientService.getIngredientInformationBasic(ingredientIDList[i]).blockingFirst().possibleUnits;
+                Spinner spinnerCalorie = root.findViewById(R.id.spinnerCalorie);
+                ArrayAdapter<String> adapterDropDown = new ArrayAdapter<>(root.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, possibleUnits);
+                spinnerCalorie.setAdapter(adapterDropDown);
+                spinnerCalorie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        selectedUnit = adapterView.getSelectedItem().toString();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                Button addButton = root.findViewById(R.id.addButton);
+                TextView amountText = root.findViewById(R.id.estimateCalorie);
+                addButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //get calorie information from api
+                        foodList.add(ingredientList1.get(i));
+                        int amount = Integer.parseInt(amountText.getText().toString());
+                        Nutrition.Nutrient[] nutrientList = ingredientService.getIngredientInformation(ingredientIDList[i],amount,selectedUnit).blockingFirst().nutrition.nutrients;
+                        for (Nutrition.Nutrient n: nutrientList) {
+                            if(n.name.equals("Calories")){
+                                TextView calorieInput = root.findViewById(R.id.calorieInput);
+                                calorieInput.setText(Double.toString(n.amount));
+                                //display on the page
+                                CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(),foodList,n.amount,n.unit);
+                                ListView listView = root.findViewById(R.id.foodSelectList);
+                                listView.setAdapter(adapter);
+                                dailyCalorie += n.amount;
+                                TextView calorieTotal = root.findViewById(R.id.calorieTotal);
+                                calorieTotal.setText(Double.toString(dailyCalorie));
+                            }
+                        }
+                    }
+                });
+                amountText.setText("");
                 searchView.setQuery("",false);
             }
         });
+        ListView list = root.findViewById(R.id.listview);
+        //unbound listview from adapter to hide
+        list.setAdapter(null);
+        Spinner spinnerCalorie = root.findViewById(R.id.spinnerCalorie);
+        spinnerCalorie.setAdapter(null);
         return root;
     }
 
@@ -143,10 +191,14 @@ public class CalorieFragment extends Fragment {
 
         List<Ingredient> list = ingredientService.searchIngredient(query).blockingFirst().results;
             ingredientList = new String[list.size()];
+            ingredientImageList = new String[list.size()];
             ingredientIDList = new int[list.size()];
+            ingredientList1 = new ArrayList<>(list.size());
             for (int i = 0; i < list.size(); i++) {
                 ingredientList[i] = list.get(i).name;
                 ingredientIDList[i] = list.get(i).id;
+                ingredientImageList[i] = list.get(i).image;
+                ingredientList1.add(list.get(i));
             }
     }
 
@@ -158,6 +210,10 @@ public class CalorieFragment extends Fragment {
         TextView t5 = root.findViewById(R.id.calorieTotal);
         Button b2 = root.findViewById(R.id.addButton);
         Button b3 = root.findViewById(R.id.submitButton);
+        ImageView ingredientSelected = root.findViewById(R.id.imageViewCalorieSelected);
+        Spinner spinnerCalorie = root.findViewById(R.id.spinnerCalorie);
+        ingredientSelected.setVisibility(View.INVISIBLE);
+        spinnerCalorie.setVisibility(View.INVISIBLE);
         ListView list = root.findViewById(R.id.listview);
         ListView list1 = root.findViewById(R.id.foodSelectList);
         t1.setVisibility(View.INVISIBLE);
@@ -180,6 +236,10 @@ public class CalorieFragment extends Fragment {
         Button b3 = root.findViewById(R.id.submitButton);
         ListView list = root.findViewById(R.id.listview);
         ListView list1 = root.findViewById(R.id.foodSelectList);
+        ImageView ingredientSelected = root.findViewById(R.id.imageViewCalorieSelected);
+        Spinner spinnerCalorie = root.findViewById(R.id.spinnerCalorie);
+        ingredientSelected.setVisibility(View.VISIBLE);
+        spinnerCalorie.setVisibility(View.VISIBLE);
         t1.setVisibility(View.VISIBLE);
         t2.setVisibility(View.VISIBLE);
         t3.setVisibility(View.VISIBLE);

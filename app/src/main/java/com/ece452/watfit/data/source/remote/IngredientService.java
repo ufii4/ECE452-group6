@@ -27,4 +27,9 @@ public interface IngredientService {
             @retrofit2.http.Query("unit") String unit
     );
 
+    @GET("food/ingredients/{id}/information")
+    Flowable<Ingredient> getIngredientInformationBasic(
+            @retrofit2.http.Path("id") int id
+    );
+
 }
