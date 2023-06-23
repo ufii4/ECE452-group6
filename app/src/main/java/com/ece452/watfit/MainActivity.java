@@ -32,9 +32,14 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import androidx.annotation.NonNull;
+import com.google.android.material.navigation.NavigationBarView;
+import android.widget.LinearLayout;
+import android.view.ViewGroup;
+import android.util.Log;
+import android.view.LayoutInflater;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ActivityMainBinding binding;
     private FirebaseAuth auth; // firebase authentication variable
@@ -51,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        LinearLayout linearLayout = findViewById(R.id.header_linearlayout_nav);
+        Button recipGenButton = (Button) linearLayout.getChildAt(2);
+        Log.d("MainActivity", recipGenButton.toString());
+        recipGenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, RecipeGeneratorActivity.class));
+            }
+        });
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -112,5 +127,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 
 }
