@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Breakfast"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
                 <LinearLayout android:id="@+id/breakfast_nutrition_linearlayout"
                     android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:text="breakfast_dish_name" />
 
                     <TextView
@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Calories: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/breakfast_Protein"
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Protein: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/breakfast_Fat"
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Fat: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/breakfast_Carbohydrates"
@@ -108,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Carbohydrates: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Lunch"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
                 <LinearLayout android:id="@+id/lunch_nutrition_linearlayout"
                     android:layout_width="match_parent"
@@ -158,7 +158,7 @@
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:text="lunch_dish_name" />
 
                     <TextView
@@ -167,7 +167,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Calories: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/lunch_Protein"
@@ -175,21 +175,21 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Protein: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
                     <TextView
                         android:id="@+id/lunch_Fat"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Fat: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
                     <TextView
                         android:id="@+id/lunch_Carbohydrates"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Carbohydrates: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Dinner"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
                 <LinearLayout android:id="@+id/dinner_nutrition_linearlayout"
                     android:layout_width="match_parent"
@@ -238,7 +238,7 @@
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textSize="20sp"
+                        android:textSize="15sp"
                         android:text="dinner_dish_name" />
 
                     <TextView
@@ -247,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Calories: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/dinner_Protein"
@@ -255,21 +255,21 @@
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Protein: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
                     <TextView
                         android:id="@+id/dinner_Fat"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Fat: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
                     <TextView
                         android:id="@+id/dinner_Carbohydrates"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="Carbohydrates: "
-                        android:textSize="20sp" />
+                        android:textSize="15sp" />
                 </LinearLayout>
 
             </LinearLayout>

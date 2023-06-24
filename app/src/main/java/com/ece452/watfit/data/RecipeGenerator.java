@@ -1,12 +1,14 @@
 package com.ece452.watfit.data;
 
+import java.util.ArrayList;
+
 public class RecipeGenerator {
     public int id;
     public String title;
     public String image;
     public String imageType;
-    public int calories;
-    public String protein;
-    public String fat;
-    public String carbs;
+
+    public RecipeGenNutrition nutrition;
+
+
 }
