@@ -77,20 +77,20 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         LinearLayout lunch_nutrition_linearlayout = lunch_recipe_linearlayout.findViewById(R.id.lunch_nutrition_linearlayout);
         LinearLayout dinner_nutrition_linearlayout = dinner_recipe_linearlayout.findViewById(R.id.dinner_nutrition_linearlayout);
         breakfast_dish_name = breakfast_nutrition_linearlayout.findViewById(R.id.breakfast_dish_name);
-      //  lunch_dish_name = lunch_recipe_linearlayout.findViewById(R.id.lunch_dish_name);
-       // dinner_dish_name = dinner_recipe_linearlayout.findViewById(R.id.dinner_dish_name);
+        lunch_dish_name = lunch_nutrition_linearlayout.findViewById(R.id.lunch_dish_name);
+        dinner_dish_name = dinner_nutrition_linearlayout.findViewById(R.id.dinner_dish_name);
         breakfast_calories = breakfast_nutrition_linearlayout.findViewById(R.id.breakfast_Calories);
-      //  lunch_calories = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Calories);
-      //  dinner_calories = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Calories);
+        lunch_calories = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Calories);
+        dinner_calories = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Calories);
         breakfast_protein = breakfast_nutrition_linearlayout.findViewById(R.id.breakfast_Protein);
-      //  lunch_protein = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Protein);
-      //  dinner_protein = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Protein);
+        lunch_protein = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Protein);
+        dinner_protein = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Protein);
         breakfast_fat = breakfast_nutrition_linearlayout.findViewById(R.id.breakfast_Fat);
-      //  lunch_fat = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Fat);
-      //  dinner_fat = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Fat);
+        lunch_fat = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Fat);
+        dinner_fat = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Fat);
         breakfast_carbs = breakfast_nutrition_linearlayout.findViewById(R.id.breakfast_Carbohydrates);
-      //  lunch_carbs = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Carbohydrates);
-      //  dinner_carbs = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Carbohydrates);
+        lunch_carbs = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Carbohydrates);
+        dinner_carbs = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Carbohydrates);
 
 
         ///// get user profile from database
@@ -109,15 +109,17 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
 
 
         ///// generate recipe from spoonacular api
-        getRecipesGenerated();
+        getRecipesGenerated("breakfast");
+        getRecipesGenerated("lunch");
+        getRecipesGenerated("dinner");
 
     }
 
-    private void getRecipesGenerated() {
+    private void getRecipesGenerated(String mealType) {
         Call<RecipeGeneraterService.Result<RecipeGenerator>> call =RecipeGeneraterServiceRetrofitClient.getInstance()
                 .getRecipeGeneraterService().searchRecipes(10, 50,
                         10, 50, 50 , 800, 10, 50,
-                        "chinese", "breakfast",1);
+                        "chinese", mealType,1);
 
         call.enqueue(new Callback<RecipeGeneraterService.Result<RecipeGenerator>>() {
             @Override
@@ -148,11 +150,28 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
 
                  //   Log.d("hihi", "==============onResponse: "+ "Calories: "+calories.amount+" "+ calories.unit);
 
-                    breakfast_dish_name.setText(recipeGenerator.title);
-                    breakfast_calories.setText("Calories: "+calories.amount+" "+ calories.unit);
-                    breakfast_protein.setText("Protein: "+protein.amount +" " + protein.unit);
-                    breakfast_fat.setText("Fat: "+fat.amount +" " + fat.unit);
-                    breakfast_carbs.setText("Carbohydrates: "+carbs.amount +" " + carbs.unit);
+                    if(mealType.equals("breakfast")){
+                        breakfast_dish_name.setText(recipeGenerator.title);
+                        breakfast_calories.setText("Calories: "+calories.amount+" "+ calories.unit);
+                        breakfast_protein.setText("Protein: "+protein.amount +" " + protein.unit);
+                        breakfast_fat.setText("Fat: "+fat.amount +" " + fat.unit);
+                        breakfast_carbs.setText("Carbohydrates: "+carbs.amount +" " + carbs.unit);
+                    }else if(mealType.equals("lunch")){
+                        lunch_dish_name.setText(recipeGenerator.title);
+                        lunch_calories.setText("Calories: "+calories.amount+" "+ calories.unit);
+                        lunch_protein.setText("Protein: "+protein.amount +" " + protein.unit);
+                        lunch_fat.setText("Fat: "+fat.amount +" " + fat.unit);
+                        lunch_carbs.setText("Carbohydrates: "+carbs.amount +" " + carbs.unit);
+
+                    }else if(mealType.equals("dinner")){
+                        dinner_dish_name.setText(recipeGenerator.title);
+                        dinner_calories.setText("Calories: "+calories.amount+" "+ calories.unit);
+                        dinner_protein.setText("Protein: "+protein.amount +" " + protein.unit);
+                        dinner_fat.setText("Fat: "+fat.amount +" " + fat.unit);
+                        dinner_carbs.setText("Carbohydrates: "+carbs.amount +" " + carbs.unit);
+
+                    }
+
                 }
                 else{
                     Log.d("hihi", " ==================onResponse: p13=================="+response.message());
