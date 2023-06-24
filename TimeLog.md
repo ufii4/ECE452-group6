@@ -29,3 +29,5 @@
 | 2023/06/18 |           |            |        |          | 4           |           | FitnessGaolActivity UI Add cards functionality. The remove card functionality has bug to be fixed                         |
 | 2023/06/18 |           |            |        | 4        |             |           | Fixed FitnessGoalActivity, wired in data with firestore                                                                   |
 | 2023/06/23 |           |            |        |         |             | 10           |Learn to use and integrate the spoonacular API; learn the networking in Android; implement the backend of recipe generator; the rest of ui of recipe generator is in progress
+| 2023/06/23 | 3         | 0          | 0      | 0        | 0           | 0         | Working on fixing the videoviews in rec. list
+| 2023/06/23 | 2         | 0          | 0      | 0        | 0           | 0         | Fixed the functionality for videoviews in the rec list, adding the remaining videoviews
