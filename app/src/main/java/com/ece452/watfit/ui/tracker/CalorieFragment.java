@@ -114,7 +114,7 @@ public class CalorieFragment extends Fragment {
                 displayElementExceptList(root);
                 //display selected ingredient pic on the page
                 ImageView ingredientSelected = root.findViewById(R.id.imageViewCalorieSelected);
-                Picasso.get().load("https://spoonacular.com/cdn/ingredients_250x250/"+ingredientList1.get(i).image).into(ingredientSelected);
+                Picasso.get().load("https://spoonacular.com/cdn/ingredients_100x100/"+ingredientList1.get(i).image).into(ingredientSelected);
                 //search for calorie information and get possible units
                 List<String> possibleUnits = ingredientService.getIngredientInformationBasic(ingredientIDList[i]).blockingFirst().possibleUnits;
                 Spinner spinnerCalorie = root.findViewById(R.id.spinnerCalorie);

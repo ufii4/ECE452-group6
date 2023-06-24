@@ -60,7 +60,7 @@
         android:id="@+id/text_suggestion3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Drink Water and Stay Hydrated, and Limit Sugared Beverages"
+        android:text="Drink Water and Stay Hydrated"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/text_suggestion2"
         app:layout_constraintStart_toStartOf="parent"

@@ -41,7 +41,7 @@ public class CalorieSearchAdapter extends ArrayAdapter<Ingredient> {
         TextView titleTextView = convertView.findViewById(R.id.ingredientSearchList);
 //        TextView descriptionTextView = convertView.findViewById(R.id.ingredientCalorie);
 
-        Picasso.get().load("https://spoonacular.com/cdn/ingredients_250x250/"+item.image).into(imageView);
+        Picasso.get().load("https://spoonacular.com/cdn/ingredients_100x100/"+item.image).into(imageView);
         titleTextView.setText(item.name);
 
         return convertView;

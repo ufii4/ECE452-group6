@@ -70,7 +70,7 @@
             android:id="@+id/imageViewCalorieSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_2"
+            app:layout_constraintEnd_toStartOf="@+id/estimateCalorie"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
             app:layout_constraintBottom_toTopOf="@+id/calorieHint"
@@ -94,8 +94,8 @@
             android:layout_height="wrap_content"
             android:background="@android:color/darker_gray"
             android:spinnerMode="dropdown"
-            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_1"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
             app:layout_constraintBottom_toTopOf="@+id/calorieHint" />
 
