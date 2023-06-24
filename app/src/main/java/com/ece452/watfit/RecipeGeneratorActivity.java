@@ -3,18 +3,13 @@ package com.ece452.watfit;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.ece452.watfit.data.SimilarRecipeResponse;
+import com.ece452.watfit.data.RecipeGenerator;
 import com.ece452.watfit.data.UserProfile;
+import com.ece452.watfit.data.source.remote.RecipeGeneraterServiceRetrofitClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,11 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 @AndroidEntryPoint
 public class RecipeGeneratorActivity extends AppCompatActivity {
@@ -40,6 +30,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
     @Inject
     FirebaseFirestore db;
 
+    RecipeGeneraterServiceRetrofitClient recipeGeneraterService;
 
 
     @Override
@@ -64,40 +55,27 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         });
 
         ///// generate recipe from spoonacular api
-// https://spoonacular.com/food-api/docs#Generate-Meal-Plan
-
-
+        getRecipesGenerated();
     }
 
-    public  void getSimilarRecipes(SimilarRecipesListener listener, int id){
-
-        // instantiate retrofit
-        
-        Call<List<SimilarRecipeResponse>> call = callSimilarRecipe.callSimilarRecipe(id, "5", "eeadd8f318854251b83b19945deeed4e");
-        call.enqueue(new Callback<List<SimilarRecipeResponse>>() {
+    private void getRecipesGenerated(){
+        Call<RecipeGenerator> call =RecipeGeneraterServiceRetrofitClient.getInstance()
+                .getRecipeGeneraterService().searchRecipes(10, 50,
+                        10, 50, 50 , 800, 10, 50,
+                        "chinese", "lunch",5);
+        call.enqueue(new Callback<RecipeGenerator>() {
             @Override
-            public void onResponse(Call<List<SimilarRecipeResponse>> call, Response<List<SimilarRecipeResponse>> response) {
-                if(!response.isSuccessful()){
-                    listener.didError(response.message());
-                    return;
+            public void onResponse(Call<RecipeGenerator> call, Response<RecipeGenerator>response) {
+                if(response.isSuccessful()){
+                    Log.d("RecipeGeneratorActivity", "onResponse: " + response.body().toString());
                 }
-                listener.didFetch(response.body(), response.message());
             }
 
             @Override
-            public void onFailure(Call<List<SimilarRecipeResponse>> call, Throwable t) {
-                listener.didError(t.getMessage());
+            public void onFailure(Call<RecipeGenerator> call, Throwable t) {
+                Log.e("RecipeGeneratorActivity", "onFailure: " + t.getMessage());
             }
         });
-    }
-
-    private interface  CallSimilarRecipe{
-        @GET("recipes/{id}/similar")
-        Call<List<SimilarRecipeResponse>> callSimilarRecipe(
-                @Path("id") int id,
-                @Query("number") String number,
-                @Query("apiKey") String apiKey
-        );
     }
 
 
