@@ -11,11 +11,11 @@ import retrofit2.http.GET;
 
 public interface RecipeGeneraterService {
     class Result<T> {
-        List<Recipe> results;
+       public List<RecipeGenerator> results;
     }
 
     @GET("recipes/complexSearch")
-    Call<RecipeGenerator> searchRecipes(
+    Call<Result<RecipeGenerator>> searchRecipes(
             @retrofit2.http.Query("minCarbs") int minCarbs,
             @retrofit2.http.Query("maxCarbs") int maxCarbs,
             @retrofit2.http.Query("minProtein") int minProtein,

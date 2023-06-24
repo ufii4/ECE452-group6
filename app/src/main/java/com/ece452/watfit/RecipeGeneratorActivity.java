@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ece452.watfit.data.RecipeGenerator;
 import com.ece452.watfit.data.UserProfile;
+import com.ece452.watfit.data.source.remote.RecipeGeneraterService;
 import com.ece452.watfit.data.source.remote.RecipeGeneraterServiceRetrofitClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,22 +60,26 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
     }
 
     private void getRecipesGenerated(){
-        Call<RecipeGenerator> call =RecipeGeneraterServiceRetrofitClient.getInstance()
+        Call<RecipeGeneraterService.Result<RecipeGenerator>> call =RecipeGeneraterServiceRetrofitClient.getInstance()
                 .getRecipeGeneraterService().searchRecipes(10, 50,
                         10, 50, 50 , 800, 10, 50,
                         "chinese", "lunch",5);
-        call.enqueue(new Callback<RecipeGenerator>() {
+        call.enqueue(new Callback<RecipeGeneraterService.Result<RecipeGenerator>>() {
             @Override
-            public void onResponse(Call<RecipeGenerator> call, Response<RecipeGenerator>response) {
+            public void onResponse(Call<RecipeGeneraterService.Result<RecipeGenerator>> call, Response<RecipeGeneraterService.Result<RecipeGenerator>> response) {
                 if(response.isSuccessful()){
-                    Log.d("RecipeGeneratorActivity", "onResponse: " + response.body().toString());
+                    List<RecipeGenerator> list = response.body().results;
+                    for(RecipeGenerator recipe : list){
+                        Log.d("RecipeGeneratorActivity", "onResponse: " + recipe.title);
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<RecipeGenerator> call, Throwable t) {
+            public void onFailure(Call<RecipeGeneraterService.Result<RecipeGenerator>> call, Throwable t) {
                 Log.e("RecipeGeneratorActivity", "onFailure: " + t.getMessage());
             }
+
         });
     }
 
