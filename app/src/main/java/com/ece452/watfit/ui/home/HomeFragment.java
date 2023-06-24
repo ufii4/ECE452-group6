@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ece452.watfit.R;
 import com.ece452.watfit.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -33,14 +34,14 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         // Video Code Start Here
-        /*VideoView videoView = getActivity().findViewById(R.id.rec_v1);
+        VideoView videoView = (VideoView) root.findViewById(R.id.rec_v1);
         Uri uri = Uri.parse(videoUrl);
         videoView.setVideoURI(uri);
-        MediaController mediaController = new MediaController(this);
+        MediaController mediaController = new MediaController(root.getContext());
         mediaController.setAnchorView(videoView);
         mediaController.setMediaPlayer(videoView);
         videoView.setMediaController(mediaController);
-        videoView.start();*/
+        videoView.start();
         //Video Code Ends Here
         return root;
     }
@@ -50,4 +51,6 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }
