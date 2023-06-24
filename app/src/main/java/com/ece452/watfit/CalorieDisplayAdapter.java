@@ -20,10 +20,10 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
     private Context context;
     private List<Ingredient> itemList;
     private List<Ingredient> filteredItemList;
-    private double calorie;
+    private List<Double> calorie;
     String unit;
 
-    public CalorieDisplayAdapter(Context context, List<Ingredient> itemList,double calorie, String unit) {
+    public CalorieDisplayAdapter(Context context, List<Ingredient> itemList,List<Double> calorie, String unit) {
         super(context, R.layout.calorie_listview, itemList);
         this.context = context;
         this.itemList = itemList;
@@ -47,7 +47,7 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
 
         Picasso.get().load("https://spoonacular.com/cdn/ingredients_100x100/"+item.image).into(imageView);
         titleTextView.setText(item.name);
-        descriptionTextView.setText(Double.toString(this.calorie) + " " +this.unit);
+        descriptionTextView.setText(Double.toString(this.calorie.get(position)) + " " +this.unit);
 
         return convertView;
     }

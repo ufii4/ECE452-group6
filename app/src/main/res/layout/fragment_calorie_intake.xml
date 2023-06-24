@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:layout_editor_absoluteX="1dp"-->
+<!--    tools:layout_editor_absoluteY="1dp"-->
+<!--    android:fillViewport="true">-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -40,146 +48,144 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.66" />
+        <android.widget.SearchView
+            android:id="@+id/searchViewCalorie"
+            android:queryHint="@string/search_hint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintHorizontal_bias="0.806"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/estimateCalorie"/>
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="false"
+            app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie" />
+        <ImageView
+            android:id="@+id/imageViewCalorieSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
+            app:layout_constraintBottom_toTopOf="@+id/calorieHint"
+            android:scaleType="fitCenter" />
 
-    <android.widget.SearchView
-    android:id="@+id/searchViewCalorie"
-    android:queryHint="@string/search_hint"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintHorizontal_bias="0.806"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
-        app:layout_constraintTop_toTopOf="parent" />
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie" />
-    <ImageView
-        android:id="@+id/imageViewCalorieSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
-        app:layout_constraintBottom_toTopOf="@+id/calorieHint"
-        android:scaleType="fitCenter" />
+        <EditText
+            android:id="@+id/estimateCalorie"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:hint="@string/food_amount_hint"
+            android:background="@android:color/darker_gray"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_1"
+            app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
+            app:layout_constraintBottom_toTopOf="@+id/calorieHint" />
+        <Spinner
+            android:id="@+id/spinnerCalorie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_1"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
+            app:layout_constraintBottom_toTopOf="@+id/calorieHint" />
 
-    <EditText
-        android:id="@+id/estimateCalorie"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:hint="@string/food_amount_hint"
-        android:background="@android:color/darker_gray"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical_1"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
-        app:layout_constraintBottom_toTopOf="@+id/calorieHint" />
-    <Spinner
-        android:id="@+id/spinnerCalorie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:spinnerMode="dropdown"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_1"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewCalorie"
-        app:layout_constraintBottom_toTopOf="@+id/calorieHint" />
+        <TextView
+            android:id="@+id/calorieHint"
+            android:layout_width="157dp"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="@string/calorie_intake_estimate"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_1"
+            app:layout_constraintEnd_toStartOf="@+id/calorieInput"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/estimateCalorie" />
 
-    <TextView
-        android:id="@+id/calorieHint"
-        android:layout_width="157dp"
-        android:layout_height="56dp"
-        android:gravity="center"
-        android:text="@string/calorie_intake_estimate"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_1"
-        app:layout_constraintEnd_toStartOf="@+id/calorieInput"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/estimateCalorie" />
+        <TextView
+            android:id="@+id/calorieInput"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintStart_toEndOf="@+id/calorieHint"
+            app:layout_constraintTop_toBottomOf="@+id/estimateCalorie"
+            app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_1"/>
 
-    <TextView
-        android:id="@+id/calorieInput"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:textSize="15sp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintStart_toEndOf="@+id/calorieHint"
-        app:layout_constraintTop_toBottomOf="@+id/estimateCalorie"
-        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_1"/>
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/add_button_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/estimateCalorie"
+            app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_1" />
+        <ListView
+            android:id="@+id/foodSelectList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:isScrollContainer="false"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal_3"
+            />
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="@string/add_button_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/guideline_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/estimateCalorie"
-        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_1" />
-    <ListView
-        android:id="@+id/foodSelectList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal_3"
-        />
-<!--        <TextView-->
-<!--            android:id="@+id/foodList"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:gravity="center"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal_3"-->
-<!--            />-->
+        <TextView
+            android:id="@+id/calorieTotalText"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:text="@string/total_calorie"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_3"
+            app:layout_constraintBottom_toTopOf="@id/submitButton"
+            app:layout_constraintEnd_toStartOf="@+id/calorieTotal"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2" />
 
-    <TextView
-        android:id="@+id/calorieTotalText"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
-        android:background="@android:color/darker_gray"
-        android:gravity="center"
-        android:text="@string/total_calorie"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@id/submitButton"
-        app:layout_constraintEnd_toStartOf="@+id/calorieTotal"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2" />
+        <TextView
+            android:id="@+id/calorieTotal"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_3"
+            app:layout_constraintBottom_toTopOf="@id/submitButton"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintStart_toEndOf="@+id/calorieTotalText" />
 
-    <TextView
-        android:id="@+id/calorieTotal"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="40dp"
-        android:background="@android:color/darker_gray"
-        android:gravity="center"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@id/submitButton"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintStart_toEndOf="@+id/calorieTotalText" />
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginBottom="60dp"
+            android:gravity="center"
+            android:text="@string/submit_button_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calorieTotal"
+            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintHorizontal_bias="0.525"
+            app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2" />
 
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginBottom="60dp"
-        android:gravity="center"
-        android:text="@string/submit_button_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+<!--    </ScrollView>-->

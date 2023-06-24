@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -59,12 +60,12 @@ public class CalorieFragment extends Fragment {
     private int[] ingredientIDList;
     private String selectedUnit;
     private double dailyCalorie = 0;
+    private List<Double> calorieList = new ArrayList<>();
     private List<Ingredient>  foodList = new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCalorieIntakeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_arrow);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -142,9 +143,10 @@ public class CalorieFragment extends Fragment {
                         for (Nutrition.Nutrient n: nutrientList) {
                             if(n.name.equals("Calories")){
                                 TextView calorieInput = root.findViewById(R.id.calorieInput);
+                                calorieList.add(n.amount);
                                 calorieInput.setText(Double.toString(n.amount));
                                 //display on the page
-                                CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(),foodList,n.amount,n.unit);
+                                CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(),foodList,calorieList,n.unit);
                                 ListView listView = root.findViewById(R.id.foodSelectList);
                                 listView.setAdapter(adapter);
                                 dailyCalorie += n.amount;
