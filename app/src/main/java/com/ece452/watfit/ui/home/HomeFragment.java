@@ -30,14 +30,14 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     // Your Video URL
     String videoCoverUrl1 = "https://img.youtube.com/vi/iCQ2gC4DqJw/0.jpg";
-    String videoCoverUrl2 = "https://img.youtube.com/vi/zdpcw6CTkqw/0.jpg";
-    String videoCoverUrl3 = "https://img.youtube.com/vi/iCQ2gC4DqJw/0.jpg";
-    String videoCoverUrl4 = "https://img.youtube.com/vi/2ZbHFL_KhB4/0.jpg";
+    String videoCoverUrl2 = "https://img.youtube.com/vi/UoC_O3HzsH0/0.jpg";
+    String videoCoverUrl3 = "https://img.youtube.com/vi/IT94xC35u6k/0.jpg";
+    String videoCoverUrl4 = "https://img.youtube.com/vi/A0BhN-HAkt8/0.jpg";
     String videoCoverUrl5 = "https://img.youtube.com/vi/ixkQaZXVQjs/0.jpg";
     String videoUrl1 = "https://www.youtube.com/embed/iCQ2gC4DqJw";
-    String videoUrl2 = "https://www.youtube.com/embed/ixkQaZXVQjs";
-    String videoUrl3 = "https://www.youtube.com/embed/iCQ2gC4DqJw";
-    String videoUrl4 = "https://www.youtube.com/embed/iCQ2gC4DqJw";
+    String videoUrl2 = "https://www.youtube.com/embed/UoC_O3HzsH0";
+    String videoUrl3 = "https://www.youtube.com/embed/IT94xC35u6k";
+    String videoUrl4 = "https://www.youtube.com/embed/A0BhN-HAkt8";
     String videoUrl5 = "https://www.youtube.com/embed/ixkQaZXVQjs";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
