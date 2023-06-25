@@ -1,23 +1,21 @@
 package com.ece452.watfit;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import com.ece452.watfit.data.Nutrition;
-import com.ece452.watfit.data.RecipeGenNutrient;
-import com.ece452.watfit.data.RecipeGenNutrition;
-import com.ece452.watfit.data.RecipeGenerator;
+import com.ece452.watfit.data.Recipe;
 import com.ece452.watfit.data.UserProfile;
-import com.ece452.watfit.data.source.remote.RecipeGeneraterService;
-import com.ece452.watfit.data.source.remote.RecipeGeneraterServiceRetrofitClient;
+import com.ece452.watfit.data.source.remote.RecipeService;
+import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -25,16 +23,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.rxjava3.annotations.NonNull;
 
 @AndroidEntryPoint
 public class RecipeGeneratorActivity extends AppCompatActivity {
@@ -61,14 +56,17 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
 
     Button bt_regenerate;
 
-    List<RecipeGenerator> breakfast_recipes;
-    List<RecipeGenerator> lunch_recipes;
-    List<RecipeGenerator> dinner_recipes;
+    List<Recipe> breakfast_recipes;
+    List<Recipe> lunch_recipes;
+    List<Recipe> dinner_recipes;
 
     @Inject
     FirebaseFirestore db;
 
-    RecipeGeneraterServiceRetrofitClient recipeGeneraterService;
+    @Inject
+    SpoonacularDataSource spoonacular;
+
+    RecipeService recipeService;
 
 
     @Override
@@ -76,13 +74,18 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_generator);
 
-        LinearLayout linearLayout = findViewById(R.id.header_linearlayout_nav);
-        CardView cardView_breakfast = linearLayout.findViewById(R.id.card_view_breakfast);
-        CardView cardView_lunch = linearLayout.findViewById(R.id.card_view_lunch);
-        CardView cardView_dinner = linearLayout.findViewById(R.id.card_view_dinner);
-        LinearLayout breakfast_recipe_linearlayout = cardView_breakfast.findViewById(R.id.breakfast_recipe_linearlayout);
-        LinearLayout lunch_recipe_linearlayout = cardView_lunch.findViewById(R.id.lunch_recipe_linearlayout);
-        LinearLayout dinner_recipe_linearlayout = cardView_dinner.findViewById(R.id.dinner_recipe_linearlayout);
+        // add back button to the top-left corner
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back_arrow);
+        }
+
+        recipeService = spoonacular.recipeService;
+
+        LinearLayout breakfast_recipe_linearlayout = findViewById(R.id.breakfast_recipe_linearlayout);
+        LinearLayout lunch_recipe_linearlayout = findViewById(R.id.lunch_recipe_linearlayout);
+        LinearLayout dinner_recipe_linearlayout = findViewById(R.id.dinner_recipe_linearlayout);
         LinearLayout breakfast_nutrition_linearlayout = breakfast_recipe_linearlayout.findViewById(R.id.breakfast_nutrition_linearlayout);
         LinearLayout lunch_nutrition_linearlayout = lunch_recipe_linearlayout.findViewById(R.id.lunch_nutrition_linearlayout);
         LinearLayout dinner_nutrition_linearlayout = dinner_recipe_linearlayout.findViewById(R.id.dinner_nutrition_linearlayout);
@@ -102,7 +105,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         lunch_carbs = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Carbohydrates);
         dinner_carbs = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Carbohydrates);
 
-        bt_regenerate = linearLayout.findViewById(R.id.bt_regenerate_recipe);
+        bt_regenerate = findViewById(R.id.bt_regenerate_recipe);
 
         ///// get user profile from database
         DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
@@ -134,20 +137,20 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                int randomNum_breakfast = ThreadLocalRandom.current().nextInt(1, NUMBER_OF_RECIPES + 1);
-                int randomNum_lunch = ThreadLocalRandom.current().nextInt(1, NUMBER_OF_RECIPES + 1);
-                int randomNum_dinner = ThreadLocalRandom.current().nextInt(1, NUMBER_OF_RECIPES + 1);
+                int randomNum_breakfast = ThreadLocalRandom.current().nextInt(0, breakfast_recipes.size());
+                int randomNum_lunch = ThreadLocalRandom.current().nextInt(0, lunch_recipes.size());
+                int randomNum_dinner = ThreadLocalRandom.current().nextInt(0, dinner_recipes.size());
 //
                 Log.d("hihihi", "onClick: "+ randomNum_breakfast + " " + randomNum_lunch + " " + randomNum_dinner);
 //
                 Log.d("hihihi", "onClick: "+ breakfast_recipes.size() + " " + lunch_recipes.size() + " " + dinner_recipes.size());
-                RecipeGenerator newBreakfast = breakfast_recipes.get(randomNum_breakfast);
-                RecipeGenerator newLunch = lunch_recipes.get(randomNum_lunch);
-                RecipeGenerator newDinner = dinner_recipes.get(randomNum_dinner);
+                Recipe newBreakfast = breakfast_recipes.get(randomNum_breakfast);
+                Recipe newLunch = lunch_recipes.get(randomNum_lunch);
+                Recipe newDinner = dinner_recipes.get(randomNum_dinner);
 
-                RecipeGenNutrition newBreakfastNutrition = newBreakfast.nutrition;
-                RecipeGenNutrition newLunchNutrition = newLunch.nutrition;
-                RecipeGenNutrition newDinnerNutrition = newDinner.nutrition;
+                Nutrition newBreakfastNutrition = newBreakfast.nutrition;
+                Nutrition newLunchNutrition = newLunch.nutrition;
+                Nutrition newDinnerNutrition = newDinner.nutrition;
 
                 newBreakfastNutrition.genNutrients();
                 newLunchNutrition.genNutrients();
@@ -156,55 +159,64 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
                 breakfast_RecipeUI(newBreakfast, newBreakfastNutrition);
                 lunch_RecipeUI(newLunch, newLunchNutrition);
                 dinner_RecipeUI(newDinner, newDinnerNutrition);
-
-
-
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // go back to previous activity
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getRecipesGenerated(String mealType) {
-        Call<RecipeGeneraterService.Result<RecipeGenerator>> call =RecipeGeneraterServiceRetrofitClient.getInstance()
-                .getRecipeGeneraterService().searchRecipes(10, 50,
-                        10, 50, 50 , 800, 10, 50, mealType,NUMBER_OF_RECIPES);
+        String query = "healthy";
+        switch (mealType) {
+            case "breakfast":
+                query = "breakfast";
+                break;
+            case "lunch":
+                query = "burger";
+                break;
+            case "dinner":
+                query = "chicken breast";
+                break;
+        }
+        recipeService.searchRecipes(query, NUMBER_OF_RECIPES, true)
+                .subscribe(
+                        result -> {
+                            List<Recipe> list = result.results;
+                            Recipe recipe = list.get(0);
+                            Nutrition nutrition = recipe.nutrition;
+                            nutrition.genNutrients();
 
-        call.enqueue(new Callback<RecipeGeneraterService.Result<RecipeGenerator>>() {
-            @Override
-            public void onResponse(Call<RecipeGeneraterService.Result<RecipeGenerator>> call, Response<RecipeGeneraterService.Result<RecipeGenerator>> response) {
-                if(response.isSuccessful()){
-//                    Log.d("RecipeGeneratorActivity", "onResponse: " + "========hihihihihihihi=======");
-
-                    List<RecipeGenerator> list = response.body().results;
-                    RecipeGenerator recipeGenerator = list.get(0);
-                    RecipeGenNutrition nutrition = recipeGenerator.nutrition;
-                    nutrition.genNutrients();
-
-                    if(mealType.equals("breakfast")){
-                        breakfast_recipes.addAll(list);
-                        breakfast_RecipeUI(recipeGenerator,  nutrition);
-                    }else if(mealType.equals("lunch")){
-                        lunch_recipes.addAll(list);
-                        lunch_RecipeUI(recipeGenerator,  nutrition);
-
-                    }else if(mealType.equals("dinner")){
-                        dinner_recipes.addAll(list);
-                        dinner_RecipeUI(recipeGenerator,  nutrition);
-                    }
-                }
-                else{
-                    Log.d("hihi", " ==================onResponse: p13=================="+response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RecipeGeneraterService.Result<RecipeGenerator>> call, Throwable t) {
-                Log.e("RecipeGeneratorActivity", "onFailure: " + t.getMessage());
-            }
-        });
+                            if (mealType.equals("breakfast")) {
+                                breakfast_recipes.addAll(list);
+                                breakfast_RecipeUI(recipe, nutrition);
+                            } else if (mealType.equals("lunch")) {
+                                lunch_recipes.addAll(list);
+                                lunch_RecipeUI(recipe, nutrition);
+                            } else if (mealType.equals("dinner")) {
+                                dinner_recipes.addAll(list);
+                                dinner_RecipeUI(recipe, nutrition);
+                            }
+                        },
+                        error -> {
+                            Log.e("RecipeGeneratorActivity", "onFailure: " + error.getLocalizedMessage());
+                        },
+                        () -> {
+                            Log.d("RecipeGeneratorActivity", "onComplete: ");
+                        }
+                );
     }
 
-    private void breakfast_RecipeUI(RecipeGenerator recipeGenerator, RecipeGenNutrition nutrition) {
+    private void breakfast_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
         breakfast_dish_name.setText(recipeGenerator.title);
         breakfast_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         breakfast_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
@@ -212,7 +224,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         breakfast_carbs.setText("Carbohydrates: "+nutrition.carbs.amount +" " + nutrition.carbs.unit);
     }
 
-    private void lunch_RecipeUI(RecipeGenerator recipeGenerator, RecipeGenNutrition nutrition) {
+    private void lunch_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
         lunch_dish_name.setText(recipeGenerator.title);
         lunch_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         lunch_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
@@ -220,7 +232,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         lunch_carbs.setText("Carbohydrates: "+nutrition.carbs.amount +" " + nutrition.carbs.unit);
     }
 
-    private void dinner_RecipeUI(RecipeGenerator recipeGenerator, RecipeGenNutrition nutrition) {
+    private void dinner_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
         dinner_dish_name.setText(recipeGenerator.title);
         dinner_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         dinner_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);

@@ -1,23 +1,22 @@
 package com.ece452.watfit.ui.home;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.MediaController;
-import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ece452.watfit.R;
+import com.ece452.watfit.RecipeGeneratorActivity;
 import com.ece452.watfit.databinding.FragmentHomeBinding;
 
 import java.io.IOException;
@@ -46,6 +45,17 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        ///////The Recipe Generator Button
+        Button recipeGeneratorButton = (Button) root.findViewById(R.id.navbar_recipe_generator);
+        recipeGeneratorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RecipeGeneratorActivity.class);
+                startActivity(intent);
+            }
+        });
+        ///////
 
         //Code for image Covers start here
         ImageView v1 = (ImageView) root.findViewById(R.id.rec_v1);

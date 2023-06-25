@@ -31,7 +31,7 @@ public class RecipeServiceTest {
 
     @Test
     public void searchRecipes() {
-        recipeService.searchRecipes("chicken", 1).test().awaitCount(1).assertValue(response -> {
+        recipeService.searchRecipes("chicken", 1, false).test().awaitCount(1).assertValue(response -> {
             List<Recipe> recipes = response.results;
             return recipes.size() == 1;
         });
