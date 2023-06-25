@@ -34,15 +34,15 @@ public class HomeFragment extends Fragment {
         //final TextView textView = binding.textHome;
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
-        // Video 1
+        /*// Video 1
         VideoView videoView1 = (VideoView) root.findViewById(R.id.rec_v1);
-        Uri uri = Uri.parse(videoUrl);
-        videoView1.setVideoURI(uri);
+        Uri uri1 = Uri.parse(videoUrl);
+        videoView1.setVideoURI(uri1);
         MediaController mediaController = new MediaController(root.getContext());
         mediaController.setAnchorView(videoView1);
         mediaController.setMediaPlayer(videoView1);
         videoView1.setMediaController(mediaController);
-        videoView1.start();
+        //videoView1.start();
         //Video 2
         VideoView videoView2 = (VideoView) root.findViewById(R.id.rec_v2);
         Uri uri2 = Uri.parse(videoUrl);
@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
         mediaController.setAnchorView(videoView2);
         mediaController.setMediaPlayer(videoView2);
         videoView2.setMediaController(mediaController);
-        videoView2.start();
+        //videoView2.start();
         //Video 3
         VideoView videoView3 = (VideoView) root.findViewById(R.id.rec_v3);
         Uri uri3 = Uri.parse(videoUrl);
@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
         mediaController.setAnchorView(videoView3);
         mediaController.setMediaPlayer(videoView3);
         videoView3.setMediaController(mediaController);
-        videoView3.start();
+        //videoView3.start();
         //Video 4
         VideoView videoView4 = (VideoView) root.findViewById(R.id.rec_v4);
         Uri uri4 = Uri.parse(videoUrl);
@@ -66,16 +66,16 @@ public class HomeFragment extends Fragment {
         mediaController.setAnchorView(videoView4);
         mediaController.setMediaPlayer(videoView4);
         videoView4.setMediaController(mediaController);
-        videoView4.start();
+        //videoView4.start();
         //Video 5
         VideoView videoView5 = (VideoView) root.findViewById(R.id.rec_v5);
         Uri uri5 = Uri.parse(videoUrl);
-        videoView5.setVideoURI(uri2);
+        videoView5.setVideoURI(uri5);
         mediaController.setAnchorView(videoView5);
         mediaController.setMediaPlayer(videoView5);
         videoView5.setMediaController(mediaController);
-        videoView5.start();
-        //Videos end
+        //videoView5.start();
+        //Videos end*/
         return root;
     }
 
