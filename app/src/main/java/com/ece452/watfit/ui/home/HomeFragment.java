@@ -1,10 +1,14 @@
 package com.ece452.watfit.ui.home;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -16,6 +20,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.ece452.watfit.R;
 import com.ece452.watfit.databinding.FragmentHomeBinding;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
@@ -23,15 +31,37 @@ public class HomeFragment extends Fragment {
     String videoUrl = "https://media.geeksforgeeks.org/wp-content/uploads/20201217192146/Screenrecorder-2020-12-17-19-17-36-828.mp4?_=1";
     String videoUrl2 = "https://www.youtube.com/watch?v=i9BupglHdtM";
     String videoUrl3 = "https://www.youtube.com/embed/zWh3CShX_do";
+    String videoUrl4 = "https://img.youtube.com/vi/i9BupglHdtM/0.jpg";
+    String requestURL = String.format("https://img.youtube.com/vi/i9BupglHdtM/0.jpg", Uri.encode("foo bar"), Uri.encode("100% fubar'd"));
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        //may need to change starts
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+        //may need to change ends
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        ImageView v1 = (ImageView) root.findViewById(R.id.rec_v1);
+        URL url = null;
+        try {
+            url = new URL("https://img.youtube.com/vi/i9BupglHdtM/0.jpg");
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        v1.setImageBitmap(bitmap);
         //final TextView textView = binding.textHome;
+        //
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         /*// Video 1
