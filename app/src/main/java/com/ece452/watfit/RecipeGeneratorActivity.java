@@ -1,7 +1,10 @@
 package com.ece452.watfit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,7 +24,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
 
@@ -33,6 +39,9 @@ import retrofit2.Response;
 @AndroidEntryPoint
 public class RecipeGeneratorActivity extends AppCompatActivity {
     private FirebaseAuth auth;
+
+    //constant int called number_of_recipes
+    private static final int NUMBER_OF_RECIPES = 30;
 
     TextView breakfast_dish_name;
     TextView lunch_dish_name;
@@ -50,8 +59,11 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
     TextView lunch_fat;
     TextView dinner_fat;
 
+    Button bt_regenerate;
 
-
+    List<RecipeGenerator> breakfast_recipes;
+    List<RecipeGenerator> lunch_recipes;
+    List<RecipeGenerator> dinner_recipes;
 
     @Inject
     FirebaseFirestore db;
@@ -61,8 +73,6 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_generator);
 
@@ -92,6 +102,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         lunch_carbs = lunch_nutrition_linearlayout.findViewById(R.id.lunch_Carbohydrates);
         dinner_carbs = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Carbohydrates);
 
+        bt_regenerate = linearLayout.findViewById(R.id.bt_regenerate_recipe);
 
         ///// get user profile from database
         DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
@@ -107,71 +118,79 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
             }
         });
 
+        breakfast_recipes = new ArrayList<>();
+        lunch_recipes = new ArrayList<>();
+        dinner_recipes = new ArrayList<>();
 
         ///// generate recipe from spoonacular api
         getRecipesGenerated("breakfast");
         getRecipesGenerated("lunch");
         getRecipesGenerated("dinner");
 
+
+
+        /////regenerate button click event
+        bt_regenerate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int randomNum_breakfast = ThreadLocalRandom.current().nextInt(1, NUMBER_OF_RECIPES + 1);
+                int randomNum_lunch = ThreadLocalRandom.current().nextInt(1, NUMBER_OF_RECIPES + 1);
+                int randomNum_dinner = ThreadLocalRandom.current().nextInt(1, NUMBER_OF_RECIPES + 1);
+//
+                Log.d("hihihi", "onClick: "+ randomNum_breakfast + " " + randomNum_lunch + " " + randomNum_dinner);
+//
+                Log.d("hihihi", "onClick: "+ breakfast_recipes.size() + " " + lunch_recipes.size() + " " + dinner_recipes.size());
+                RecipeGenerator newBreakfast = breakfast_recipes.get(randomNum_breakfast);
+                RecipeGenerator newLunch = lunch_recipes.get(randomNum_lunch);
+                RecipeGenerator newDinner = dinner_recipes.get(randomNum_dinner);
+
+                RecipeGenNutrition newBreakfastNutrition = newBreakfast.nutrition;
+                RecipeGenNutrition newLunchNutrition = newLunch.nutrition;
+                RecipeGenNutrition newDinnerNutrition = newDinner.nutrition;
+
+                newBreakfastNutrition.genNutrients();
+                newLunchNutrition.genNutrients();
+                newDinnerNutrition.genNutrients();
+
+                breakfast_RecipeUI(newBreakfast, newBreakfastNutrition);
+                lunch_RecipeUI(newLunch, newLunchNutrition);
+                dinner_RecipeUI(newDinner, newDinnerNutrition);
+
+
+
+            }
+        });
+
     }
 
     private void getRecipesGenerated(String mealType) {
         Call<RecipeGeneraterService.Result<RecipeGenerator>> call =RecipeGeneraterServiceRetrofitClient.getInstance()
                 .getRecipeGeneraterService().searchRecipes(10, 50,
-                        10, 50, 50 , 800, 10, 50,
-                        "chinese", mealType,1);
+                        10, 50, 50 , 800, 10, 50, mealType,NUMBER_OF_RECIPES);
 
         call.enqueue(new Callback<RecipeGeneraterService.Result<RecipeGenerator>>() {
             @Override
             public void onResponse(Call<RecipeGeneraterService.Result<RecipeGenerator>> call, Response<RecipeGeneraterService.Result<RecipeGenerator>> response) {
                 if(response.isSuccessful()){
+//                    Log.d("RecipeGeneratorActivity", "onResponse: " + "========hihihihihihihi=======");
 
                     List<RecipeGenerator> list = response.body().results;
                     RecipeGenerator recipeGenerator = list.get(0);
                     RecipeGenNutrition nutrition = recipeGenerator.nutrition;
-                    List<RecipeGenNutrient> nutrients = nutrition.nutrients;
-                    RecipeGenNutrient calories = null;
-                    RecipeGenNutrient protein = null;
-                    RecipeGenNutrient fat = null;
-                    RecipeGenNutrient carbs = null;
-
-                    for(RecipeGenNutrient recipeGenNutrient: nutrients){
-                        if (recipeGenNutrient.name.equals("Calories")){
-                            calories = recipeGenNutrient;
-                        }else if (recipeGenNutrient.name.equals("Protein")){
-                            protein = recipeGenNutrient;
-                        }else if (recipeGenNutrient.name.equals("Fat")){
-                            fat = recipeGenNutrient;
-                        }else if (recipeGenNutrient.name.equals("Carbohydrates")){
-                            carbs = recipeGenNutrient;
-                        }
-
-                    }
-
-                 //   Log.d("hihi", "==============onResponse: "+ "Calories: "+calories.amount+" "+ calories.unit);
+                    nutrition.genNutrients();
 
                     if(mealType.equals("breakfast")){
-                        breakfast_dish_name.setText(recipeGenerator.title);
-                        breakfast_calories.setText("Calories: "+calories.amount+" "+ calories.unit);
-                        breakfast_protein.setText("Protein: "+protein.amount +" " + protein.unit);
-                        breakfast_fat.setText("Fat: "+fat.amount +" " + fat.unit);
-                        breakfast_carbs.setText("Carbohydrates: "+carbs.amount +" " + carbs.unit);
+                        breakfast_recipes.addAll(list);
+                        breakfast_RecipeUI(recipeGenerator,  nutrition);
                     }else if(mealType.equals("lunch")){
-                        lunch_dish_name.setText(recipeGenerator.title);
-                        lunch_calories.setText("Calories: "+calories.amount+" "+ calories.unit);
-                        lunch_protein.setText("Protein: "+protein.amount +" " + protein.unit);
-                        lunch_fat.setText("Fat: "+fat.amount +" " + fat.unit);
-                        lunch_carbs.setText("Carbohydrates: "+carbs.amount +" " + carbs.unit);
+                        lunch_recipes.addAll(list);
+                        lunch_RecipeUI(recipeGenerator,  nutrition);
 
                     }else if(mealType.equals("dinner")){
-                        dinner_dish_name.setText(recipeGenerator.title);
-                        dinner_calories.setText("Calories: "+calories.amount+" "+ calories.unit);
-                        dinner_protein.setText("Protein: "+protein.amount +" " + protein.unit);
-                        dinner_fat.setText("Fat: "+fat.amount +" " + fat.unit);
-                        dinner_carbs.setText("Carbohydrates: "+carbs.amount +" " + carbs.unit);
-
+                        dinner_recipes.addAll(list);
+                        dinner_RecipeUI(recipeGenerator,  nutrition);
                     }
-
                 }
                 else{
                     Log.d("hihi", " ==================onResponse: p13=================="+response.message());
@@ -182,8 +201,31 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
             public void onFailure(Call<RecipeGeneraterService.Result<RecipeGenerator>> call, Throwable t) {
                 Log.e("RecipeGeneratorActivity", "onFailure: " + t.getMessage());
             }
-
         });
+    }
+
+    private void breakfast_RecipeUI(RecipeGenerator recipeGenerator, RecipeGenNutrition nutrition) {
+        breakfast_dish_name.setText(recipeGenerator.title);
+        breakfast_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
+        breakfast_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
+        breakfast_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
+        breakfast_carbs.setText("Carbohydrates: "+nutrition.carbs.amount +" " + nutrition.carbs.unit);
+    }
+
+    private void lunch_RecipeUI(RecipeGenerator recipeGenerator, RecipeGenNutrition nutrition) {
+        lunch_dish_name.setText(recipeGenerator.title);
+        lunch_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
+        lunch_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
+        lunch_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
+        lunch_carbs.setText("Carbohydrates: "+nutrition.carbs.amount +" " + nutrition.carbs.unit);
+    }
+
+    private void dinner_RecipeUI(RecipeGenerator recipeGenerator, RecipeGenNutrition nutrition) {
+        dinner_dish_name.setText(recipeGenerator.title);
+        dinner_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
+        dinner_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
+        dinner_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
+        dinner_carbs.setText("Carbohydrates: "+ nutrition.carbs.amount +" " +  nutrition.carbs.unit);
     }
 
 

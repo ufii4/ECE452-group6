@@ -24,7 +24,6 @@ public interface RecipeGeneraterService {
             @retrofit2.http.Query("maxCalories") int maxCalories,
             @retrofit2.http.Query("minFat") int minFat,
             @retrofit2.http.Query("maxFat") int maxFat,
-            @retrofit2.http.Query("cuisine") String cuisine,
             @retrofit2.http.Query("query") String mealType,
             @retrofit2.http.Query("number") int number
             );
