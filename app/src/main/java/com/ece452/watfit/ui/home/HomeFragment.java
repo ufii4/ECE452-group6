@@ -1,23 +1,22 @@
 package com.ece452.watfit.ui.home;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.MediaController;
-import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ece452.watfit.MainActivity;
 import com.ece452.watfit.R;
+import com.ece452.watfit.RecVideoDisplayActivity;
 import com.ece452.watfit.databinding.FragmentHomeBinding;
 
 import java.io.IOException;
@@ -110,6 +109,19 @@ public class HomeFragment extends Fragment {
             throw new RuntimeException(e);
         }
         v5.setImageBitmap(bitmap);
+
+        // Apply OnClickListener  to imageView to
+        // switch from one activity to another
+        v1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent class will help to go to next activity using
+                // it's object named intent.
+                // SecondActivty is the name of new created EmptyActivity.
+                Intent intent = new Intent(getActivity(), RecVideoDisplayActivity.class);
+                startActivity(intent);
+            }
+        });
         //final TextView textView = binding.textHome;
         //
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
