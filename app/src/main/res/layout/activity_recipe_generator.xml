@@ -7,20 +7,13 @@
     tools:context=".RecipeGeneratorActivity"
     >
 
-<!--    <SeekBar-->
-<!--        android:id="@+id/seekBar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentStart="true"-->
-<!--        android:layout_centerVertical="true"-->
 
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        tools:layout_editor_absoluteX="5dp" />-->
+
 
     <LinearLayout
         android:id="@+id/header_linearlayout_nav"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="406dp"
+        android:layout_height="720dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="5dp"
@@ -32,6 +25,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <!-- A CardView that contains a TextView -->
+
+<!--        <Spinner-->
+<!--            android:id="@+id/spinner1"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white"-->
+<!--            android:spinnerMode="dropdown"-->
+<!--            android:prompt="preference bar"-->
+<!--            />-->
+
+        <TextView
+            android:id="@+id/fake_preferencebar"
+            android:layout_width="374dp"
+            android:layout_height="wrap_content"
+            android:background="@color/gold_3"
+            android:gravity="center"
+            android:text="Preferene Bar \u25BC"
+            android:textSize="15sp" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_breakfast"
             android:layout_width="352dp"
@@ -41,7 +53,8 @@
             app:cardBackgroundColor="@color/gold_1"
             app:cardCornerRadius="1dp">
 
-            <LinearLayout android:id="@+id/breakfast_recipe_linearlayout"
+            <LinearLayout
+                android:id="@+id/breakfast_recipe_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -61,7 +74,8 @@
                     android:text="Breakfast"
                     android:textSize="15sp" />
 
-                <LinearLayout android:id="@+id/breakfast_nutrition_linearlayout"
+                <LinearLayout
+                    android:id="@+id/breakfast_nutrition_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -72,13 +86,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <TextView
                         android:id="@+id/breakfast_dish_name"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textSize="15sp"
-                        android:text="breakfast_dish_name" />
+                        android:text="breakfast_dish_name"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/breakfast_Calories"
@@ -125,7 +140,8 @@
             app:cardBackgroundColor="@color/gold_1"
             app:cardCornerRadius="1dp">
 
-            <LinearLayout android:id="@+id/lunch_recipe_linearlayout"
+            <LinearLayout
+                android:id="@+id/lunch_recipe_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -136,6 +152,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                     android:id="@+id/lunch_title"
                     android:layout_width="102dp"
@@ -144,7 +161,8 @@
                     android:text="Lunch"
                     android:textSize="15sp" />
 
-                <LinearLayout android:id="@+id/lunch_nutrition_linearlayout"
+                <LinearLayout
+                    android:id="@+id/lunch_nutrition_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -155,13 +173,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <TextView
                         android:id="@+id/lunch_dish_name"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textSize="15sp"
-                        android:text="lunch_dish_name" />
+                        android:text="lunch_dish_name"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/lunch_Calories"
@@ -178,6 +197,7 @@
                         android:gravity="left"
                         android:text="Protein: "
                         android:textSize="15sp" />
+
                     <TextView
                         android:id="@+id/lunch_Fat"
                         android:layout_width="192dp"
@@ -185,6 +205,7 @@
                         android:gravity="left"
                         android:text="Fat: "
                         android:textSize="15sp" />
+
                     <TextView
                         android:id="@+id/lunch_Carbohydrates"
                         android:layout_width="192dp"
@@ -205,7 +226,8 @@
             app:cardBackgroundColor="@color/gold_1"
             app:cardCornerRadius="1dp">
 
-            <LinearLayout android:id="@+id/dinner_recipe_linearlayout"
+            <LinearLayout
+                android:id="@+id/dinner_recipe_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -216,6 +238,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                     android:id="@+id/breakfast_dinner"
                     android:layout_width="102dp"
@@ -224,7 +247,8 @@
                     android:text="Dinner"
                     android:textSize="15sp" />
 
-                <LinearLayout android:id="@+id/dinner_nutrition_linearlayout"
+                <LinearLayout
+                    android:id="@+id/dinner_nutrition_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -235,13 +259,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
+
                     <TextView
                         android:id="@+id/dinner_dish_name"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textSize="15sp"
-                        android:text="dinner_dish_name" />
+                        android:text="dinner_dish_name"
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/dinner_Calories"
@@ -258,6 +283,7 @@
                         android:gravity="left"
                         android:text="Protein: "
                         android:textSize="15sp" />
+
                     <TextView
                         android:id="@+id/dinner_Fat"
                         android:layout_width="192dp"
@@ -265,6 +291,7 @@
                         android:gravity="left"
                         android:text="Fat: "
                         android:textSize="15sp" />
+
                     <TextView
                         android:id="@+id/dinner_Carbohydrates"
                         android:layout_width="192dp"
@@ -285,12 +312,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:text="@string/button_Regenerate"
-            android:textSize="18sp"
             android:drawableLeft="@android:drawable/ic_menu_rotate"
             android:drawableTint="#000000"
             android:drawableTintMode="src_in"
-            android:textColor="@color/black" />
+            android:text="@string/button_Regenerate"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </LinearLayout>
 
 
