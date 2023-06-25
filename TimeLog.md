@@ -34,3 +34,4 @@
 | 2023/06/24 | 2         |            |        |          |             |           | Fixed the functionality for videoviews in the rec list, adding the remaining videoviews                                                                                       |
 | 2023/06/24 | 4         |            |        |          |             |           | Creating ImageView for the rec list                                                                                                                                           |
 | 2023/06/24 |           |            |        |          |             | 4         | Implemented Regeneration Button                                                                                                                                               |
+| 2023/06/24 |           |            |        |          |             | 2         | fake preference bar             
