@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.ece452.watfit.MainActivity;
 import com.ece452.watfit.R;
+import com.ece452.watfit.RecVideoDisplayActivity;
+import com.ece452.watfit.RecipeGeneratorActivity;
 import com.ece452.watfit.databinding.FragmentHomeBinding;
 
 import java.io.IOException;
