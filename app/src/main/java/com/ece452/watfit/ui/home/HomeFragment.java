@@ -28,11 +28,12 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     // Your Video URL
-    String videoUrl = "https://media.geeksforgeeks.org/wp-content/uploads/20201217192146/Screenrecorder-2020-12-17-19-17-36-828.mp4?_=1";
-    String videoUrl2 = "https://www.youtube.com/watch?v=i9BupglHdtM";
-    String videoUrl3 = "https://www.youtube.com/embed/zWh3CShX_do";
-    String videoUrl4 = "https://img.youtube.com/vi/i9BupglHdtM/0.jpg";
-    String requestURL = String.format("https://img.youtube.com/vi/i9BupglHdtM/0.jpg", Uri.encode("foo bar"), Uri.encode("100% fubar'd"));
+    String videoCoverUrl1 = "https://img.youtube.com/vi/TSjXhAgQCis/0.jpg";
+    String videoCoverUrl2 = "https://img.youtube.com/vi/zdpcw6CTkqw/0.jpg";
+    String videoCoverUrl3 = "https://img.youtube.com/vi/iCQ2gC4DqJw/0.jpg";
+    String videoCoverUrl4 = "https://img.youtube.com/vi/2ZbHFL_KhB4/0.jpg";
+    String videoCoverUrl5 = "https://img.youtube.com/vi/ixkQaZXVQjs/0.jpg";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         //may need to change starts
@@ -46,20 +47,69 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        //Code for image Covers start here
         ImageView v1 = (ImageView) root.findViewById(R.id.rec_v1);
+        ImageView v2 = (ImageView) root.findViewById(R.id.rec_v2);
+        ImageView v3 = (ImageView) root.findViewById(R.id.rec_v3);
+        ImageView v4 = (ImageView) root.findViewById(R.id.rec_v4);
+        ImageView v5 = (ImageView) root.findViewById(R.id.rec_v5);
         URL url = null;
+        Bitmap bitmap = null;
         try {
-            url = new URL("https://img.youtube.com/vi/i9BupglHdtM/0.jpg");
+            url = new URL(videoCoverUrl1);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        Bitmap bitmap = null;
         try {
             bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         v1.setImageBitmap(bitmap);
+        try {
+            url = new URL(videoCoverUrl2);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        v2.setImageBitmap(bitmap);
+        try {
+            url = new URL(videoCoverUrl3);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        v3.setImageBitmap(bitmap);
+        try {
+            url = new URL(videoCoverUrl4);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        v4.setImageBitmap(bitmap);
+        try {
+            url = new URL(videoCoverUrl5);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        v5.setImageBitmap(bitmap);
         //final TextView textView = binding.textHome;
         //
         //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

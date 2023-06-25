@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent"/>-->
         <ImageView
             android:id="@+id/rec_v1"
-            android:layout_width="160dp"
+            android:layout_width="120dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
             app:layout_constraintHorizontal_bias="0.498"
@@ -96,9 +96,9 @@
             app:layout_constraintTop_toTopOf="@+id/rec_v1"
             />
 
-        <VideoView
+        <ImageView
             android:id="@+id/rec_v2"
-            android:layout_width="160dp"
+            android:layout_width="120dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="@+id/rec_v1"
@@ -117,9 +117,9 @@
             app:layout_constraintStart_toEndOf="@+id/rec_v2"
             app:layout_constraintTop_toTopOf="@+id/rec_v2" />
 
-        <VideoView
+        <ImageView
             android:id="@+id/rec_v3"
-            android:layout_width="160dp"
+            android:layout_width="120dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="@+id/rec_v2"
@@ -138,9 +138,9 @@
             app:layout_constraintStart_toEndOf="@+id/rec_v3"
             app:layout_constraintTop_toTopOf="@+id/rec_v3" />
 
-        <VideoView
+        <ImageView
             android:id="@+id/rec_v4"
-            android:layout_width="160dp"
+            android:layout_width="120dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="@+id/rec_v3"
@@ -159,9 +159,9 @@
             app:layout_constraintStart_toEndOf="@+id/rec_v4"
             app:layout_constraintTop_toTopOf="@+id/rec_v4" />
 
-        <VideoView
+        <ImageView
             android:id="@+id/rec_v5"
-            android:layout_width="160dp"
+            android:layout_width="120dp"
             android:layout_height="80dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="@+id/rec_v4"
@@ -184,8 +184,7 @@
             android:id="@+id/bt_submit_bd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginTop="15dp"
             android:text="REFRESH"
             android:textSize="16sp"
             android:textStyle="bold"
