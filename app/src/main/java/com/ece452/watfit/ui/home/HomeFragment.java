@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -39,6 +40,11 @@ public class HomeFragment extends Fragment {
     String videoUrl3 = "https://www.youtube.com/embed/IT94xC35u6k";
     String videoUrl4 = "https://www.youtube.com/embed/A0BhN-HAkt8";
     String videoUrl5 = "https://www.youtube.com/embed/ixkQaZXVQjs";
+    String videoDes1 = "PERFECT 20 MIN FULL BODY WORKOUT FOR BEGINNERS (No Equipment)";
+    String videoDes2 = "10 MIN BODYWEIGHT WORKOUT (NO EQUIPMENT HOME WORKOUT!)";
+    String videoDes3 = "20 min Fat Burning Workout for TOTAL BEGINNERS (Achievable, No Equipment)";
+    String videoDes4 = "20 MINUTE CARDIO AND ABS WORKOUT [FAT MELTING ROUTINE]";
+    String videoDes5 = "The PERFECT Beginner Workout (Sets and Reps Included)";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,6 +69,19 @@ public class HomeFragment extends Fragment {
             }
         });
         ///////
+
+        //Code for Video Desc. starts here
+        TextView v1_text = (TextView)root.findViewById(R.id.rec_v1_text);
+        TextView v2_text = (TextView)root.findViewById(R.id.rec_v2_text);
+        TextView v3_text = (TextView)root.findViewById(R.id.rec_v3_text);
+        TextView v4_text = (TextView)root.findViewById(R.id.rec_v4_text);
+        TextView v5_text = (TextView)root.findViewById(R.id.rec_v5_text);
+        v1_text.setText(videoDes1);
+        v2_text.setText(videoDes2);
+        v3_text.setText(videoDes3);
+        v4_text.setText(videoDes4);
+        v5_text.setText(videoDes5);
+
 
         //Code for image Covers start here
         ImageView v1 = (ImageView) root.findViewById(R.id.rec_v1);

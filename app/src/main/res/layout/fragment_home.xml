@@ -95,6 +95,8 @@
             android:text="Recommended Video #1:"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:maxEms="13"
+            android:singleLine="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rec_v1"
             app:layout_constraintTop_toTopOf="@+id/rec_v1"
@@ -114,9 +116,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:text="Recommended Video #2:\n ddd\n adsad\n aaa"
+            android:text="Recommended Video #2:"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:maxEms="13"
+            android:singleLine="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rec_v2"
             app:layout_constraintTop_toTopOf="@+id/rec_v2" />
@@ -138,6 +142,8 @@
             android:text="Recommended Video #3:"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:maxEms="13"
+            android:singleLine="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rec_v3"
             app:layout_constraintTop_toTopOf="@+id/rec_v3" />
@@ -159,6 +165,8 @@
             android:text="Recommended Video #4:"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:maxEms="13"
+            android:singleLine="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rec_v4"
             app:layout_constraintTop_toTopOf="@+id/rec_v4" />
@@ -180,6 +188,8 @@
             android:text="Recommended Video #5:"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:maxEms="13"
+            android:singleLine="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/rec_v5"
             app:layout_constraintTop_toTopOf="@+id/rec_v5" />
