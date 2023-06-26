@@ -12,6 +12,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.78" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_vertical_2"
@@ -37,17 +43,36 @@
     <android.widget.SearchView
         android:id="@+id/searchViewExercise"
         android:queryHint="@string/exercise_search_hint"
-        android:background="@android:color/darker_gray"
-        android:iconifiedByDefault="false"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+        android:background="@android:color/darker_gray"
+        android:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+        app:layout_constraintHorizontal_bias="0.806"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/estimateTime"
         />
+
+    <ListView
+        android:id="@+id/exerciseListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:isScrollContainer="false"
+        app:layout_constraintTop_toBottomOf="@+id/searchViewExercise" />
+
+    <TextView
+        android:id="@+id/textViewViewExerciseSelected"
+        android:layout_width="100dp"
+        android:layout_height="47dp"
+        android:layout_marginLeft="30dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/estimateTime" />
     <EditText
         android:id="@+id/estimateTime"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:gravity="center"
         android:hint="@string/exercise_time_hint"
@@ -72,7 +97,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="300"
         android:textSize="15sp"
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
@@ -91,10 +115,23 @@
         app:layout_constraintTop_toBottomOf="@+id/estimateTime"
         app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_1" />
 
+    <ListView
+        android:id="@+id/exerciseSelectList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:isScrollContainer="false"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal_3"
+    />
+
     <TextView
         android:id="@+id/calorieTotalExerciseText"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:text="@string/daily_exercise_calorie"
         android:textSize="15sp"
@@ -106,8 +143,8 @@
         android:id="@+id/calorieTotalExercise"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
-        android:text="300"
         android:textSize="15sp"
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
@@ -117,6 +154,7 @@
         android:id="@+id/submitButtonExercise"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
+        android:layout_marginBottom="60dp"
         android:gravity="center"
         android:text="@string/submit_button_text"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
