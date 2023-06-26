@@ -32,4 +32,6 @@
 | 2023/06/23 | 3         | 0          | 0      | 0        | 0           | 0         | Working on fixing the videoviews in rec. list
 | 2023/06/24 | 2         | 0          | 0      | 0        | 0           | 0         | Fixed the functionality for videoviews in the rec list, adding the remaining videoviews
 | 2023/06/24 | 4         | 0          | 0      | 0        | 0           | 0         | Creating ImageView for the rec list
+| 2023/06/25 | 0         | 0          | 3      | 0        | 0           | 0         | Worked on exercise fragment search function
 | 2023/06/25 | 5         | 0          | 0      | 0        | 0           | 0         | Creating the activity(s) for rec video streaming
+| 2023/06/25 | 0         | 0          | 5      | 0        | 0           | 0         | Updated exercise fragment search function
