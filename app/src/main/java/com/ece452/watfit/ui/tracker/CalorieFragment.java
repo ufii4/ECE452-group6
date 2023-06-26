@@ -76,6 +76,8 @@ public class CalorieFragment extends Fragment {
         SearchView searchView = root.findViewById(R.id.searchViewCalorie);
         TextView calorieTotal = root.findViewById(R.id.calorieTotal);
         calorieTotal.setText(Double.toString(dailyCalorie));
+        Button submitButton = root.findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(v -> submit());
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -202,6 +204,10 @@ public class CalorieFragment extends Fragment {
                 ingredientImageList[i] = list.get(i).image;
                 ingredientList1.add(list.get(i));
             }
+    }
+
+    private void submit() {
+        NavHostFragment.findNavController(this).popBackStack();
     }
 
     private void hideElementExceptList(View root){

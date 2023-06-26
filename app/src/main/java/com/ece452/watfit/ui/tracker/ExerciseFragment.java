@@ -45,7 +45,7 @@ public class ExerciseFragment extends Fragment {
     private EditText estimateTimeEditText;
     private Button addButtonExercise;
     private TextView calorieTotalExerciseTextView;
-    private TextView textViewViewExerciseSelected;
+    private TextView textViewExerciseSelected;
     private Button submitButtonExercise;
     private ListView exerciseListView;
     private SearchView exerciseSearchView;
@@ -71,7 +71,9 @@ public class ExerciseFragment extends Fragment {
         addButtonExercise = root.findViewById(R.id.addButtonExercise);
         calorieTotalExerciseTextView = root.findViewById(R.id.calorieTotalExercise);
         submitButtonExercise = root.findViewById(R.id.submitButtonExercise);
-        textViewViewExerciseSelected = root.findViewById(R.id.textViewViewExerciseSelected);
+        textViewExerciseSelected = root.findViewById(R.id.textViewExerciseSelected);
+
+        calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
 
         exerciseSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -100,7 +102,7 @@ public class ExerciseFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 exerciseListView.setAdapter(null);
                 displayElementExceptList(root);
-                textViewViewExerciseSelected.setText(exerciseList.get(i).name);
+                textViewExerciseSelected.setText(exerciseList.get(i).name);
                 addButtonExercise.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -187,6 +189,7 @@ public class ExerciseFragment extends Fragment {
         TextView t3 = root.findViewById(R.id.calorieExercise);
         TextView t4 = root.findViewById(R.id.calorieTotalExerciseText);
         TextView t5 = root.findViewById(R.id.calorieTotalExercise);
+        TextView t6 = root.findViewById(R.id.textViewExerciseSelected);
         Button b2 = root.findViewById(R.id.addButtonExercise);
         Button b3 = root.findViewById(R.id.submitButtonExercise);
         ListView list = root.findViewById(R.id.exerciseListView);
@@ -196,6 +199,7 @@ public class ExerciseFragment extends Fragment {
         t3.setVisibility(View.INVISIBLE);
         t4.setVisibility(View.INVISIBLE);
         t5.setVisibility(View.INVISIBLE);
+        t6.setVisibility(View.INVISIBLE);
         b2.setVisibility(View.INVISIBLE);
         b3.setVisibility(View.INVISIBLE);
         list.setVisibility(View.VISIBLE);
@@ -207,6 +211,7 @@ public class ExerciseFragment extends Fragment {
         TextView t3 = root.findViewById(R.id.calorieExercise);
         TextView t4 = root.findViewById(R.id.calorieTotalExerciseText);
         TextView t5 = root.findViewById(R.id.calorieTotalExercise);
+        TextView t6 = root.findViewById(R.id.textViewExerciseSelected);
         Button b2 = root.findViewById(R.id.addButtonExercise);
         Button b3 = root.findViewById(R.id.submitButtonExercise);
         ListView list = root.findViewById(R.id.exerciseListView);
@@ -216,6 +221,7 @@ public class ExerciseFragment extends Fragment {
         t3.setVisibility(View.VISIBLE);
         t4.setVisibility(View.VISIBLE);
         t5.setVisibility(View.VISIBLE);
+        t6.setVisibility(View.VISIBLE);
         b2.setVisibility(View.VISIBLE);
         b3.setVisibility(View.VISIBLE);
         list.setVisibility(View.INVISIBLE);
