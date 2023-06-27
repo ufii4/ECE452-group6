@@ -40,7 +40,7 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         LineChart lineChart = root.findViewById(R.id.lineChart);
-// Configure the chart
+        // Configure the chart
         lineChart.setTouchEnabled(true);
         lineChart.setDragEnabled(true);
         lineChart.setScaleEnabled(true);

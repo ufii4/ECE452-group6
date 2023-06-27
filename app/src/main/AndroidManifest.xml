@@ -16,8 +16,16 @@
         android:theme="@style/Theme.WatFit"
         tools:targetApi="31">
         <activity
-            android:name=".RecVideoDisplayActivity"
+            android:name=".EditPostActivity"
             android:exported="false" />
+        <activity
+            android:name=".PostContentActivity"
+            android:exported="false"
+            android:label="@string/title_null" />
+        <activity
+            android:name=".RecVideoDisplayActivity"
+            android:exported="false"
+            android:label="@string/title_null" />
         <activity
             android:name=".RecipeGeneratorActivity"
             android:exported="false"
