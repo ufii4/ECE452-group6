@@ -22,7 +22,8 @@ public class SpoonacularDataSource {
                 .addInterceptor(this::addApiKeyToRequests)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.spoonacular.com/")
+//                .baseUrl("https://api.spoonacular.com/")
+                .baseUrl("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/")
                 .client(httpClient)
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -35,10 +36,12 @@ public class SpoonacularDataSource {
 
     private Response addApiKeyToRequests(Interceptor.Chain chain) throws IOException {
         Request.Builder request = chain.request().newBuilder();
-        HttpUrl originalHttpUrl = chain.request().url();
-        HttpUrl newUrl = originalHttpUrl.newBuilder()
-                .addQueryParameter("apiKey", "6f17fb2ff05d4fa49853c852baf46b38").build();
-        request.url(newUrl);
+//        HttpUrl originalHttpUrl = chain.request().url();
+//        HttpUrl newUrl = originalHttpUrl.newBuilder()
+//                .addQueryParameter("apiKey", "6f17fb2ff05d4fa49853c852baf46b38").build();
+//        request.url(newUrl);
+        request.addHeader("X-RapidAPI-Key", "0022e3462fmshf80b87716cb378dp1df9dbjsn46d1d75374c4")
+                .addHeader("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com");
         return chain.proceed(request.build());
     }
 }
