@@ -1,8 +1,13 @@
 package com.ece452.watfit.ui.dashboard;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,7 +15,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
+import com.ece452.watfit.EditPostActivity;
 import com.ece452.watfit.R;
 import com.ece452.watfit.databinding.FragmentDashboardBinding;
 import com.ece452.watfit.ui.dashboard.CircleDiagramView;
@@ -68,6 +75,31 @@ public class DashboardFragment extends Fragment {
         lineChart.setData(lineData);
         lineChart.invalidate();
         return root;
+    }
+
+    /********* Sharing Button ***********/
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        setHasOptionsMenu(true);
+    }
+    // add account button to action bar (header)
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_share_button, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // share button is clicked
+        if (item.getItemId() == R.id.share_post_button) {
+            // handle account button click
+            // TODO: take a screenshot on the current Dashboard fragment before navigate to EditPostActivity
+            startActivity(new Intent(getActivity(), EditPostActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

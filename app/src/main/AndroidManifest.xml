@@ -17,7 +17,8 @@
         tools:targetApi="31">
         <activity
             android:name=".EditPostActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/title_edit_post"/>
         <activity
             android:name=".PostContentActivity"
             android:exported="false"

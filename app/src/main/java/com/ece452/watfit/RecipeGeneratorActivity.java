@@ -1,7 +1,10 @@
 package com.ece452.watfit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -164,14 +167,33 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
 
     }
 
+    // add Account & Sharing button to action bar (header)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_account_button, menu);
+        getMenuInflater().inflate(R.menu.menu_share_button, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // go back to previous activity
-                finish();
-                return true;
+        if(item.getItemId() == android.R.id.home) {
+            // go back to previous activity
+            finish();
+            return true;
         }
+        if(item.getItemId() == R.id.account_button) {
+            // handle account button click
+            startActivity(new Intent(RecipeGeneratorActivity.this, AccountActivity.class));
+            return true;
+        }
+        if(item.getItemId() == R.id.share_post_button) {
+            // handle share button click
+            // TODO: take a screenshot on the RecipeGeneratorActivity before navigate to EditPostActivity
+            startActivity(new Intent(RecipeGeneratorActivity.this, EditPostActivity.class));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
