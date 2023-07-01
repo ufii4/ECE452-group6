@@ -7,9 +7,6 @@
     tools:context=".RecipeGeneratorActivity"
     >
 
-
-
-
     <LinearLayout
         android:id="@+id/header_linearlayout_nav"
         android:layout_width="406dp"
@@ -26,23 +23,18 @@
         app:layout_constraintTop_toTopOf="parent">
         <!-- A CardView that contains a TextView -->
 
-<!--        <Spinner-->
-<!--            android:id="@+id/spinner1"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:background="@color/white"-->
-<!--            android:spinnerMode="dropdown"-->
-<!--            android:prompt="preference bar"-->
-<!--            />-->
-
-        <TextView
-            android:id="@+id/fake_preferencebar"
-            android:layout_width="374dp"
+        <Button
+            android:id="@+id/preferencebar"
+            android:layout_width="344dp"
             android:layout_height="wrap_content"
-            android:background="@color/gold_3"
-            android:gravity="center"
-            android:text="Preferene Bar \u25BC"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:drawableTint="#000000"
+            android:drawableTintMode="src_in"
+            android:text="@string/button_Preference_bar"
+            android:textColor="@color/black"
             android:textSize="15sp" />
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_breakfast"

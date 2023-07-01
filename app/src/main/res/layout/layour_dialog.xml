@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/header_linearlayout_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/edit_calorie_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:text="Calorie"
+                />
+            <EditText
+                android:id="@+id/edit_calorie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="enter a number between 50~800"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/edit_protein_linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:text="Protein"
+            />
+            <EditText
+            android:id="@+id/edit_protein"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="enter a number between 10~100"
+            />
+        </LinearLayout>
+
+        <LinearLayout
+        android:id="@+id/edit_fat_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="102dp"
+            android:layout_height="wrap_content"
+            android:text="Fat"
+            />
+        <EditText
+            android:id="@+id/edit_fat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="enter a number between 1~100"
+            />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+        android:id="@+id/edit_carbohydrates_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+            <TextView
+                android:layout_width="102dp"
+                android:layout_height="wrap_content"
+                android:text="Carbohydrates"
+                />
+            <EditText
+                android:id="@+id/edit_carbohydrates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="enter a number between 10~100" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

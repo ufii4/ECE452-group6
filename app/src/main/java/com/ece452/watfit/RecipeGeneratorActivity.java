@@ -56,8 +56,8 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
     TextView breakfast_fat;
     TextView lunch_fat;
     TextView dinner_fat;
-
     Button bt_regenerate;
+    Button bt_preferencebar;
 
     List<Recipe> breakfast_recipes;
     List<Recipe> lunch_recipes;
@@ -109,6 +109,16 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         dinner_carbs = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Carbohydrates);
 
         bt_regenerate = findViewById(R.id.bt_regenerate_recipe);
+
+        ///// preference bar
+        LinearLayout header_linearlayout_nav = findViewById(R.id.header_linearlayout_nav);
+        bt_preferencebar = header_linearlayout_nav.findViewById(R.id.preferencebar);
+        bt_preferencebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
 
         ///// get user profile from database
         DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
@@ -263,4 +273,8 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
     }
 
 
+    public void openDialog(){
+        PreferenceDialog preferenceDialog = new PreferenceDialog();
+        preferenceDialog.show(getSupportFragmentManager(),"preference dialog");
+    }
 }
