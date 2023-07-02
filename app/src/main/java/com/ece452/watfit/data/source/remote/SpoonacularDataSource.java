@@ -40,7 +40,7 @@ public class SpoonacularDataSource {
 //        HttpUrl newUrl = originalHttpUrl.newBuilder()
 //                .addQueryParameter("apiKey", "6f17fb2ff05d4fa49853c852baf46b38").build();
 //        request.url(newUrl);
-        request.addHeader("X-RapidAPI-Key", "0022e3462fmshf80b87716cb378dp1df9dbjsn46d1d75374c4")
+        request.addHeader("X-RapidAPI-Key", "e645cd7cddmshd7c882d13e63ec0p1e145fjsna44baff8ed89")
                 .addHeader("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com");
         return chain.proceed(request.build());
     }

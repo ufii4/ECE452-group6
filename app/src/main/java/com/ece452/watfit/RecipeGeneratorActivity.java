@@ -35,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.annotations.NonNull;
 
 @AndroidEntryPoint
-public class RecipeGeneratorActivity extends AppCompatActivity {
+public class RecipeGeneratorActivity extends AppCompatActivity implements PreferenceDialog.PreferenceDialogListener {
     private FirebaseAuth auth;
 
     //constant int called number_of_recipes
@@ -276,5 +276,11 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
     public void openDialog(){
         PreferenceDialog preferenceDialog = new PreferenceDialog();
         preferenceDialog.show(getSupportFragmentManager(),"preference dialog");
+    }
+
+    @Override
+    public void applyTexts(String calorie, String carbohydrates, String fat, String protein) {
+        Log.d("hihihi", "applyTexts: calorie is "+ calorie +" carbohydrates is " + carbohydrates +
+                " fat is "+fat + " protein is "+protein);
     }
 }
