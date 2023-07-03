@@ -45,4 +45,5 @@
 | 2023/07/02 |           | 6          |        |          |             |           | Add delete and change date function to CalorieFragment                                                                                                                                  |
 | 2023/07/02 | 8         |            |        |          |             |           | Replace navbar descriptions with icons, creating and refining the UI for fitness scheduler, retrieving the google API key, and setting up the link to be used for video list generation |
 | 2023/07/02 |           |            |        | 4        |             |           | Wired up post and inbox UI with firebase firestore                                                                                                                                      |
-  
+| 2023/07/02 |           |            |        |         |             |8           | Preference bar
+| 2023/07/03 |           |            |        |         |             |2           | Preference bar
