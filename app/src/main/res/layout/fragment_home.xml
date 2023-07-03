@@ -41,7 +41,7 @@
             android:drawableTop="@drawable/baseline_dinner_dining_40" />
 
         <Button
-            android:id="@+id/navbar_plan_generator"
+            android:id="@+id/navbar_fitness_generator"
             android:layout_width="90dp"
             android:layout_height="60dp"
             android:layout_gravity="right"
