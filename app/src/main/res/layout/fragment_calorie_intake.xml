@@ -60,6 +60,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/estimateCalorie"/>
+
         <ListView
             android:id="@+id/listview"
             android:layout_width="match_parent"
@@ -182,7 +183,16 @@
             app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
             app:layout_constraintHorizontal_bias="0.525"
             app:layout_constraintStart_toStartOf="@+id/guideline_vertical_2" />
-
+    <Button
+        android:id="@+id/dateButtonCalorie"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calorieTotal"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
