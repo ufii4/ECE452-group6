@@ -43,3 +43,5 @@
 | 2023/06/25 |          |            | 5    |          |            |         | Updated exercise fragment search function                                                                                                                                    |
 | 2023/06/27 |          |            |      |          | 8          |         | Social Sharing Functionality: UI for Edit Post, Post Preview Card, and Post Display                                                                                          |
 | 2023/07/02 |          | 6          |      |          |            |         | Add delete and change date function to CalorieFragment                                                                                           |
+| 2023/07/02 | 8        |            |      |          |            |         | Replace navbar descriptions with icons, creating and refining the UI for fitness scheduler, retrieving the google API key, and setting up the link to be used for video list generation
+  
