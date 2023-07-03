@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/fake_preferencebar"
+            android:id="@+id/fitness_preference_bar"
             android:layout_width="374dp"
             android:layout_height="wrap_content"
             android:background="@color/gold_3"
@@ -35,16 +35,16 @@
             android:textSize="15sp" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_view_breakfast"
+            android:id="@+id/card_view_Monday"
             android:layout_width="352dp"
-            android:layout_height="120dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
             app:cardCornerRadius="1dp">
 
             <LinearLayout
-                android:id="@+id/breakfast_recipe_linearlayout"
+                android:id="@+id/Monday_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -57,15 +57,15 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/breakfast_title"
+                    android:id="@+id/Monday_title"
                     android:layout_width="102dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="Breakfast"
+                    android:text="Monday"
                     android:textSize="15sp" />
 
                 <LinearLayout
-                    android:id="@+id/breakfast_nutrition_linearlayout"
+                    android:id="@+id/Monday_exercise_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -78,146 +78,35 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/breakfast_dish_name"
+                        android:id="@+id/Monday_exercise_description"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="breakfast_dish_name"
+                        android:text="Monday exercise:"
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/breakfast_Calories"
+                        android:id="@+id/Monday_exercise_Calories"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="Calories: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/breakfast_Protein"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Protein: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/breakfast_Fat"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Fat: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/breakfast_Carbohydrates"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Carbohydrates: "
-                        android:textSize="15sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_view_lunch"
-            android:layout_width="352dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            app:cardBackgroundColor="@color/gold_1"
-            app:cardCornerRadius="1dp">
-
-            <LinearLayout
-                android:id="@+id/lunch_recipe_linearlayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/lunch_title"
-                    android:layout_width="102dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:text="Lunch"
-                    android:textSize="15sp" />
-
-                <LinearLayout
-                    android:id="@+id/lunch_nutrition_linearlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/lunch_dish_name"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="lunch_dish_name"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/lunch_Calories"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Calories: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/lunch_Protein"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Protein: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/lunch_Fat"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Fat: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/lunch_Carbohydrates"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Carbohydrates: "
+                        android:text="Calories:"
                         android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_view_dinner"
-            android:layout_width="349dp"
-            android:layout_height="120dp"
+            android:id="@+id/card_view_Tuesday"
+            android:layout_width="352dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
             app:cardCornerRadius="1dp">
 
             <LinearLayout
-                android:id="@+id/dinner_recipe_linearlayout"
+                android:id="@+id/Tuesday_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -230,15 +119,15 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/breakfast_dinner"
+                    android:id="@+id/Tuesday_title"
                     android:layout_width="102dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:text="Dinner"
+                    android:text="Tuesday"
                     android:textSize="15sp" />
 
                 <LinearLayout
-                    android:id="@+id/dinner_nutrition_linearlayout"
+                    android:id="@+id/Tuesday_exercise_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
@@ -251,49 +140,332 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/dinner_dish_name"
+                        android:id="@+id/Tuesday_exercise_description"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="dinner_dish_name"
+                        android:text="Tuesday exercise:"
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/dinner_Calories"
+                        android:id="@+id/Tuesday_exercise_Calories"
                         android:layout_width="192dp"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="Calories: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/dinner_Protein"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Protein: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/dinner_Fat"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Fat: "
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/dinner_Carbohydrates"
-                        android:layout_width="192dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Carbohydrates: "
+                        android:text="Calories:"
                         android:textSize="15sp" />
                 </LinearLayout>
-
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_Wednesday"
+            android:layout_width="352dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/gold_1"
+            app:cardCornerRadius="1dp">
 
+            <LinearLayout
+                android:id="@+id/Wednesday_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/Wednesday_title"
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Wednesday"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/Wednesday_exercise_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/Wednesday_exercise_description"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Wednesday exercise:"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/Wednesday_exercise_Calories"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Calories:"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_Thursday"
+            android:layout_width="352dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/gold_1"
+            app:cardCornerRadius="1dp">
+
+            <LinearLayout
+                android:id="@+id/Thursday_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/Thursday_title"
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Thursday"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/Thursday_exercise_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/Thursday_exercise_description"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Thursday exercise:"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/Thursday_exercise_Calories"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Calories:"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_Friday"
+            android:layout_width="352dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/gold_1"
+            app:cardCornerRadius="1dp">
+
+            <LinearLayout
+                android:id="@+id/Friday_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/Friday_title"
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Friday"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/Friday_exercise_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/Friday_exercise_description"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Friday exercise:"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/Friday_exercise_Calories"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Calories:"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_Saturday"
+            android:layout_width="352dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/gold_1"
+            app:cardCornerRadius="1dp">
+
+            <LinearLayout
+                android:id="@+id/Saturday_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/Saturday_title"
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Saturday"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/Saturday_exercise_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/Saturday_exercise_description"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Saturday exercise:"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/Saturday_exercise_Calories"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Calories:"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_Sunday"
+            android:layout_width="352dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            app:cardBackgroundColor="@color/gold_1"
+            app:cardCornerRadius="1dp">
+
+            <LinearLayout
+                android:id="@+id/Sunday_linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/Sunday_title"
+                    android:layout_width="102dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Sunday"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/Sunday_exercise_linearlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/Sunday_exercise_description"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Sunday exercise:"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/Sunday_exercise_Calories"
+                        android:layout_width="192dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Calories:"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <Button
