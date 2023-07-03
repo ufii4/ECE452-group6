@@ -40,6 +40,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
     //constant int called number_of_recipes
     private static final int NUMBER_OF_RECIPES = 30;
+    private static final int NUMBER_OF_PREFERENCED_RECIPES = 10;
 
     TextView breakfast_dish_name;
     TextView lunch_dish_name;
@@ -207,6 +208,58 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
         return super.onOptionsItemSelected(item);
     }
 
+    private void getPreferencedRecipeGenerated(int minCarbs, int maxCarbs,
+                                               int minProtein, int maxProtein,
+                                               int minCalories, int maxCalories,
+                                               int minFat, int maxFat,
+                                               String mealType){
+        String query = "healthy";
+        switch (mealType) {
+            case "breakfast":
+                query = "breakfast";
+                break;
+            case "lunch":
+                query = "burger";
+                break;
+            case "dinner":
+                query = "chicken breast";
+                break;
+        }
+        recipeService.searchRecipeWithPreference(minCarbs, maxCarbs,
+                minProtein, maxProtein,
+                minCalories, maxCalories,
+                minFat, maxFat, query ,NUMBER_OF_PREFERENCED_RECIPES)
+                .subscribe(
+                        result -> {
+                            List<Recipe> list = result.results;
+                            Recipe recipe = list.get(0);
+                            Nutrition nutrition = recipe.nutrition;
+                            nutrition.genNutrients();
+
+                            if (mealType.equals("breakfast")) {
+                                breakfast_recipes.clear();
+                                breakfast_recipes.addAll(list);
+                                breakfast_RecipeUI(recipe, nutrition);
+                            } else if (mealType.equals("lunch")) {
+                                lunch_recipes.clear();
+                                lunch_recipes.addAll(list);
+                                lunch_RecipeUI(recipe, nutrition);
+                            } else if (mealType.equals("dinner")) {
+                                dinner_recipes.clear();
+                                dinner_recipes.addAll(list);
+                                dinner_RecipeUI(recipe, nutrition);
+                            }
+                        },
+                        error -> {
+                            Log.e("RecipeGeneratorActivity", "onFailure: " + error.getLocalizedMessage());
+                        },
+                        () -> {
+                            Log.d("RecipeGeneratorActivity", "onComplete: ");
+                        }
+                );
+
+    }
+
     private void getRecipesGenerated(String mealType) {
         String query = "healthy";
         switch (mealType) {
@@ -282,5 +335,32 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     public void applyTexts(String calorie, String carbohydrates, String fat, String protein) {
         Log.d("hihihi", "applyTexts: calorie is "+ calorie +" carbohydrates is " + carbohydrates +
                 " fat is "+fat + " protein is "+protein);
+
+        int int_claorie = Integer.valueOf(calorie);
+        int int_carbohydrates = Integer.valueOf(carbohydrates);
+        int int_fat = Integer.valueOf(fat);
+        int int_protein = Integer.valueOf(protein);
+        int minCalories = Math.max(50, int_claorie-200);
+        int maxCalories = Math.min(800, int_claorie+200);
+        int minCarbohydrates = Math.max(10, int_carbohydrates-8);
+        int maxCarbohydrates = Math.min(100, int_carbohydrates+8);
+        int minFat = Math.max(1, int_fat-8);
+        int maxFat = Math.min(100, int_fat+8);
+        int minProtein = Math.max(10, int_protein-8);
+        int maxProtein = Math.min(100, int_protein+8);
+
+        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+                minProtein,  maxProtein,
+                minCalories, maxCalories,
+                minFat, maxFat, "breakfast");
+        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+                minProtein,  maxProtein,
+                minCalories, maxCalories,
+                minFat, maxFat, "lunch");
+        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+                minProtein,  maxProtein,
+                minCalories, maxCalories,
+                minFat, maxFat, "dinner");
+
     }
 }
