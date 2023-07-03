@@ -13,14 +13,11 @@
         android:layout_height="wrap_content"
         tools:context=".SharedWithMeActivity">
 
-        <include
-            android:id="@+id/card_1_swm"
-            layout="@layout/card_shared_post"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_inbox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:padding="0dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

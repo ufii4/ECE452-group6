@@ -2,13 +2,24 @@ package com.ece452.watfit;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
+
+import com.ece452.watfit.data.PostInbox;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SharedWithMeActivity extends AppCompatActivity {
+    private List<String> posts = new ArrayList<>();
+    private PostInboxAdapter adapter;
+    private RecyclerView rv_inbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +34,19 @@ public class SharedWithMeActivity extends AppCompatActivity {
         }
 
         // TODO: Dynamically display post preview cards if there is at least 1 privately shared post by friend
-
-    }
-
-    // Button action when a post preview card is clicked
-    // nav to the screen where post content is displayed
-    public void navigateToPostViewActivity(View view) {
-        startActivity(new Intent(SharedWithMeActivity.this, PostContentActivity.class));
+        adapter = new PostInboxAdapter(posts);
+        rv_inbox = findViewById(R.id.rv_inbox);
+        rv_inbox.setAdapter(adapter);
+        rv_inbox.setLayoutManager(new LinearLayoutManager(this));
+        FirebaseFirestore.getInstance().collection("users")
+                .document(FirebaseAuth.getInstance().getUid())
+                .collection("inbox").get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                        PostInbox post = queryDocumentSnapshots.getDocuments().get(i).toObject(PostInbox.class);
+                        posts.add(post.postId);
+                        adapter.notifyItemInserted(posts.size() - 1);
+                    }
+                });
     }
 
     // nav to AccountActivity when back button is clicked

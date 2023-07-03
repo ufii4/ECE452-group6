@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ece452.watfit.data.Post;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class PostContentActivity extends AppCompatActivity {
+    public TextView title;
+    public TextView description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +29,15 @@ public class PostContentActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back_arrow);
         }
 
-        // TODO: Fetch post content from database and display in the corresponding component in this screen
-        // (ex. display title in lb_title_pc, display image in iv_post_image_pc, etc.)
-
+        title = findViewById(R.id.lb_title_pc);
+        description = findViewById(R.id.lb_content_pc);
+        Intent intent = getIntent();
+        String postId = intent.getStringExtra("postId");
+        FirebaseFirestore.getInstance().collection("posts").document(postId).get().addOnSuccessListener(documentSnapshot -> {
+            Post post = documentSnapshot.toObject(Post.class);
+            title.setText(post.title);
+            description.setText(post.description);
+        });
     }
 
 
