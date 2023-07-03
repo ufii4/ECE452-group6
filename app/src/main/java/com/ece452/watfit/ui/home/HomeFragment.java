@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ece452.watfit.FitnessSchedulerActivity;
 import com.ece452.watfit.MainActivity;
 import com.ece452.watfit.R;
 import com.ece452.watfit.RecVideoDisplayActivity;
@@ -65,6 +66,16 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecipeGeneratorActivity.class);
+                startActivity(intent);
+            }
+        });
+        ///////
+        ///////The Fitness Scheduler Button
+        Button fitnessSchedulerButton = (Button) root.findViewById(R.id.navbar_fitness_generator);
+        fitnessSchedulerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FitnessSchedulerActivity.class);
                 startActivity(intent);
             }
         });
