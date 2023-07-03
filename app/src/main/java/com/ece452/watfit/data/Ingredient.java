@@ -8,4 +8,10 @@ public class Ingredient {
         public Nutrition nutrition;
         public String image;
         public List<String> possibleUnits;
+
+        public Ingredient(String name, int id, String image) {
+                this.name = name;
+                this.id = id;
+                this.image = image;
+        }
 }

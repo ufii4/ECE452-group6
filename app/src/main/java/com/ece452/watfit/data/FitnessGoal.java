@@ -6,8 +6,8 @@ import java.util.Map;
 public class FitnessGoal {
     public enum Type {
         WEIGHT("Weight"),
-        CALORIE_INTAKE("Calorie Intake"),
-        CALORIE_CONSUMPTION("Calorie Consumption"),
+        CALORIE_INTAKE("Calorie Intake per Day"),
+        CALORIE_CONSUMPTION("Calorie Consumption per Day"),
         BMI("BMI");
 
         private final String displayName;

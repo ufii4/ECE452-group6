@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.4" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_horizontal_1"
         android:layout_width="wrap_content"
@@ -39,6 +39,17 @@
         android:padding="10dip"
         android:textSize="16dip"
         android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnDeleteFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1"
+        />
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/ingredientCalorie"
         android:layout_width="wrap_content"

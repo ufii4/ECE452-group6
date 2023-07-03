@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:onClick="navigateToPostViewActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_rectangle"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_image_preview_csp"
+            android:layout_width="90dp"
+            android:layout_height="130dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/default_post_img" />
+
+        <TextView
+            android:id="@+id/lb_title_csp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/iv_image_preview_csp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Post Title"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:maxLength="66"/>
+
+        <TextView
+            android:id="@+id/lb_description_csp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lb_title_csp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/iv_image_preview_csp"
+            android:text="Post Description"
+            android:textSize="14sp"
+            android:maxLines="3"
+            android:maxLength="108"/>
+
+        <TextView
+            android:id="@+id/lb_sender_csp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lb_description_csp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@id/iv_image_preview_csp"
+            android:maxLength="36"
+            android:maxLines="1"
+            android:text="sender@gmail.com or sender name"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textColor="@color/light_red_1"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

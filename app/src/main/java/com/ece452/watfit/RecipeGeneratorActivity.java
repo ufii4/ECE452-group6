@@ -1,7 +1,10 @@
 package com.ece452.watfit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,11 +35,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.annotations.NonNull;
 
 @AndroidEntryPoint
-public class RecipeGeneratorActivity extends AppCompatActivity {
+public class RecipeGeneratorActivity extends AppCompatActivity implements PreferenceDialog.PreferenceDialogListener {
     private FirebaseAuth auth;
 
     //constant int called number_of_recipes
     private static final int NUMBER_OF_RECIPES = 30;
+    private static final int NUMBER_OF_PREFERENCED_RECIPES = 10;
 
     TextView breakfast_dish_name;
     TextView lunch_dish_name;
@@ -53,8 +57,8 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
     TextView breakfast_fat;
     TextView lunch_fat;
     TextView dinner_fat;
-
     Button bt_regenerate;
+    Button bt_preferencebar;
 
     List<Recipe> breakfast_recipes;
     List<Recipe> lunch_recipes;
@@ -106,6 +110,16 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
         dinner_carbs = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Carbohydrates);
 
         bt_regenerate = findViewById(R.id.bt_regenerate_recipe);
+
+        ///// preference bar
+        LinearLayout header_linearlayout_nav = findViewById(R.id.header_linearlayout_nav);
+        bt_preferencebar = header_linearlayout_nav.findViewById(R.id.preferencebar);
+        bt_preferencebar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
 
         ///// get user profile from database
         DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
@@ -164,15 +178,86 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
 
     }
 
+    // add Account & Sharing button to action bar (header)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_account_button, menu);
+        getMenuInflater().inflate(R.menu.menu_share_button, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // go back to previous activity
-                finish();
-                return true;
+        if(item.getItemId() == android.R.id.home) {
+            // go back to previous activity
+            finish();
+            return true;
         }
+        if(item.getItemId() == R.id.account_button) {
+            // handle account button click
+            startActivity(new Intent(RecipeGeneratorActivity.this, AccountActivity.class));
+            return true;
+        }
+        if(item.getItemId() == R.id.share_post_button) {
+            // handle share button click
+            // TODO: take a screenshot on the RecipeGeneratorActivity before navigate to EditPostActivity
+            startActivity(new Intent(RecipeGeneratorActivity.this, EditPostActivity.class));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getPreferencedRecipeGenerated(int minCarbs, int maxCarbs,
+                                               int minProtein, int maxProtein,
+                                               int minCalories, int maxCalories,
+                                               int minFat, int maxFat,
+                                               String mealType){
+        String query = "healthy";
+        switch (mealType) {
+            case "breakfast":
+                query = "breakfast";
+                break;
+            case "lunch":
+                query = "burger";
+                break;
+            case "dinner":
+                query = "chicken breast";
+                break;
+        }
+        recipeService.searchRecipeWithPreference(minCarbs, maxCarbs,
+                minProtein, maxProtein,
+                minCalories, maxCalories,
+                minFat, maxFat, query ,NUMBER_OF_PREFERENCED_RECIPES)
+                .subscribe(
+                        result -> {
+                            List<Recipe> list = result.results;
+                            Recipe recipe = list.get(0);
+                            Nutrition nutrition = recipe.nutrition;
+                            nutrition.genNutrients();
+
+                            if (mealType.equals("breakfast")) {
+                                breakfast_recipes.clear();
+                                breakfast_recipes.addAll(list);
+                                breakfast_RecipeUI(recipe, nutrition);
+                            } else if (mealType.equals("lunch")) {
+                                lunch_recipes.clear();
+                                lunch_recipes.addAll(list);
+                                lunch_RecipeUI(recipe, nutrition);
+                            } else if (mealType.equals("dinner")) {
+                                dinner_recipes.clear();
+                                dinner_recipes.addAll(list);
+                                dinner_RecipeUI(recipe, nutrition);
+                            }
+                        },
+                        error -> {
+                            Log.e("RecipeGeneratorActivity", "onFailure: " + error.getLocalizedMessage());
+                        },
+                        () -> {
+                            Log.d("RecipeGeneratorActivity", "onComplete: ");
+                        }
+                );
+
     }
 
     private void getRecipesGenerated(String mealType) {
@@ -241,4 +326,41 @@ public class RecipeGeneratorActivity extends AppCompatActivity {
     }
 
 
+    public void openDialog(){
+        PreferenceDialog preferenceDialog = new PreferenceDialog();
+        preferenceDialog.show(getSupportFragmentManager(),"preference dialog");
+    }
+
+    @Override
+    public void applyTexts(String calorie, String carbohydrates, String fat, String protein) {
+        Log.d("hihihi", "applyTexts: calorie is "+ calorie +" carbohydrates is " + carbohydrates +
+                " fat is "+fat + " protein is "+protein);
+
+        int int_claorie = Integer.valueOf(calorie);
+        int int_carbohydrates = Integer.valueOf(carbohydrates);
+        int int_fat = Integer.valueOf(fat);
+        int int_protein = Integer.valueOf(protein);
+        int minCalories = Math.max(50, int_claorie-200);
+        int maxCalories = Math.min(800, int_claorie+200);
+        int minCarbohydrates = Math.max(10, int_carbohydrates-8);
+        int maxCarbohydrates = Math.min(100, int_carbohydrates+8);
+        int minFat = Math.max(1, int_fat-8);
+        int maxFat = Math.min(100, int_fat+8);
+        int minProtein = Math.max(10, int_protein-8);
+        int maxProtein = Math.min(100, int_protein+8);
+
+        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+                minProtein,  maxProtein,
+                minCalories, maxCalories,
+                minFat, maxFat, "breakfast");
+        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+                minProtein,  maxProtein,
+                minCalories, maxCalories,
+                minFat, maxFat, "lunch");
+        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+                minProtein,  maxProtein,
+                minCalories, maxCalories,
+                minFat, maxFat, "dinner");
+
+    }
 }

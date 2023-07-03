@@ -4,9 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ece452.watfit.R;
 import com.ece452.watfit.data.Ingredient;
@@ -22,6 +24,7 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
     private List<Ingredient> filteredItemList;
     private List<Double> calorie;
     String unit;
+    private OnDeleteButtonClickListener onDeleteButtonClickListener;
 
     public CalorieDisplayAdapter(Context context, List<Ingredient> itemList,List<Double> calorie, String unit) {
         super(context, R.layout.calorie_listview, itemList);
@@ -48,6 +51,34 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
         Picasso.get().load("https://spoonacular.com/cdn/ingredients_100x100/"+item.image).into(imageView);
         titleTextView.setText(item.name);
         descriptionTextView.setText(Double.toString(this.calorie.get(position)) + " " +this.unit);
+
+        //deleteButton listener
+        Button btnDelete = convertView.findViewById(R.id.btnDeleteFood);
+
+//        TextView calorieTotal = convertView.findViewById(R.id.calorieTotal);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle delete button click here
+                // You can access the clicked item position using the 'position' parameter
+                // For example:
+                itemList.remove(position);
+                calorie.remove(position);
+                notifyDataSetChanged();
+                Toast.makeText(context, "Delete Successfully but remember to submit!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Set click listener on the whole item view
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle item click here
+                // You can access the clicked item position using the 'position' parameter
+                // For example:
+                Toast.makeText(context, "Clicked item at position: " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return convertView;
     }
@@ -94,8 +125,23 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
             }
         };
     }
-
+    public void deleteItem(int position) {
+        if (position >= 0 && position < filteredItemList.size()) {
+            filteredItemList.remove(position);
+            notifyDataSetChanged();
+        }
+    }
     public void filter(String query) {
         getFilter().filter(query);
+    }
+
+    // Setter for the delete button click listener
+    public void setOnDeleteButtonClickListener(OnDeleteButtonClickListener listener) {
+        this.onDeleteButtonClickListener = listener;
+    }
+
+    // Interface for handling delete button click
+    public interface OnDeleteButtonClickListener {
+        void onDeleteButtonClick(int position);
     }
 }

@@ -152,13 +152,13 @@ public class AccountActivity extends AppCompatActivity {
         return true;
     }
 
-    // nav to MainActivity if back button is clicked
+    // nav to previous page if back button is clicked
     // logout if logout button is clicked
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             // Handle the back button click
-            startActivity(new Intent(AccountActivity.this, MainActivity.class));
+//            startActivity(new Intent(AccountActivity.this, MainActivity.class));
             finish();
             return true;
         }

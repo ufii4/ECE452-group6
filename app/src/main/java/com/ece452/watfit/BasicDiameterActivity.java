@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
 import javax.inject.Inject;
 
@@ -75,7 +76,7 @@ public class BasicDiameterActivity extends AppCompatActivity implements AdapterV
                 Double hip = Double.parseDouble(et_hip.getText().toString());
 
                 UserProfile profile = new UserProfile(name, height, weight, age, selected_gender, waist, hip);
-                db.collection("users").document(FirebaseAuth.getInstance().getUid()).set(profile)
+                db.collection("users").document(FirebaseAuth.getInstance().getUid()).set(profile, SetOptions.merge())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
