@@ -33,7 +33,9 @@
     <string name="title_fitness_goal">Set Fitness Goals</string>
     <string name="title_shared_with_me">Shared With Me</string>
     <string name="button_Regenerate">Regenerate</string>
-    <string name= "button_Preference_bar">Preferene Bar</string>
+    <string name="button_Preference_bar">Preferene Bar</string>
     <string name="title_null"></string>
     <string name="title_edit_post">Create Post</string>
+    <string name="title_about">About WatFit</string>
+    <string name="title_fitness_scheduler">Fitness Scheduler</string>
 </resources>

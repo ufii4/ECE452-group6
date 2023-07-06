@@ -17,7 +17,7 @@
             android:id="@+id/bt_editprofile_ac"
             android:layout_width="230dp"
             android:layout_height="50dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="300dp"
             android:drawableLeft="@drawable/ic_edit_profile"
             android:text="Edit Profile"
             android:textSize="14sp"
@@ -142,6 +142,18 @@
             app:layout_constraintEnd_toEndOf="@+id/lb_bodyfat_ac"
             app:layout_constraintStart_toStartOf="@+id/lb_bodyfat_ac"
             app:layout_constraintTop_toBottomOf="@+id/lb_bodyfat_ac" />
+
+        <Button
+            android:id="@+id/bt_about_ac"
+            android:layout_width="230dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="30dp"
+            android:drawableLeft="@drawable/ic_about"
+            android:text="ABOUT"
+            app:layout_constraintEnd_toEndOf="@+id/bt_share_ac"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="@+id/bt_share_ac"
+            app:layout_constraintTop_toBottomOf="@+id/bt_share_ac" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

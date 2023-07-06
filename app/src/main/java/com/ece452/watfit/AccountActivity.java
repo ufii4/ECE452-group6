@@ -35,6 +35,7 @@ public class AccountActivity extends AppCompatActivity {
     private Button set_goal;
     private Button change_password;
     private Button shared_with_me;
+    private Button about;
     private TextView lb_title;
     private TextView lb_bmi;
     private TextView lb_bodyfat;
@@ -59,6 +60,7 @@ public class AccountActivity extends AppCompatActivity {
         set_goal = findViewById(R.id.bt_setgoal_ac);
         change_password = findViewById(R.id.bt_changepass_ac);
         shared_with_me = findViewById(R.id.bt_share_ac);
+        about = findViewById(R.id.bt_about_ac);
         lb_title = findViewById(R.id.lb_title_ac);
         lb_bmi = findViewById(R.id.lb_bmi_ac);
         lb_bodyfat = findViewById(R.id.lb_bodyfat_ac);
@@ -139,6 +141,14 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AccountActivity.this, SharedWithMeActivity.class));
+                finish();
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AccountActivity.this, AboutActivity.class));
                 finish();
             }
         });
