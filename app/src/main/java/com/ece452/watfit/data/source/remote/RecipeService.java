@@ -1,6 +1,7 @@
 package com.ece452.watfit.data.source.remote;
 
 import com.ece452.watfit.data.Recipe;
+import com.ece452.watfit.data.RecipeInformation;
 
 import java.util.List;
 
@@ -11,6 +12,11 @@ public interface RecipeService {
     class Result<T> {
         public List<Recipe> results;
     }
+
+    @GET("recipes/{id}/information")
+    Flowable<RecipeInformation> searchRecipeInformation(
+            @retrofit2.http.Path("id") String id
+    );
 
     @GET("recipes/complexSearch")
     Flowable<Result<Recipe>> searchRecipeWithPreference(

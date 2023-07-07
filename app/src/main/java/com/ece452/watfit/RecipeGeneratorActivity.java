@@ -14,8 +14,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ece452.watfit.data.ExtendedIngredient;
 import com.ece452.watfit.data.Nutrition;
 import com.ece452.watfit.data.Recipe;
+import com.ece452.watfit.data.RecipeInformation;
 import com.ece452.watfit.data.UserProfile;
 import com.ece452.watfit.data.source.remote.RecipeService;
 import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
@@ -27,6 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
@@ -59,6 +64,12 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     TextView dinner_fat;
     Button bt_regenerate;
     Button bt_preferencebar;
+    Button breakfast_recipe_btn;
+    Button lunch_recipe_btn;
+    Button dinner_recipe_btn;
+    static String breakfastId ;
+    static String lunchId;
+    static String dinnerId;
 
     List<Recipe> breakfast_recipes;
     List<Recipe> lunch_recipes;
@@ -110,6 +121,26 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
         dinner_carbs = dinner_nutrition_linearlayout.findViewById(R.id.dinner_Carbohydrates);
 
         bt_regenerate = findViewById(R.id.bt_regenerate_recipe);
+
+        ///// recipe information
+        breakfast_recipe_btn= breakfast_recipe_linearlayout.findViewById(R.id.breakfast_recipe_btn);
+        breakfast_recipe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /////TODO
+                Log.d("aaaaaaaa", "breakfastId is "+ breakfastId);
+                CompletableFuture<String> future =getRecipeInformation(breakfastId);
+                try {
+                    String recipeInformation = future.get();
+                    // Handle the extracted string here
+                    Log.d("======", "Recipeinformation: " + recipeInformation);
+                } catch (InterruptedException | ExecutionException | CancellationException e) {
+                    // Handle any exceptions that occurred during future completion
+                    e.printStackTrace();
+                }
+            }
+        });
+
 
         ///// preference bar
         LinearLayout header_linearlayout_nav = findViewById(R.id.header_linearlayout_nav);
@@ -176,6 +207,36 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
             }
         });
 
+    }
+
+    private CompletableFuture<String> getRecipeInformation(String id){
+        Log.d("recipe information", "getRecipeInformation: recipe id is"+id);
+        CompletableFuture<String> future = new CompletableFuture<>();
+
+        recipeService.searchRecipeInformation(id)
+                .subscribe(
+                        result -> {
+                            RecipeInformation recipeInformation = result;
+                            ArrayList<ExtendedIngredient> extendedIngredients= recipeInformation.extendedIngredients;
+                            StringBuilder res = new StringBuilder("");
+                            for(ExtendedIngredient extendedIngredient: extendedIngredients){
+                                res.append(extendedIngredient.original.trim());
+                                res.append(System.getProperty("line.separator"));
+                            }
+
+                            Log.d("getRecipeInformation", res.toString());
+
+                            future.complete(res.toString());
+                        },
+                        error -> {
+                            Log.e("RecipeGeneratorActivity", "onFailure: " + error.getLocalizedMessage());
+                        },
+                        () -> {
+                            Log.d("RecipeGeneratorActivity", "onComplete: ");
+                        }
+                );
+
+        return future;
     }
 
     // add Account & Sharing button to action bar (header)
@@ -302,7 +363,8 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     }
 
     private void breakfast_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
-        breakfast_dish_name.setText(recipeGenerator.title);
+        this.breakfastId = recipeGenerator.id;
+        breakfast_dish_name.setText(recipeGenerator.title.trim());
         breakfast_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         breakfast_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
         breakfast_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
@@ -310,7 +372,8 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     }
 
     private void lunch_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
-        lunch_dish_name.setText(recipeGenerator.title);
+        this.lunchId = recipeGenerator.id;
+        lunch_dish_name.setText(recipeGenerator.title.trim());
         lunch_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         lunch_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
         lunch_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
@@ -318,7 +381,8 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     }
 
     private void dinner_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
-        dinner_dish_name.setText(recipeGenerator.title);
+        this.dinnerId = recipeGenerator.id;
+        dinner_dish_name.setText(recipeGenerator.title.trim());
         dinner_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         dinner_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
         dinner_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
