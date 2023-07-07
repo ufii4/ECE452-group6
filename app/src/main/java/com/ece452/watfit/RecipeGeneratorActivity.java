@@ -141,6 +141,43 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
             }
         });
 
+        lunch_recipe_btn= lunch_recipe_linearlayout.findViewById(R.id.lunch_recipe_btn);
+        lunch_recipe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /////TODO
+                Log.d("aaaaaaaa", "lunchId is "+ lunchId);
+                CompletableFuture<String> future =getRecipeInformation(lunchId);
+                try {
+                    String recipeInformation = future.get();
+                    // Handle the extracted string here
+                    Log.d("======", "Recipeinformation: " + recipeInformation);
+                } catch (InterruptedException | ExecutionException | CancellationException e) {
+                    // Handle any exceptions that occurred during future completion
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        dinner_recipe_btn= dinner_recipe_linearlayout.findViewById(R.id.dinner_recipe_btn);
+        dinner_recipe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /////TODO
+                Log.d("aaaaaaaa", "dinnerId is "+ dinnerId);
+                CompletableFuture<String> future =getRecipeInformation(dinnerId);
+                try {
+                    String recipeInformation = future.get();
+                    // Handle the extracted string here
+                    Log.d("======", "Recipeinformation: " + recipeInformation);
+                } catch (InterruptedException | ExecutionException | CancellationException e) {
+                    // Handle any exceptions that occurred during future completion
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
 
         ///// preference bar
         LinearLayout header_linearlayout_nav = findViewById(R.id.header_linearlayout_nav);
