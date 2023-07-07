@@ -21,12 +21,12 @@
                 android:layout_height="wrap_content"
                 android:text="Calorie"
                 />
-            <EditText
-                android:id="@+id/edit_calorie"
+            <Spinner
+                android:id="@+id/edit_calorie_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="enter a number between 50~800"
                 />
+
         </LinearLayout>
         <LinearLayout
             android:id="@+id/edit_protein_linearlayout"
@@ -39,12 +39,11 @@
             android:layout_height="wrap_content"
             android:text="Protein"
             />
-            <EditText
-            android:id="@+id/edit_protein"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="enter a number between 10~100"
-            />
+            <Spinner
+                android:id="@+id/edit_protein_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -52,18 +51,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
-        <TextView
+            >
+            <TextView
             android:layout_width="102dp"
             android:layout_height="wrap_content"
             android:text="Fat"
             />
-        <EditText
-            android:id="@+id/edit_fat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="enter a number between 1~100"
-            />
+            <Spinner
+                android:id="@+id/edit_fat_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
         </LinearLayout>
 
@@ -79,11 +77,11 @@
                 android:layout_height="wrap_content"
                 android:text="Carbohydrates"
                 />
-            <EditText
-                android:id="@+id/edit_carbohydrates"
+            <Spinner
+                android:id="@+id/edit_carbohydrates_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="enter a number between 10~100" />
+                />
         </LinearLayout>
     </LinearLayout>
 
