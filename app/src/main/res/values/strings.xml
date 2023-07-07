@@ -38,6 +38,7 @@
     <string name="title_edit_post">Create Post</string>
     <string name="title_about">About WatFit</string>
     <string name="title_fitness_scheduler">Fitness Scheduler</string>
+    <string name="recipe">Recipe</string>
     <string-array name="calorie_list">
         <item>Select a range...</item>
         <item>480~860</item>
