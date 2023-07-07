@@ -176,7 +176,7 @@ public class AccountActivity extends AppCompatActivity {
             // handle logout button click
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(AccountActivity.this, "Log Out Successful", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(AccountActivity.this, StartActivity.class));
+            startActivity(new Intent(AccountActivity.this, LoginActivity.class));
             finish();
             return true;
         }

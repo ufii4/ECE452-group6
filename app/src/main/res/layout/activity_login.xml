@@ -10,7 +10,9 @@
         android:id="@+id/email_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="220dp"
+        android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
@@ -23,7 +25,9 @@
         android:id="@+id/password_1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -34,12 +38,38 @@
 
     <Button
         android:id="@+id/login_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="145dp"
+        android:layout_height="45dp"
         android:layout_marginTop="50dp"
         android:drawableLeft="@drawable/ic_login"
         android:text="LOGIN"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_1" />
+
+    <TextView
+        android:id="@+id/lb_register_prompt_al"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Doesn't Have an Account?"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.294"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_1" />
+
+    <TextView
+        android:id="@+id/lb_register_al"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click Here"
+        android:textSize="15sp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.186"
+        app:layout_constraintStart_toEndOf="@+id/lb_register_prompt_al"
+        app:layout_constraintTop_toTopOf="@+id/lb_register_prompt_al" />
 </androidx.constraintlayout.widget.ConstraintLayout>
