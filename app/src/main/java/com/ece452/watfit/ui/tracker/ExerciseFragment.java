@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -134,7 +135,7 @@ public class ExerciseFragment extends Fragment {
         });
         exerciseListView.setAdapter(null);
 
-        submitButtonExercise.setOnClickListener(v -> submitExercises());
+        submitButtonExercise.setOnClickListener(v -> submitExercises(root));
 
         return root;
     }
@@ -149,28 +150,8 @@ public class ExerciseFragment extends Fragment {
         }
     }
 
-    private void addExercise() {
-        int position = exerciseListView.getCheckedItemPosition();
-        if (position != ListView.INVALID_POSITION) {
-            Exercise exercise = exerciseList.get(position);
-            selectedExerciseList.add(exercise);
-            int totalCalories = calculateTotalCalories(selectedExerciseList);
-            calorieTotalExerciseTextView.setText(String.valueOf(totalCalories));
-        }
-    }
-
-    private void submitExercises() {
-        NavHostFragment.findNavController(this).popBackStack();
-    }
-
-    private int calculateTotalCalories(List<Exercise> exercises) {
-        int totalCalories = 0;
-        for (Exercise exercise : exercises) {
-            // Calculate total calories based on exercise duration, intensity, etc.
-            // Add the calories burned by each exercise to the total
-            // totalCalories += exercise.getCaloriesBurned();
-        }
-        return totalCalories;
+    private void submitExercises(View root) {
+        Toast.makeText(root.getContext(), "You submit your daily exercise successfully.", Toast.LENGTH_SHORT).show();
     }
 
     /********* Sharing Button ***********/

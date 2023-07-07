@@ -10,7 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -54,17 +53,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import org.reactivestreams.Subscription;
 
 import java.io.IOException;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -82,13 +85,14 @@ public class CalorieFragment extends Fragment {
     private List<Integer> ingredientIDList;
     private String selectedUnit;
     private double dailyCalorie = 0;
-    private LocalDate localDate = null;
+    private Timestamp localDate = null;
     private List<Double> calorieList = new ArrayList<>();
-    private List<Ingredient>  foodList = new ArrayList<>();
+    private List<Ingredient> foodList = new ArrayList<>();
     private CalorieDisplayAdapter calorieAdapter;
 
     @Inject
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentCalorieIntakeBinding.inflate(inflater, container, false);
@@ -100,7 +104,7 @@ public class CalorieFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        //Search ingredients
+        // Search ingredients
         SearchView searchView = root.findViewById(R.id.searchViewCalorie);
         TextView calorieTotal = root.findViewById(R.id.calorieTotal);
         calorieTotal.setText(Double.toString(dailyCalorie));
@@ -111,7 +115,7 @@ public class CalorieFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 // Perform search action here
                 performSearch(query);
-                //add search result to the page
+                // Add search result to the page
                 ListView list = root.findViewById(R.id.listview);
                 CalorieSearchAdapter adapterSearch = new CalorieSearchAdapter(root.getContext(), ingredientList);
                 list.setAdapter(adapterSearch);
@@ -129,17 +133,18 @@ public class CalorieFragment extends Fragment {
                 return false;
             }
         });
-        //display on the page
+
+        // Display on the page
         ListView ingredientSelectList = root.findViewById(R.id.listview);
         ingredientSelectList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ingredientSelectList.setAdapter(null);
                 displayElementExceptList(root);
-                //display selected ingredient pic on the page
+                // Display selected ingredient pic on the page
                 ImageView ingredientSelected = root.findViewById(R.id.imageViewCalorieSelected);
-                Picasso.get().load("https://spoonacular.com/cdn/ingredients_100x100/"+ingredientList.get(i).image).into(ingredientSelected);
-                //search for calorie information and get possible units
+                Picasso.get().load("https://spoonacular.com/cdn/ingredients_100x100/" + ingredientList.get(i).image).into(ingredientSelected);
+                // Search for calorie information and get possible units
                 List<String> possibleUnits = ingredientService.getIngredientInformationBasic(ingredientIDList.get(i)).blockingFirst().possibleUnits;
                 Spinner spinnerCalorie = root.findViewById(R.id.spinnerCalorie);
                 ArrayAdapter<String> adapterDropDown = new ArrayAdapter<>(root.getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, possibleUnits);
@@ -160,89 +165,79 @@ public class CalorieFragment extends Fragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //get calorie information from api
+                        // Get calorie information from API
                         foodList.add(ingredientList.get(i));
                         int amount = Integer.parseInt(amountText.getText().toString());
-                        Nutrition.Nutrient[] nutrientList = ingredientService.getIngredientInformation(ingredientIDList.get(i),amount,selectedUnit).blockingFirst().nutrition.nutrients;
-                        for (Nutrition.Nutrient n: nutrientList) {
-                            if(n.name.equals("Calories")){
+                        Nutrition.Nutrient[] nutrientList = ingredientService.getIngredientInformation(ingredientIDList.get(i), amount, selectedUnit).blockingFirst().nutrition.nutrients;
+                        for (Nutrition.Nutrient n : nutrientList) {
+                            if (n.name.equals("Calories")) {
                                 TextView calorieInput = root.findViewById(R.id.calorieInput);
                                 calorieList.add(n.amount);
                                 calorieInput.setText(Double.toString(n.amount));
-                                //display on the page
-                                calorieAdapter = new CalorieDisplayAdapter(root.getContext(),foodList,calorieList,n.unit);
-//                                calorieAdapter.setOnDeleteButtonClickListener(new CalorieDisplayAdapter.OnDeleteButtonClickListener() {
-//                                    @Override
-//                                    public void onDeleteButtonClick(int position) {
-//                                        foodList.remove(position);
-//                                        calorieList.remove(position);
-//                                        dailyCalorie -= calorieList.get(position);
-//                                        calorieAdapter.notifyDataSetChanged();
-//                                        TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-//                                        calorieTotal.setText(Double.toString(dailyCalorie));
-//                                    }
-//                                });
+                                // Display on the page
+                                calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, n.unit);
                                 ListView listView = root.findViewById(R.id.foodSelectList);
                                 listView.setAdapter(calorieAdapter);
-//                                dailyCalorie += n.amount;
-//                                TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-//                                calorieTotal.setText(Double.toString(dailyCalorie));
                             }
                         }
                     }
                 });
                 amountText.setText("");
-                searchView.setQuery("",false);
+                searchView.setQuery("", false);
             }
         });
-        //initialize date
+
+        // Initialize date
         Button dateButton = root.findViewById(R.id.dateButtonCalorie);
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-        String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
-        localDate = LocalDate.of(year, month + 1, dayOfMonth);
+        localDate = new Timestamp(System.currentTimeMillis());
+        String selectedDate = new SimpleDateFormat("dd/MM/yyyy").format(localDate);
         dateButton.setText(selectedDate);
-        //get today's log from database
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                List<Map<String, Object>> calorieLogList = (List<Map<String, Object>>) documentSnapshot.get("calorieLog"+localDate);
-                if (calorieLogList != null) {
-                    String month_str = "" + (month+1);
-                    String day_str = "" + dayOfMonth;
-                    if(month <= 8){
-                        month_str = "0" + month_str;
-                    }
-                    if(dayOfMonth <= 9){
-                        day_str = "0" + day_str;
-                    }
-                    String currentDate = year + "-" +month_str+"-"+day_str;
-                    //find certain date
-                    foodList.clear();
-                    calorieList.clear();
-                    for (Map<String, Object> logMap : calorieLogList) {
-                        if(logMap.get("date").equals(currentDate)){
-                            //update on page
-                            TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                            calorieTotal.setText(Double.toString((Double) logMap.get("dailyCalorie")));
-                            List<Map<String,Object>> foodList_new = (List<Map<String, Object>>) logMap.get("foodList");
-                            calorieList = (List<Double>) logMap.get("calorieList");
-                            for (Map<String,Object> i: foodList_new) {
-                                Ingredient ingredient = new Ingredient((String) i.get("name"), ((Long) i.get("id")).intValue(),(String)i.get("image"));
-                                foodList.add(ingredient);
+
+        // Get today's log from database
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(localDate.getTime());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        localDate = new Timestamp(calendar.getTimeInMillis());
+
+        docRef.collection("calorieLogs").whereEqualTo("date", localDate)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                Date logDate = documentSnapshot.getTimestamp("date").toDate();
+                                if (logDate != null && isSameDate(logDate, localDate)) {
+                                    double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
+                                    List<Map<String, Object>> foodListData = (List<Map<String, Object>>) documentSnapshot.get("foodList");
+                                    foodList = new ArrayList<>();
+                                    for (Map<String, Object> foodMap : foodListData) {
+                                        String name = (String) foodMap.get("name");
+                                        int id = ((Long) foodMap.get("id")).intValue();
+                                        String image = (String) foodMap.get("image");
+                                        Ingredient ingredient = new Ingredient(name, id, image);
+                                        foodList.add(ingredient);
+                                    }
+                                    calorieList = (List<Double>) documentSnapshot.get("calorieList");
+
+                                    TextView calorieTotal = root.findViewById(R.id.calorieTotal);
+                                    calorieTotal.setText(Double.toString(dailyCalorie));
+                                    ListView listView = root.findViewById(R.id.foodSelectList);
+                                    calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal");
+                                    listView.setAdapter(calorieAdapter);
+                                    break; // Exit the loop after finding the matching document
+                                }
                             }
                         }
                     }
-                    ListView listView = root.findViewById(R.id.foodSelectList);
-                    listView.setAdapter(null);
-                    calorieAdapter = new CalorieDisplayAdapter(root.getContext(),foodList,calorieList,"kcal");
-                    listView.setAdapter(calorieAdapter);
-                }
-            }
-        });
-        //modify date
+                });
+
+
+        // Modify date
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -259,60 +254,60 @@ public class CalorieFragment extends Fragment {
                                 // Update the dateEditText with the selected date
                                 String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                                 dateButton.setText(selectedDate);
-                                localDate = LocalDate.of(year, month + 1, dayOfMonth);
-                                //get data from firebase
-                                docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                        List<Map<String, Object>> calorieLogList = (List<Map<String, Object>>) documentSnapshot.get("calorieLog"+localDate);
-                                        if (calorieLogList != null) {
-                                            String month_str = "" + (month+1);
-                                            String day_str = "" + dayOfMonth;
-                                            if(month <= 8){
-                                                month_str = "0" + month_str;
-                                            }
-                                            if(dayOfMonth <= 9){
-                                                day_str = "0" + day_str;
-                                            }
-                                            String currentDate = year + "-" +month_str+"-"+day_str;
-                                            //find certain date
-                                            foodList.clear();
-                                            calorieList.clear();
-                                            for (Map<String, Object> logMap : calorieLogList) {
-                                                if(logMap.get("date").equals(currentDate)){
-                                                    //get data from firebase
-                                                    dailyCalorie = (Double) logMap.get("dailyCalorie");
-                                                    List<Map<String,Object>> foodList_new = (List<Map<String, Object>>) logMap.get("foodList");
-                                                    calorieList = (List<Double>) logMap.get("calorieList");
-                                                    for (Map<String,Object> i: foodList_new) {
-                                                        Ingredient ingredient = new Ingredient((String) i.get("name"), ((Long) i.get("id")).intValue(),(String)i.get("image"));
-                                                        foodList.add(ingredient);
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                selectedCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                                selectedCalendar.set(Calendar.MINUTE, 0);
+                                selectedCalendar.set(Calendar.SECOND, 0);
+                                selectedCalendar.set(Calendar.MILLISECOND, 0);
+                                localDate = new Timestamp(selectedCalendar.getTimeInMillis());
+
+
+                                // Retrieve data from Firebase
+                                docRef.collection("calorieLogs")
+                                        .whereEqualTo("date", localDate)
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                if (!queryDocumentSnapshots.isEmpty()) {
+                                                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                                        Date logDate = documentSnapshot.getTimestamp("date").toDate();
+                                                        if (logDate != null) {
+                                                            double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
+                                                            List<Map<String, Object>> foodListData = (List<Map<String, Object>>) documentSnapshot.get("foodList");
+                                                            foodList = new ArrayList<>();
+                                                            for (Map<String, Object> foodMap : foodListData) {
+                                                                String name = (String) foodMap.get("name");
+                                                                int id = ((Long) foodMap.get("id")).intValue();
+                                                                String image = (String) foodMap.get("image");
+                                                                Ingredient ingredient = new Ingredient(name, id, image);
+                                                                foodList.add(ingredient);
+                                                            }
+                                                            calorieList = (List<Double>) documentSnapshot.get("calorieList");
+
+                                                            TextView calorieTotal = root.findViewById(R.id.calorieTotal);
+                                                            calorieTotal.setText(Double.toString(dailyCalorie));
+                                                            ListView listView = root.findViewById(R.id.foodSelectList);
+                                                            calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal");
+                                                            listView.setAdapter(calorieAdapter);
+                                                            break; // Exit the loop after finding the matching document
+                                                        }
                                                     }
+                                                } else {
+                                                    // No matching document found, update the UI accordingly
+                                                    foodList.clear();
+                                                    calorieList.clear();
+                                                    dailyCalorie = 0;
+                                                    TextView calorieTotal = root.findViewById(R.id.calorieTotal);
+                                                    calorieTotal.setText(Double.toString(dailyCalorie));
+                                                    ListView listView = root.findViewById(R.id.foodSelectList);
+                                                    listView.setAdapter(null);
+                                                    CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal");
+                                                    listView.setAdapter(adapter);
                                                 }
                                             }
-                                            //update
-                                            TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                            calorieTotal.setText(Double.toString(dailyCalorie));
-                                            ListView listView = root.findViewById(R.id.foodSelectList);
-                                            listView.setAdapter(null);
-//                                            calorieAdapter.notifyDataSetChanged();
-                                            CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(),foodList,calorieList,"kcal");
-                                            listView.setAdapter(adapter);
-                                        }else{
-                                            //update
-                                            foodList.clear();
-                                            calorieList.clear();
-                                            dailyCalorie = 0;
-                                            TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                            calorieTotal.setText(Double.toString(dailyCalorie));
-                                            ListView listView = root.findViewById(R.id.foodSelectList);
-//                                            calorieAdapter.notifyDataSetChanged();
-                                            listView.setAdapter(null);
-                                            CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(),foodList,calorieList,"kcal");
-                                            listView.setAdapter(adapter);
-                                        }
-                                    }
-                                });
+                                        });
                             }
                         }, year, month, dayOfMonth);
 
@@ -320,45 +315,62 @@ public class CalorieFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
+
         ListView list = root.findViewById(R.id.listview);
-        //unbound listview from adapter to hide
         list.setAdapter(null);
         Spinner spinnerCalorie = root.findViewById(R.id.spinnerCalorie);
         spinnerCalorie.setAdapter(null);
-        //submit button
+
+        // Submit button
         Button submit_bt = root.findViewById(R.id.submitButton);
         submit_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(localDate == null){
-                    Calendar calendar = Calendar.getInstance();
-
-                    // Get the year, month, and day of the month from the Calendar
-                    int year = calendar.get(Calendar.YEAR);
-                    int month = calendar.get(Calendar.MONTH); // Note: Month is zero-based in Calendar.
-                    int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-
-                    // Create a LocalDate instance
-                    localDate = LocalDate.of(year, month + 1, dayOfMonth);
+                if (localDate == null) {
+                    localDate = new Timestamp(System.currentTimeMillis());
                 }
                 dailyCalorie = 0;
-                for (double d:
-                     calorieList) {
-                    dailyCalorie+=d;
+                for (double d : calorieList) {
+                    dailyCalorie += d;
                 }
                 TextView calorieTotal = root.findViewById(R.id.calorieTotal);
                 calorieTotal.setText(Double.toString(dailyCalorie));
                 List<CalorieLog> calorieLogList = new ArrayList<>();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(localDate.getTime());
+                calendar.set(Calendar.HOUR_OF_DAY, 0);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                localDate = new Timestamp(calendar.getTimeInMillis());
                 calorieLogList.add(new CalorieLog(dailyCalorie, calorieList, foodList, localDate));
-                docRef.update("calorieLog"+localDate,calorieLogList);
-                Toast.makeText(root.getContext(), "You submit your daily intake successfully.", Toast.LENGTH_SHORT).show();
+                db.collection("users")
+                .document(FirebaseAuth.getInstance().getUid()).collection("calorieLogs")
+                .whereEqualTo("date", localDate)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    // Check if a document with the given localDate already exists
+                    if (!querySnapshot.isEmpty()) {
+                        // A document with the same localDate already exists
+                        // You can update the existing document here if needed
+                        DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+
+                        // Update the existing document with the new values
+                        document.getReference().set(
+                                new CalorieLog(dailyCalorie, calorieList, foodList, localDate)
+                        );
+                    } else {
+                        db.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("calorieLogs").add(new CalorieLog(dailyCalorie, calorieList, foodList, localDate));
+                    }    
+                });
+                Toast.makeText(root.getContext(), "You submitted your daily intake successfully.", Toast.LENGTH_SHORT).show();
             }
         });
 
         return root;
     }
 
-    /********* Sharing Button ***********/
+/********* Sharing Button ***********/
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -467,4 +479,20 @@ public class CalorieFragment extends Fragment {
         list1.setVisibility(View.VISIBLE);
     }
 
+    private boolean isSameDate(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+
+        int year1 = cal1.get(Calendar.YEAR);
+        int month1 = cal1.get(Calendar.MONTH);
+        int day1 = cal1.get(Calendar.DAY_OF_MONTH);
+
+        int year2 = cal2.get(Calendar.YEAR);
+        int month2 = cal2.get(Calendar.MONTH);
+        int day2 = cal2.get(Calendar.DAY_OF_MONTH);
+
+        return (year1 == year2 && month1 == month2 && day1 == day2);
+    }
 }
