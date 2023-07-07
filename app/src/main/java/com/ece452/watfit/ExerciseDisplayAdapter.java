@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ece452.watfit.R;
 import com.ece452.watfit.data.Exercise;
@@ -42,6 +44,22 @@ public class ExerciseDisplayAdapter extends ArrayAdapter<Exercise> {
 
         titleTextView.setText(item.name);
         descriptionTextView.setText(String.valueOf(calorie.get(position)));
+
+
+        Button btnDelete = convertView.findViewById(R.id.btnDeleteExercise);
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle delete button click here
+                // You can access the clicked item position using the 'position' parameter
+                // For example:
+                itemList.remove(position);
+                calorie.remove(position);
+                notifyDataSetChanged();
+                Toast.makeText(context, "Delete Successfully but remember to submit!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return convertView;
     }
