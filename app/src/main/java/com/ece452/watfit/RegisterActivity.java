@@ -1,11 +1,13 @@
 package com.ece452.watfit;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +49,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        // add back button to the top-left corner
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back_arrow);
+        }
+
         bt_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,12 +85,24 @@ public class RegisterActivity extends AppCompatActivity {
                             .set(user, SetOptions.merge());
                     Toast.makeText(RegisterActivity.this, "Registering Successful", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RegisterActivity.this, BasicDiameterActivity.class));
-                    StartActivity.sa.finish(); // end StartActivity
+//                    StartActivity.sa.finish(); // end StartActivity
                     finish();
                 } else{
                     Toast.makeText(RegisterActivity.this, "Registering Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    // nav to LoginActivity when back button is clicked
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            // Handle the back button click
+            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

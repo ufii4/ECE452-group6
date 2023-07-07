@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email_1;
     private EditText password_1;
     private Button login_1;
+    private TextView registerTextView;
 
     private FirebaseAuth auth; // firebase authentication variable
 
@@ -33,9 +35,11 @@ public class LoginActivity extends AppCompatActivity {
         email_1 = findViewById(R.id.email_1);
         password_1 = findViewById(R.id.password_1);
         login_1 = findViewById(R.id.login_1);
+        registerTextView = findViewById(R.id.lb_register_al);
 
         auth = FirebaseAuth.getInstance();
 
+        // handle login button click
         login_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,13 +55,22 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            StartActivity.sa.finish(); // end StartActivity
+//                            StartActivity.sa.finish(); // end StartActivity
                             finish();
                         } else{
                             Toast.makeText(LoginActivity.this, "Invalid Credential", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+            }
+        });
+
+        // navigate to RegisterActivity when register TextView is clicked
+        registerTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
             }
         });
     }

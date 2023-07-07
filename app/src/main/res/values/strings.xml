@@ -33,7 +33,33 @@
     <string name="title_fitness_goal">Set Fitness Goals</string>
     <string name="title_shared_with_me">Shared With Me</string>
     <string name="button_Regenerate">Regenerate</string>
-    <string name= "button_Preference_bar">Preferene Bar</string>
+    <string name="button_Preference_bar">Preferene Bar</string>
     <string name="title_null"></string>
     <string name="title_edit_post">Create Post</string>
+    <string name="title_about">About WatFit</string>
+    <string name="title_fitness_scheduler">Fitness Scheduler</string>
+    <string-array name="calorie_list">
+        <item>Select a range...</item>
+        <item>480~860</item>
+        <item>860~1620</item>
+        <item>1620~2000</item>
+    </string-array>
+    <string-array name="protein_list">
+        <item>Select a range...</item>
+        <item>1~40</item>
+        <item>40~80</item>
+        <item>80~120</item>
+    </string-array>
+    <string-array name="fat_list">
+        <item>Select a range...</item>
+        <item>1~40</item>
+        <item>40~80</item>
+        <item>80~120</item>
+    </string-array>
+    <string-array name="carbohydrates_list">
+        <item>Select a range...</item>
+        <item>1~40</item>
+        <item>40~80</item>
+        <item>80~120</item>
+    </string-array>
 </resources>

@@ -32,7 +32,7 @@
             android:drawableTint="#000000"
             android:drawableTintMode="src_in"
             android:text="@string/button_Preference_bar"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="15sp" />
 
 
@@ -304,11 +304,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:drawableLeft="@android:drawable/ic_menu_rotate"
-            android:drawableTint="#000000"
-            android:drawableTintMode="src_in"
+            android:drawableLeft="@drawable/ic_refresh_24dp"
             android:text="@string/button_Regenerate"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
 
