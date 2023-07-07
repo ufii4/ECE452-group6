@@ -17,14 +17,14 @@
             android:id="@+id/bt_editprofile_ac"
             android:layout_width="230dp"
             android:layout_height="50dp"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="200dp"
             android:drawableLeft="@drawable/ic_edit_profile"
             android:text="Edit Profile"
             android:textSize="14sp"
             android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/lb_title_ac" />
 
         <Button
             android:id="@+id/bt_setgoal_ac"
@@ -63,7 +63,7 @@
             android:id="@+id/lb_title_ac"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="200dp"
             android:gravity="center"
             android:text="Welcome"
             android:textSize="20sp"
@@ -148,12 +148,23 @@
             android:layout_width="230dp"
             android:layout_height="50dp"
             android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
             android:drawableLeft="@drawable/ic_about"
             android:text="ABOUT"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/bt_share_ac"
             app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="@+id/bt_share_ac"
             app:layout_constraintTop_toBottomOf="@+id/bt_share_ac" />
+
+        <ImageView
+            android:id="@+id/iv_logo_ac"
+            android:layout_width="250dp"
+            android:layout_height="230dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/app_logo_transparent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
