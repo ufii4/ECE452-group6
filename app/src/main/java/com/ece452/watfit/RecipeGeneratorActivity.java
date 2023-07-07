@@ -332,35 +332,35 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     }
 
     @Override
-    public void applyTexts(String calorie, String carbohydrates, String fat, String protein) {
+    public void applyTexts(String calorie,String protein, String fat, String carbohydrates ) {
         Log.d("hihihi", "applyTexts: calorie is "+ calorie +" carbohydrates is " + carbohydrates +
                 " fat is "+fat + " protein is "+protein);
 
-        int int_claorie = Integer.valueOf(calorie);
-        int int_carbohydrates = Integer.valueOf(carbohydrates);
-        int int_fat = Integer.valueOf(fat);
-        int int_protein = Integer.valueOf(protein);
-        int minCalories = Math.max(50, int_claorie-200);
-        int maxCalories = Math.min(800, int_claorie+200);
-        int minCarbohydrates = Math.max(10, int_carbohydrates-8);
-        int maxCarbohydrates = Math.min(100, int_carbohydrates+8);
-        int minFat = Math.max(1, int_fat-8);
-        int maxFat = Math.min(100, int_fat+8);
-        int minProtein = Math.max(10, int_protein-8);
-        int maxProtein = Math.min(100, int_protein+8);
+//        int int_claorie = Integer.valueOf(calorie);
+//        int int_carbohydrates = Integer.valueOf(carbohydrates);
+//        int int_fat = Integer.valueOf(fat);
+//        int int_protein = Integer.valueOf(protein);
+////        int minCalories = Math.max(50, int_claorie-200);
+////        int maxCalories = Math.min(800, int_claorie+200);
+//        int minCarbohydrates = Math.max(10, int_carbohydrates-8);
+//        int maxCarbohydrates = Math.min(100, int_carbohydrates+8);
+//        int minFat = Math.max(1, int_fat-8);
+//        int maxFat = Math.min(100, int_fat+8);
+//        int minProtein = Math.max(10, int_protein-8);
+//        int maxProtein = Math.min(100, int_protein+8);
 
-        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
-                minProtein,  maxProtein,
-                minCalories, maxCalories,
-                minFat, maxFat, "breakfast");
-        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
-                minProtein,  maxProtein,
-                minCalories, maxCalories,
-                minFat, maxFat, "lunch");
-        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
-                minProtein,  maxProtein,
-                minCalories, maxCalories,
-                minFat, maxFat, "dinner");
+//        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+//                minProtein,  maxProtein,
+//                minCalories, maxCalories,
+//                minFat, maxFat, "breakfast");
+//        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+//                minProtein,  maxProtein,
+//                minCalories, maxCalories,
+//                minFat, maxFat, "lunch");
+//        getPreferencedRecipeGenerated(minCarbohydrates, maxCarbohydrates,
+//                minProtein,  maxProtein,
+//                minCalories, maxCalories,
+//                minFat, maxFat, "dinner");
 
     }
 }
