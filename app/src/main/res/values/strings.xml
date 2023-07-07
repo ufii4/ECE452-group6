@@ -40,10 +40,8 @@
     <string name="title_fitness_scheduler">Fitness Scheduler</string>
     <string-array name="calorie_list">
         <item>Select a range...</item>
-        <item>100~480</item>
         <item>480~860</item>
-        <item>860~1240</item>
-        <item>1240~1620</item>
+        <item>860~1620</item>
         <item>1620~2000</item>
     </string-array>
     <string-array name="protein_list">
