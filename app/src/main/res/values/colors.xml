@@ -13,4 +13,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FFFF0000</color>
     <color name="light_red_1">#ff6666</color>
+    <color name="light_green_1">#D4E157</color>
+    <color name="light_beige_1">#FFF8E1</color>
+    <color name="light_gray_1">#ECEFF1</color>
 </resources>
