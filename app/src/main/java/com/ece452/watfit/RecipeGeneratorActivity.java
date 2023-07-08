@@ -28,6 +28,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
@@ -71,9 +72,9 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     static String lunchId;
     static String dinnerId;
 
-    List<Recipe> breakfast_recipes;
-    List<Recipe> lunch_recipes;
-    List<Recipe> dinner_recipes;
+    static List<Recipe> breakfast_recipes;
+    static List<Recipe> lunch_recipes;
+    static List<Recipe> dinner_recipes;
 
     @Inject
     FirebaseFirestore db;
@@ -124,56 +125,27 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
         ///// recipe information
         breakfast_recipe_btn= breakfast_recipe_linearlayout.findViewById(R.id.breakfast_recipe_btn);
+        lunch_recipe_btn= lunch_recipe_linearlayout.findViewById(R.id.lunch_recipe_btn);
+        dinner_recipe_btn= dinner_recipe_linearlayout.findViewById(R.id.dinner_recipe_btn);
+
         breakfast_recipe_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /////TODO
-                Log.d("aaaaaaaa", "breakfastId is "+ breakfastId);
-                CompletableFuture<String> future =getRecipeInformation(breakfastId);
-                try {
-                    String recipeInformation = future.get();
-                    // Handle the extracted string here
-                    Log.d("======", "Recipeinformation: " + recipeInformation);
-                } catch (InterruptedException | ExecutionException | CancellationException e) {
-                    // Handle any exceptions that occurred during future completion
-                    e.printStackTrace();
-                }
+                recipeGenerateBtnClick(breakfastId);
             }
         });
 
-        lunch_recipe_btn= lunch_recipe_linearlayout.findViewById(R.id.lunch_recipe_btn);
         lunch_recipe_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /////TODO
-                Log.d("aaaaaaaa", "lunchId is "+ lunchId);
-                CompletableFuture<String> future =getRecipeInformation(lunchId);
-                try {
-                    String recipeInformation = future.get();
-                    // Handle the extracted string here
-                    Log.d("======", "Recipeinformation: " + recipeInformation);
-                } catch (InterruptedException | ExecutionException | CancellationException e) {
-                    // Handle any exceptions that occurred during future completion
-                    e.printStackTrace();
-                }
+                recipeGenerateBtnClick(lunchId);
             }
         });
 
-        dinner_recipe_btn= dinner_recipe_linearlayout.findViewById(R.id.dinner_recipe_btn);
         dinner_recipe_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /////TODO
-                Log.d("aaaaaaaa", "dinnerId is "+ dinnerId);
-                CompletableFuture<String> future =getRecipeInformation(dinnerId);
-                try {
-                    String recipeInformation = future.get();
-                    // Handle the extracted string here
-                    Log.d("======", "Recipeinformation: " + recipeInformation);
-                } catch (InterruptedException | ExecutionException | CancellationException e) {
-                    // Handle any exceptions that occurred during future completion
-                    e.printStackTrace();
-                }
+               recipeGenerateBtnClick(dinnerId);
             }
         });
 
@@ -222,10 +194,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                 int randomNum_breakfast = ThreadLocalRandom.current().nextInt(0, breakfast_recipes.size());
                 int randomNum_lunch = ThreadLocalRandom.current().nextInt(0, lunch_recipes.size());
                 int randomNum_dinner = ThreadLocalRandom.current().nextInt(0, dinner_recipes.size());
-//
-                Log.d("hihihi", "onClick: "+ randomNum_breakfast + " " + randomNum_lunch + " " + randomNum_dinner);
-//
-                Log.d("hihihi", "onClick: "+ breakfast_recipes.size() + " " + lunch_recipes.size() + " " + dinner_recipes.size());
+
                 Recipe newBreakfast = breakfast_recipes.get(randomNum_breakfast);
                 Recipe newLunch = lunch_recipes.get(randomNum_lunch);
                 Recipe newDinner = dinner_recipes.get(randomNum_dinner);
@@ -246,6 +215,17 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
     }
 
+
+    private void recipeGenerateBtnClick(String id){
+        CompletableFuture<String> future =getRecipeInformation(id);
+        try {
+            String recipeInformation = future.get();
+            openRecipeInformationDialog(recipeInformation);
+        } catch (InterruptedException | ExecutionException | CancellationException e) {
+            e.printStackTrace();
+        }
+
+    }
     private CompletableFuture<String> getRecipeInformation(String id){
         Log.d("recipe information", "getRecipeInformation: recipe id is"+id);
         CompletableFuture<String> future = new CompletableFuture<>();
@@ -317,10 +297,10 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                 query = "breakfast";
                 break;
             case "lunch":
-                query = "chicken";
+                query = "burger";
                 break;
             case "dinner":
-                query = "beef";
+                query = "chicken breast";
                 break;
         }
         recipeService.searchRecipeWithPreference(minCarbs, maxCarbs,
@@ -334,16 +314,21 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                             Nutrition nutrition = recipe.nutrition;
                             nutrition.genNutrients();
 
+
+
+
+
+
                             if (mealType.equals("breakfast")) {
-                                breakfast_recipes.clear();
+                                breakfast_recipes= Collections.emptyList();;
                                 breakfast_recipes.addAll(list);
                                 breakfast_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("lunch")) {
-                                lunch_recipes.clear();
+                                lunch_recipes= Collections.emptyList();
                                 lunch_recipes.addAll(list);
                                 lunch_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("dinner")) {
-                                dinner_recipes.clear();
+                                dinner_recipes= Collections.emptyList();
                                 dinner_recipes.addAll(list);
                                 dinner_RecipeUI(recipe, nutrition);
                             }
@@ -379,13 +364,19 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                             Nutrition nutrition = recipe.nutrition;
                             nutrition.genNutrients();
 
+
+
+
                             if (mealType.equals("breakfast")) {
+                                breakfast_recipes= Collections.emptyList();
                                 breakfast_recipes.addAll(list);
                                 breakfast_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("lunch")) {
+                                lunch_recipes= Collections.emptyList();
                                 lunch_recipes.addAll(list);
                                 lunch_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("dinner")) {
+                                dinner_recipes= Collections.emptyList();
                                 dinner_recipes.addAll(list);
                                 dinner_RecipeUI(recipe, nutrition);
                             }
@@ -426,6 +417,11 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
         dinner_carbs.setText("Carbohydrates: "+ nutrition.carbs.amount +" " +  nutrition.carbs.unit);
     }
 
+
+    public void openRecipeInformationDialog(String recipeInformation){
+        RecipeInformationDialog recipeInformationDialog = new RecipeInformationDialog(recipeInformation);
+        recipeInformationDialog.show(getSupportFragmentManager(),"recipe info dialog");
+    }
 
     public void openDialog(){
         PreferenceDialog preferenceDialog = new PreferenceDialog();
