@@ -300,7 +300,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                 query = "burger";
                 break;
             case "dinner":
-                query = "chicken breast";
+                query = "rice ";
                 break;
         }
         recipeService.searchRecipeWithPreference(minCarbs, maxCarbs,
@@ -315,21 +315,23 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                             nutrition.genNutrients();
 
 
-
-
-
-
                             if (mealType.equals("breakfast")) {
-                                breakfast_recipes= Collections.emptyList();;
+                                breakfast_recipes= new ArrayList<>();
                                 breakfast_recipes.addAll(list);
                                 breakfast_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("lunch")) {
-                                lunch_recipes= Collections.emptyList();
+                                lunch_recipes= new ArrayList<>();
                                 lunch_recipes.addAll(list);
                                 lunch_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("dinner")) {
-                                dinner_recipes= Collections.emptyList();
+                                dinner_recipes= new ArrayList<>();
+                                Log.d("=============", "is dinner list empty: "+dinner_recipes.isEmpty());
                                 dinner_recipes.addAll(list);
+                                int i = 0;
+                                for(Recipe recipe1: dinner_recipes){
+                                    Log.d("=============", i+" "+dinner_recipes.get(i).title+" "+ dinner_recipes.get(i).id);
+                                    i++;
+                                }
                                 dinner_RecipeUI(recipe, nutrition);
                             }
                         },
@@ -364,19 +366,16 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                             Nutrition nutrition = recipe.nutrition;
                             nutrition.genNutrients();
 
-
-
-
                             if (mealType.equals("breakfast")) {
-                                breakfast_recipes= Collections.emptyList();
+                                breakfast_recipes= new ArrayList<>();
                                 breakfast_recipes.addAll(list);
                                 breakfast_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("lunch")) {
-                                lunch_recipes= Collections.emptyList();
+                                lunch_recipes= new ArrayList<>();
                                 lunch_recipes.addAll(list);
                                 lunch_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("dinner")) {
-                                dinner_recipes= Collections.emptyList();
+                                dinner_recipes= new ArrayList<>();
                                 dinner_recipes.addAll(list);
                                 dinner_RecipeUI(recipe, nutrition);
                             }
@@ -392,29 +391,61 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
     private void breakfast_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
         this.breakfastId = recipeGenerator.id;
-        breakfast_dish_name.setText(recipeGenerator.title.trim());
-        breakfast_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
-        breakfast_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
-        breakfast_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
-        breakfast_carbs.setText("Carbohydrates: "+nutrition.carbs.amount +" " + nutrition.carbs.unit);
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                breakfast_dish_name.setText(recipeGenerator.title.trim());
+                breakfast_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
+                breakfast_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
+                breakfast_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
+                breakfast_carbs.setText("Carbohydrates: "+nutrition.carbs.amount +" " + nutrition.carbs.unit);
+
+            }
+        });
+
+
+
     }
 
     private void lunch_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
         this.lunchId = recipeGenerator.id;
-        lunch_dish_name.setText(recipeGenerator.title.trim());
-        lunch_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
-        lunch_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
-        lunch_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
-        lunch_carbs.setText("Carbohydrates: "+nutrition.carbs.amount +" " + nutrition.carbs.unit);
+
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                lunch_dish_name.setText(recipeGenerator.title.trim());
+                lunch_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
+                lunch_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
+                lunch_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
+                lunch_carbs.setText("Carbohydrates: "+nutrition.carbs.amount +" " + nutrition.carbs.unit);
+
+            }
+        });
+
+
     }
 
     private void dinner_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
         this.dinnerId = recipeGenerator.id;
-        dinner_dish_name.setText(recipeGenerator.title.trim());
-        dinner_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
-        dinner_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
-        dinner_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
-        dinner_carbs.setText("Carbohydrates: "+ nutrition.carbs.amount +" " +  nutrition.carbs.unit);
+
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                dinner_dish_name.setText(recipeGenerator.title.trim());
+                dinner_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
+                dinner_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
+                dinner_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
+                dinner_carbs.setText("Carbohydrates: "+ nutrition.carbs.amount +" " +  nutrition.carbs.unit);
+
+            }
+        });
+
+
     }
 
 
