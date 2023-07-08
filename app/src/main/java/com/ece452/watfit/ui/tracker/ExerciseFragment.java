@@ -315,7 +315,7 @@ public class ExerciseFragment extends Fragment {
         localDate = new Timestamp(calendar.getTimeInMillis());
         exerciseLogList.add(new ExerciseLog(dailyCalorie, calorieList, selectedExerciseList, localDate));
         db.collection("users")
-        .document(FirebaseAuth.getInstance().getUid()).collection("calorieLogs")
+        .document(FirebaseAuth.getInstance().getUid()).collection("exerciseLogs")
         .whereEqualTo("date", localDate)
         .get()
         .addOnSuccessListener(querySnapshot -> {

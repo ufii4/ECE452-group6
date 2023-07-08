@@ -63,4 +63,5 @@
         <item>40~80</item>
         <item>80~120</item>
     </string-array>
+    <string name="dietary_exercise_log_chart">Intake and Exercise Trend</string>
 </resources>
