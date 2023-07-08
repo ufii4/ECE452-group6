@@ -31,16 +31,32 @@
         android:padding="10dip"
         android:textSize="16dip"
         android:textStyle="bold" />
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <Button
+        android:id="@+id/btnDeleteExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/exerciseCalorie"
+        app:layout_constraintHorizontal_bias="0.412"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1"
+        app:layout_constraintVertical_bias="0.509" />
+
+    <TextView
         android:id="@+id/exerciseCalorie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1"
         android:padding="10dip"
         android:textSize="16dip"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_1"
+        app:layout_constraintVertical_bias="0.501" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

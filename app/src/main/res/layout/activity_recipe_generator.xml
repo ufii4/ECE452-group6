@@ -32,7 +32,7 @@
             android:drawableTint="#000000"
             android:drawableTintMode="src_in"
             android:text="@string/button_Preference_bar"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="15sp" />
 
 
@@ -58,13 +58,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/breakfast_title"
-                    android:layout_width="102dp"
+                <LinearLayout
+                    android:id="@+id/breakfast_leftside"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:text="Breakfast"
-                    android:textSize="15sp" />
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="0dp"
+                    android:paddingRight="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/breakfast_title"
+                        android:layout_width="102dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Breakfast"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/breakfast_recipe_btn"
+                        android:layout_width="69dp"
+                        android:layout_height="29dp"
+                        android:gravity="center"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@string/recipe"
+                        android:textColor="@color/black"
+                        android:textSize="9sp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/breakfast_nutrition_linearlayout"
@@ -81,7 +106,7 @@
 
                     <TextView
                         android:id="@+id/breakfast_dish_name"
-                        android:layout_width="192dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="breakfast_dish_name"
@@ -145,6 +170,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+            <LinearLayout
+                android:id="@+id/lunch_leftside"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="vertical"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                     android:id="@+id/lunch_title"
                     android:layout_width="102dp"
@@ -152,6 +190,17 @@
                     android:gravity="left"
                     android:text="Lunch"
                     android:textSize="15sp" />
+                <Button
+                    android:id="@+id/lunch_recipe_btn"
+                    android:layout_width="69dp"
+                    android:layout_height="29dp"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/recipe"
+                    android:textColor="@color/black"
+                    android:textSize="9sp" />
+            </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/lunch_nutrition_linearlayout"
@@ -168,7 +217,7 @@
 
                     <TextView
                         android:id="@+id/lunch_dish_name"
-                        android:layout_width="192dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="lunch_dish_name"
@@ -231,13 +280,38 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+            <LinearLayout
+                android:id="@+id/dinner_leftside"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:orientation="vertical"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
                 <TextView
-                    android:id="@+id/breakfast_dinner"
-                    android:layout_width="102dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:text="Dinner"
-                    android:textSize="15sp" />
+                        android:id="@+id/breakfast_dinner"
+                        android:layout_width="102dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="Dinner"
+                        android:textSize="15sp" />
+                <Button
+                    android:id="@+id/dinner_recipe_btn"
+                    android:layout_width="69dp"
+                    android:layout_height="29dp"
+                    android:gravity="center"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/recipe"
+                    android:textColor="@color/black"
+                    android:textSize="9sp" />
+            </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/dinner_nutrition_linearlayout"
@@ -254,7 +328,7 @@
 
                     <TextView
                         android:id="@+id/dinner_dish_name"
-                        android:layout_width="192dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="left"
                         android:text="dinner_dish_name"
@@ -304,11 +378,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
-            android:drawableLeft="@android:drawable/ic_menu_rotate"
-            android:drawableTint="#000000"
-            android:drawableTintMode="src_in"
+            android:drawableLeft="@drawable/ic_refresh_24dp"
             android:text="@string/button_Regenerate"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
 

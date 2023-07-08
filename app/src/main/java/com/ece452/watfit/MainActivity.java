@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         // check if user is signed in (non-null) and update UI accordingly
         FirebaseUser currentUser = auth.getCurrentUser();
-        // if user is not signed in, navigate to StartActivity. Else, stay at MainActivity
+        // if user is not signed in, navigate to LoginActivity. Else, stay at MainActivity
         if(currentUser == null){
-            startActivity(new Intent(MainActivity.this, StartActivity.class));
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         }
     }

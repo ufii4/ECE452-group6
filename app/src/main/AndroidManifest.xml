@@ -16,8 +16,13 @@
         android:theme="@style/Theme.WatFit"
         tools:targetApi="31">
         <activity
+            android:name=".AboutActivity"
+            android:exported="false"
+            android:label="@string/title_about"/>
+        <activity
             android:name=".FitnessSchedulerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/title_fitness_scheduler"/>
         <activity
             android:name=".EditPostActivity"
             android:exported="false"
@@ -62,10 +67,6 @@
             android:name=".RegisterActivity"
             android:exported="false"
             android:label="@string/title_register" />
-        <activity
-            android:name=".StartActivity"
-            android:exported="true"
-            android:label="@string/title_start" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
