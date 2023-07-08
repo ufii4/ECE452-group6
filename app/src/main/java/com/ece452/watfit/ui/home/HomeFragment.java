@@ -261,7 +261,7 @@ public class HomeFragment extends Fragment {
                     String temp;
                     URL url_temp = null;
                     Bitmap bitmap_temp = null;
-                    //processing for result 0
+                    //processing for result 1
                     try {
                         refresh_item = response_list.getJSONObject(0);
                     } catch (JSONException e) {
@@ -301,6 +301,170 @@ public class HomeFragment extends Fragment {
                     }
                     videoDes1 = temp;
                     v1_text.setText(videoDes1);
+
+                    //processing for result 2
+                    try {
+                        refresh_item = response_list.getJSONObject(1);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId2 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId2+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v2.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes2 = temp;
+                    v2_text.setText(videoDes2);
+
+                    //processing for result 3
+                    try {
+                        refresh_item = response_list.getJSONObject(2);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId3 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId3+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v3.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes3 = temp;
+                    v3_text.setText(videoDes3);
+
+                    //processing for result 4
+                    try {
+                        refresh_item = response_list.getJSONObject(3);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId4 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId4+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v4.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes4 = temp;
+                    v4_text.setText(videoDes4);
+
+                    //processing for result 5
+                    try {
+                        refresh_item = response_list.getJSONObject(4);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId5 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId5+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v5.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes5 = temp;
+                    v5_text.setText(videoDes5);
                 }
             }
         });
