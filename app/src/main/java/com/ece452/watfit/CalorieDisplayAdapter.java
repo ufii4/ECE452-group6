@@ -15,6 +15,8 @@ import com.ece452.watfit.data.Ingredient;
 import com.ece452.watfit.data.MenuItem;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,16 +25,20 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
     private List<Ingredient> itemList;
     private List<Ingredient> filteredItemList;
     private List<Double> calorie;
+    private TextView calorieTotal;
+    private Double dailyCalorieDisplay;
     String unit;
     private OnDeleteButtonClickListener onDeleteButtonClickListener;
 
-    public CalorieDisplayAdapter(Context context, List<Ingredient> itemList,List<Double> calorie, String unit) {
+    public CalorieDisplayAdapter(Context context, List<Ingredient> itemList,List<Double> calorie, String unit,Double dailyCalorieDisplay,TextView calorieTotal) {
         super(context, R.layout.calorie_listview, itemList);
         this.context = context;
         this.itemList = itemList;
         this.filteredItemList = itemList;
         this.calorie = calorie;
         this.unit = unit;
+        this.dailyCalorieDisplay = dailyCalorieDisplay;
+        this.calorieTotal = calorieTotal;
     }
 
     @Override
@@ -55,28 +61,16 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
         //deleteButton listener
         Button btnDelete = convertView.findViewById(R.id.btnDeleteFood);
 
-//        TextView calorieTotal = convertView.findViewById(R.id.calorieTotal);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle delete button click here
-                // You can access the clicked item position using the 'position' parameter
-                // For example:
+                dailyCalorieDisplay -= calorie.get(position);
+                calorieTotal.setText(Double.toString(dailyCalorieDisplay));
                 itemList.remove(position);
                 calorie.remove(position);
                 notifyDataSetChanged();
                 Toast.makeText(context, "Delete Successfully but remember to submit!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // Set click listener on the whole item view
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle item click here
-                // You can access the clicked item position using the 'position' parameter
-                // For example:
-                Toast.makeText(context, "Clicked item at position: " + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -124,12 +118,6 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
                 notifyDataSetChanged();
             }
         };
-    }
-    public void deleteItem(int position) {
-        if (position >= 0 && position < filteredItemList.size()) {
-            filteredItemList.remove(position);
-            notifyDataSetChanged();
-        }
     }
     public void filter(String query) {
         getFilter().filter(query);
