@@ -1,5 +1,6 @@
 package com.ece452.watfit.ui.tracker;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.ece452.watfit.EditPostActivity;
 import com.ece452.watfit.R;
+import com.ece452.watfit.data.ExerciseLog;
 import com.ece452.watfit.data.Exercise;
 import com.ece452.watfit.data.Caloriesburned;
 import com.ece452.watfit.data.source.remote.ExerciseService;
@@ -31,8 +34,25 @@ import com.ece452.watfit.data.source.remote.NinjaDataSource;
 import com.ece452.watfit.ExerciseDisplayAdapter;
 import com.ece452.watfit.ExerciseSearchAdapter;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.FlowableSubscriber;
@@ -56,12 +76,17 @@ public class ExerciseFragment extends Fragment {
     private ListView exerciseListView;
     private SearchView exerciseSearchView;
     private NinjaDataSource ninjaDataSource;
+    private Button dateButton;
     private double dailyCalorie = 0;
+    private Timestamp localDate = null;
     private List<Double> calorieList = new ArrayList<>();
+    @Inject
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_exercise, container, false);
-
+        DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
         ((AppCompatActivity) requireActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_arrow);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -78,6 +103,50 @@ public class ExerciseFragment extends Fragment {
         calorieTotalExerciseTextView = root.findViewById(R.id.calorieTotalExercise);
         submitButtonExercise = root.findViewById(R.id.submitButtonExercise);
         textViewExerciseSelected = root.findViewById(R.id.textViewExerciseSelected);
+        dateButton = root.findViewById(R.id.dateButtonExercise);
+
+        localDate = new Timestamp(System.currentTimeMillis());
+        String selectedDate = new SimpleDateFormat("dd/MM/yyyy").format(localDate);
+        dateButton.setText(selectedDate);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(localDate.getTime());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        localDate = new Timestamp(calendar.getTimeInMillis());
+
+        docRef.collection("exerciseLogs").whereEqualTo("date", localDate)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                Date logDate = documentSnapshot.getTimestamp("date").toDate();
+                                if (logDate != null && isSameDate(logDate, localDate)) {
+                                    double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
+                                    List<Map<String, Object>> exerciseListData = (List<Map<String, Object>>) documentSnapshot.get("exerciseList");
+                                    exerciseList = new ArrayList<>();
+                                    for (Map<String, Object> exerciseMap : exerciseListData) {
+                                        String name = (String) exerciseMap.get("name");
+                                        Exercise exercise = new Exercise(name);
+                                        exerciseList.add(exercise);
+                                    }
+                                    calorieList = (List<Double>) documentSnapshot.get("calorieList");
+
+                                    calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                                    ListView listView = root.findViewById(R.id.exerciseSelectList);
+                                    ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), exerciseList, calorieList);
+                                    listView.setAdapter(ExerciseDisplayAdapter);
+                                    break; // Exit the loop after finding the matching document
+                                }
+                            }
+                        }
+                    }
+                });
 
         calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
 
@@ -135,6 +204,83 @@ public class ExerciseFragment extends Fragment {
         });
         exerciseListView.setAdapter(null);
 
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Create a DatePickerDialog instance and set the listener
+                DatePickerDialog datePickerDialog = new DatePickerDialog(root.getContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                // Update the dateEditText with the selected date
+                                String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                                dateButton.setText(selectedDate);
+                                Calendar selectedCalendar = Calendar.getInstance();
+                                selectedCalendar.set(year, month, dayOfMonth);
+                                selectedCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                                selectedCalendar.set(Calendar.MINUTE, 0);
+                                selectedCalendar.set(Calendar.SECOND, 0);
+                                selectedCalendar.set(Calendar.MILLISECOND, 0);
+                                localDate = new Timestamp(selectedCalendar.getTimeInMillis());
+
+
+                                // Retrieve data from Firebase
+                                docRef.collection("exerciseLogs")
+                                        .whereEqualTo("date", localDate)
+                                        .get()
+                                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                if (!queryDocumentSnapshots.isEmpty()) {
+                                                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                                        Date logDate = documentSnapshot.getTimestamp("date").toDate();
+                                                        if (logDate != null) {
+                                                            double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
+                                                            List<Map<String, Object>> exerciseListData = (List<Map<String, Object>>) documentSnapshot.get("exerciseList");
+                                                            exerciseList = new ArrayList<>();
+                                                            for (Map<String, Object> foodMap : exerciseListData) {
+                                                                String name = (String) foodMap.get("name");
+                                                                Exercise exercise = new Exercise(name);
+                                                                exerciseList.add(exercise);
+                                                            }
+                                                            calorieList = (List<Double>) documentSnapshot.get("calorieList");
+
+                                                            calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                                                            ListView listView = root.findViewById(R.id.exerciseSelectList);
+                                                            ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), exerciseList, calorieList);
+                                                            listView.setAdapter(ExerciseDisplayAdapter);
+                                                            break; // Exit the loop after finding the matching document
+                                                        }
+                                                    }
+                                                } else {
+                                                    // No matching document found, update the UI accordingly
+                                                    exerciseList.clear();
+                                                    calorieList.clear();
+                                                    dailyCalorie = 0;
+                                                    calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                                                    ListView listView = root.findViewById(R.id.exerciseSelectList);
+                                                    listView.setAdapter(null);
+                                                    ExerciseDisplayAdapter adapter = new ExerciseDisplayAdapter(root.getContext(), exerciseList, calorieList);
+                                                    listView.setAdapter(adapter);
+                                                }
+                                            }
+                                        });
+                            }
+                        }, year, month, dayOfMonth);
+
+                // Show the date picker dialog
+                datePickerDialog.show();
+            }
+        });
+
+        ListView list = root.findViewById(R.id.exerciseListView);
+        list.setAdapter(null);
+
         submitButtonExercise.setOnClickListener(v -> submitExercises(root));
 
         return root;
@@ -151,7 +297,43 @@ public class ExerciseFragment extends Fragment {
     }
 
     private void submitExercises(View root) {
-        Toast.makeText(root.getContext(), "You submit your daily exercise successfully.", Toast.LENGTH_SHORT).show();
+        if (localDate == null) {
+            localDate = new Timestamp(System.currentTimeMillis());
+        }
+        dailyCalorie = 0;
+        for (double d : calorieList) {
+            dailyCalorie += d;
+        }
+        calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+        List<ExerciseLog> exerciseLogList = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(localDate.getTime());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        localDate = new Timestamp(calendar.getTimeInMillis());
+        exerciseLogList.add(new ExerciseLog(dailyCalorie, calorieList, selectedExerciseList, localDate));
+        db.collection("users")
+        .document(FirebaseAuth.getInstance().getUid()).collection("calorieLogs")
+        .whereEqualTo("date", localDate)
+        .get()
+        .addOnSuccessListener(querySnapshot -> {
+            // Check if a document with the given localDate already exists
+            if (!querySnapshot.isEmpty()) {
+                // A document with the same localDate already exists
+                // You can update the existing document here if needed
+                DocumentSnapshot document = querySnapshot.getDocuments().get(0);
+
+                // Update the existing document with the new values
+                document.getReference().set(
+                        new ExerciseLog(dailyCalorie, calorieList, selectedExerciseList, localDate)
+                );
+            } else {
+                db.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("exerciseLogs").add(new ExerciseLog(dailyCalorie, calorieList, selectedExerciseList, localDate));
+            }    
+        });
+        Toast.makeText(root.getContext(), "You submitted your daily exercise successfully.", Toast.LENGTH_SHORT).show();
     }
 
     /********* Sharing Button ***********/
@@ -169,15 +351,11 @@ public class ExerciseFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // back button is clicked
         if (item.getItemId() == android.R.id.home) {
             NavHostFragment.findNavController(this).popBackStack();
             return true;
         }
-        // share button is clicked
         if (item.getItemId() == R.id.share_post_button) {
-            // handle account button click
-            // TODO: take a screenshot on the current exercise fragment before navigate to EditPostActivity
             startActivity(new Intent(getActivity(), EditPostActivity.class));
             return true;
         }
@@ -188,6 +366,23 @@ public class ExerciseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         exerciseList.clear();
+    }
+
+    private boolean isSameDate(Date date1, Date date2) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+
+        int year1 = cal1.get(Calendar.YEAR);
+        int month1 = cal1.get(Calendar.MONTH);
+        int day1 = cal1.get(Calendar.DAY_OF_MONTH);
+
+        int year2 = cal2.get(Calendar.YEAR);
+        int month2 = cal2.get(Calendar.MONTH);
+        int day2 = cal2.get(Calendar.DAY_OF_MONTH);
+
+        return (year1 == year2 && month1 == month2 && day1 == day2);
     }
 
     private void hideElementExceptList(View root){

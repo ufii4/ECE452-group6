@@ -8,13 +8,8 @@ public class Exercise {
     public String difficulty;
     public String instructions;
 
-    public Exercise(String name, String type, String muscle, String equipment, String difficulty, String instructions) {
+    public Exercise(String name) {
         this.name = name;
-        this.type = type;
-        this.muscle = muscle;
-        this.equipment = equipment;
-        this.difficulty = difficulty;
-        this.instructions = instructions;
     }
 
     public Exercise() {}
