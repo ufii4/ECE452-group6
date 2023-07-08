@@ -23,7 +23,13 @@ import com.ece452.watfit.RecVideoDisplayActivity;
 import com.ece452.watfit.RecipeGeneratorActivity;
 import com.ece452.watfit.databinding.FragmentHomeBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -31,21 +37,20 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     // Your Video URL
-    String videoCoverUrl1 = "https://img.youtube.com/vi/iCQ2gC4DqJw/0.jpg";
-    String videoCoverUrl2 = "https://img.youtube.com/vi/UoC_O3HzsH0/0.jpg";
-    String videoCoverUrl3 = "https://img.youtube.com/vi/IT94xC35u6k/0.jpg";
-    String videoCoverUrl4 = "https://img.youtube.com/vi/A0BhN-HAkt8/0.jpg";
-    String videoCoverUrl5 = "https://img.youtube.com/vi/ixkQaZXVQjs/0.jpg";
-    String videoUrl1 = "https://www.youtube.com/embed/iCQ2gC4DqJw";
-    String videoUrl2 = "https://www.youtube.com/embed/UoC_O3HzsH0";
-    String videoUrl3 = "https://www.youtube.com/embed/IT94xC35u6k";
-    String videoUrl4 = "https://www.youtube.com/embed/A0BhN-HAkt8";
-    String videoUrl5 = "https://www.youtube.com/embed/ixkQaZXVQjs";
+    String videoId1 = "iCQ2gC4DqJw";
+    String videoId2 = "UoC_O3HzsH0";
+    String videoId3 = "IT94xC35u6k";
+    String videoId4 = "A0BhN-HAkt8";
+    String videoId5 = "ixkQaZXVQjs";
+    String videoCoverUrl1 = "https://img.youtube.com/vi/";
+    String videoCoverUrl2 = "/0.jpg";
+    String videoUrl = "https://www.youtube.com/embed/";
     String videoDes1 = "PERFECT 20 MIN FULL BODY WORKOUT FOR BEGINNERS (No Equipment)";
     String videoDes2 = "10 MIN BODYWEIGHT WORKOUT (NO EQUIPMENT HOME WORKOUT!)";
     String videoDes3 = "20 min Fat Burning Workout for TOTAL BEGINNERS (Achievable, No Equipment)";
     String videoDes4 = "20 MINUTE CARDIO AND ABS WORKOUT [FAT MELTING ROUTINE]";
     String videoDes5 = "The PERFECT Beginner Workout (Sets and Reps Included)";
+    String SearchURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=fitness&type=video&key=AIzaSyDVM_9P55ILrYROYZo7ioyKvyqH8hdAg0E";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -103,7 +108,7 @@ public class HomeFragment extends Fragment {
         URL url = null;
         Bitmap bitmap = null;
         try {
-            url = new URL(videoCoverUrl1);
+            url = new URL((videoCoverUrl1+videoId1+videoCoverUrl2));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -114,7 +119,7 @@ public class HomeFragment extends Fragment {
         }
         v1.setImageBitmap(bitmap);
         try {
-            url = new URL(videoCoverUrl2);
+            url = new URL((videoCoverUrl1+videoId2+videoCoverUrl2));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -125,7 +130,7 @@ public class HomeFragment extends Fragment {
         }
         v2.setImageBitmap(bitmap);
         try {
-            url = new URL(videoCoverUrl3);
+            url = new URL((videoCoverUrl1+videoId3+videoCoverUrl2));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -136,7 +141,7 @@ public class HomeFragment extends Fragment {
         }
         v3.setImageBitmap(bitmap);
         try {
-            url = new URL(videoCoverUrl4);
+            url = new URL((videoCoverUrl1+videoId4+videoCoverUrl2));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -147,7 +152,7 @@ public class HomeFragment extends Fragment {
         }
         v4.setImageBitmap(bitmap);
         try {
-            url = new URL(videoCoverUrl5);
+            url = new URL((videoCoverUrl1+videoId5+videoCoverUrl2));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -165,7 +170,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecVideoDisplayActivity.class);
                 Bundle param = new Bundle();
-                param.putString("VideoURL", videoUrl1);
+                param.putString("VideoURL", (videoUrl+videoId1));
                 intent.putExtras(param);
                 startActivity(intent);
             }
@@ -175,7 +180,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecVideoDisplayActivity.class);
                 Bundle param = new Bundle();
-                param.putString("VideoURL", videoUrl2);
+                param.putString("VideoURL", (videoUrl+videoId2));
                 intent.putExtras(param);
                 startActivity(intent);
             }
@@ -185,7 +190,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecVideoDisplayActivity.class);
                 Bundle param = new Bundle();
-                param.putString("VideoURL", videoUrl3);
+                param.putString("VideoURL", (videoUrl+videoId3));
                 intent.putExtras(param);
                 startActivity(intent);
             }
@@ -195,7 +200,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecVideoDisplayActivity.class);
                 Bundle param = new Bundle();
-                param.putString("VideoURL", videoUrl4);
+                param.putString("VideoURL", (videoUrl+videoId4));
                 intent.putExtras(param);
                 startActivity(intent);
             }
@@ -205,57 +210,264 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RecVideoDisplayActivity.class);
                 Bundle param = new Bundle();
-                param.putString("VideoURL", videoUrl5);
+                param.putString("VideoURL", (videoUrl+videoId5));
                 intent.putExtras(param);
                 startActivity(intent);
             }
         });
-        //final TextView textView = binding.textHome;
-        //
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        Button refreshButton = (Button) root.findViewById(R.id.bt_refresh);
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String response = "";
+                URL searchUrl = null;
+                try {
+                    searchUrl = new URL(SearchURL);
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+                BufferedReader br_refresh;
+                try {
+                    br_refresh = new BufferedReader(new InputStreamReader(searchUrl.openConnection().getInputStream()));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                String line;
+                while (true){
+                    try {
+                        if (!((line = br_refresh.readLine()) != null)) break;
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    response = response + line;
+                }
 
-        /*// Video 1
-        VideoView videoView1 = (VideoView) root.findViewById(R.id.rec_v1);
-        Uri uri1 = Uri.parse(videoUrl);
-        videoView1.setVideoURI(uri1);
-        MediaController mediaController = new MediaController(root.getContext());
-        mediaController.setAnchorView(videoView1);
-        mediaController.setMediaPlayer(videoView1);
-        videoView1.setMediaController(mediaController);
-        //videoView1.start();
-        //Video 2
-        VideoView videoView2 = (VideoView) root.findViewById(R.id.rec_v2);
-        Uri uri2 = Uri.parse(videoUrl);
-        videoView2.setVideoURI(uri2);
-        mediaController.setAnchorView(videoView2);
-        mediaController.setMediaPlayer(videoView2);
-        videoView2.setMediaController(mediaController);
-        //videoView2.start();
-        //Video 3
-        VideoView videoView3 = (VideoView) root.findViewById(R.id.rec_v3);
-        Uri uri3 = Uri.parse(videoUrl);
-        videoView3.setVideoURI(uri3);
-        mediaController.setAnchorView(videoView3);
-        mediaController.setMediaPlayer(videoView3);
-        videoView3.setMediaController(mediaController);
-        //videoView3.start();
-        //Video 4
-        VideoView videoView4 = (VideoView) root.findViewById(R.id.rec_v4);
-        Uri uri4 = Uri.parse(videoUrl);
-        videoView4.setVideoURI(uri4);
-        mediaController.setAnchorView(videoView4);
-        mediaController.setMediaPlayer(videoView4);
-        videoView4.setMediaController(mediaController);
-        //videoView4.start();
-        //Video 5
-        VideoView videoView5 = (VideoView) root.findViewById(R.id.rec_v5);
-        Uri uri5 = Uri.parse(videoUrl);
-        videoView5.setVideoURI(uri5);
-        mediaController.setAnchorView(videoView5);
-        mediaController.setMediaPlayer(videoView5);
-        videoView5.setMediaController(mediaController);
-        //videoView5.start();
-        //Videos end*/
+                //response retrieved at last! below we deal with each of the five results
+                if (!response.isEmpty()){
+                    JSONObject refresh_object;
+                    try {
+                        refresh_object = new JSONObject(response);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    JSONArray response_list;
+                    try {
+                        response_list = refresh_object.getJSONArray("items");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    JSONObject refresh_item;
+                    JSONObject refresh_item_id;
+                    String temp;
+                    URL url_temp = null;
+                    Bitmap bitmap_temp = null;
+                    //processing for result 1
+                    try {
+                        refresh_item = response_list.getJSONObject(0);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId1 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId1+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v1.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes1 = temp;
+                    v1_text.setText(videoDes1);
+
+                    //processing for result 2
+                    try {
+                        refresh_item = response_list.getJSONObject(1);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId2 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId2+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v2.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes2 = temp;
+                    v2_text.setText(videoDes2);
+
+                    //processing for result 3
+                    try {
+                        refresh_item = response_list.getJSONObject(2);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId3 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId3+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v3.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes3 = temp;
+                    v3_text.setText(videoDes3);
+
+                    //processing for result 4
+                    try {
+                        refresh_item = response_list.getJSONObject(3);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId4 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId4+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v4.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes4 = temp;
+                    v4_text.setText(videoDes4);
+
+                    //processing for result 5
+                    try {
+                        refresh_item = response_list.getJSONObject(4);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("id");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("videoId");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoId5 = temp;
+                    try {
+                        url_temp = new URL((videoCoverUrl1+videoId5+videoCoverUrl2));
+                    } catch (MalformedURLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bitmap_temp = BitmapFactory.decodeStream(url_temp.openConnection().getInputStream());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    v5.setImageBitmap(bitmap_temp);
+                    try {
+                        refresh_item_id = refresh_item.getJSONObject("snippet");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        temp = refresh_item_id.getString("title");
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                    videoDes5 = temp;
+                    v5_text.setText(videoDes5);
+                }
+            }
+        });
         return root;
     }
 

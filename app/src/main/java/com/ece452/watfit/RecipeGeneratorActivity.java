@@ -14,8 +14,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.ece452.watfit.data.ExtendedIngredient;
 import com.ece452.watfit.data.Nutrition;
 import com.ece452.watfit.data.Recipe;
+import com.ece452.watfit.data.RecipeInformation;
 import com.ece452.watfit.data.UserProfile;
 import com.ece452.watfit.data.source.remote.RecipeService;
 import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
@@ -26,7 +28,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.inject.Inject;
@@ -59,10 +65,16 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     TextView dinner_fat;
     Button bt_regenerate;
     Button bt_preferencebar;
+    Button breakfast_recipe_btn;
+    Button lunch_recipe_btn;
+    Button dinner_recipe_btn;
+    static String breakfastId ;
+    static String lunchId;
+    static String dinnerId;
 
-    List<Recipe> breakfast_recipes;
-    List<Recipe> lunch_recipes;
-    List<Recipe> dinner_recipes;
+    static List<Recipe> breakfast_recipes;
+    static List<Recipe> lunch_recipes;
+    static List<Recipe> dinner_recipes;
 
     @Inject
     FirebaseFirestore db;
@@ -111,6 +123,34 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
         bt_regenerate = findViewById(R.id.bt_regenerate_recipe);
 
+        ///// recipe information
+        breakfast_recipe_btn= breakfast_recipe_linearlayout.findViewById(R.id.breakfast_recipe_btn);
+        lunch_recipe_btn= lunch_recipe_linearlayout.findViewById(R.id.lunch_recipe_btn);
+        dinner_recipe_btn= dinner_recipe_linearlayout.findViewById(R.id.dinner_recipe_btn);
+
+        breakfast_recipe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recipeGenerateBtnClick(breakfastId);
+            }
+        });
+
+        lunch_recipe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recipeGenerateBtnClick(lunchId);
+            }
+        });
+
+        dinner_recipe_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               recipeGenerateBtnClick(dinnerId);
+            }
+        });
+
+
+
         ///// preference bar
         LinearLayout header_linearlayout_nav = findViewById(R.id.header_linearlayout_nav);
         bt_preferencebar = header_linearlayout_nav.findViewById(R.id.preferencebar);
@@ -154,10 +194,7 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                 int randomNum_breakfast = ThreadLocalRandom.current().nextInt(0, breakfast_recipes.size());
                 int randomNum_lunch = ThreadLocalRandom.current().nextInt(0, lunch_recipes.size());
                 int randomNum_dinner = ThreadLocalRandom.current().nextInt(0, dinner_recipes.size());
-//
-                Log.d("hihihi", "onClick: "+ randomNum_breakfast + " " + randomNum_lunch + " " + randomNum_dinner);
-//
-                Log.d("hihihi", "onClick: "+ breakfast_recipes.size() + " " + lunch_recipes.size() + " " + dinner_recipes.size());
+
                 Recipe newBreakfast = breakfast_recipes.get(randomNum_breakfast);
                 Recipe newLunch = lunch_recipes.get(randomNum_lunch);
                 Recipe newDinner = dinner_recipes.get(randomNum_dinner);
@@ -176,6 +213,47 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
             }
         });
 
+    }
+
+
+    private void recipeGenerateBtnClick(String id){
+        CompletableFuture<String> future =getRecipeInformation(id);
+        try {
+            String recipeInformation = future.get();
+            openRecipeInformationDialog(recipeInformation);
+        } catch (InterruptedException | ExecutionException | CancellationException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private CompletableFuture<String> getRecipeInformation(String id){
+        Log.d("recipe information", "getRecipeInformation: recipe id is"+id);
+        CompletableFuture<String> future = new CompletableFuture<>();
+
+        recipeService.searchRecipeInformation(id)
+                .subscribe(
+                        result -> {
+                            RecipeInformation recipeInformation = result;
+                            ArrayList<ExtendedIngredient> extendedIngredients= recipeInformation.extendedIngredients;
+                            StringBuilder res = new StringBuilder("");
+                            for(ExtendedIngredient extendedIngredient: extendedIngredients){
+                                res.append(extendedIngredient.original.trim());
+                                res.append(System.getProperty("line.separator"));
+                            }
+
+                            Log.d("getRecipeInformation", res.toString());
+
+                            future.complete(res.toString());
+                        },
+                        error -> {
+                            Log.e("RecipeGeneratorActivity", "onFailure: " + error.getLocalizedMessage());
+                        },
+                        () -> {
+                            Log.d("RecipeGeneratorActivity", "onComplete: ");
+                        }
+                );
+
+        return future;
     }
 
     // add Account & Sharing button to action bar (header)
@@ -219,10 +297,10 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                 query = "breakfast";
                 break;
             case "lunch":
-                query = "chicken";
+                query = "burger";
                 break;
             case "dinner":
-                query = "beef";
+                query = "chicken breast";
                 break;
         }
         recipeService.searchRecipeWithPreference(minCarbs, maxCarbs,
@@ -236,16 +314,21 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                             Nutrition nutrition = recipe.nutrition;
                             nutrition.genNutrients();
 
+
+
+
+
+
                             if (mealType.equals("breakfast")) {
-                                breakfast_recipes.clear();
+                                breakfast_recipes= Collections.emptyList();;
                                 breakfast_recipes.addAll(list);
                                 breakfast_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("lunch")) {
-                                lunch_recipes.clear();
+                                lunch_recipes= Collections.emptyList();
                                 lunch_recipes.addAll(list);
                                 lunch_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("dinner")) {
-                                dinner_recipes.clear();
+                                dinner_recipes= Collections.emptyList();
                                 dinner_recipes.addAll(list);
                                 dinner_RecipeUI(recipe, nutrition);
                             }
@@ -281,13 +364,19 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
                             Nutrition nutrition = recipe.nutrition;
                             nutrition.genNutrients();
 
+
+
+
                             if (mealType.equals("breakfast")) {
+                                breakfast_recipes= Collections.emptyList();
                                 breakfast_recipes.addAll(list);
                                 breakfast_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("lunch")) {
+                                lunch_recipes= Collections.emptyList();
                                 lunch_recipes.addAll(list);
                                 lunch_RecipeUI(recipe, nutrition);
                             } else if (mealType.equals("dinner")) {
+                                dinner_recipes= Collections.emptyList();
                                 dinner_recipes.addAll(list);
                                 dinner_RecipeUI(recipe, nutrition);
                             }
@@ -302,7 +391,8 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     }
 
     private void breakfast_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
-        breakfast_dish_name.setText(recipeGenerator.title);
+        this.breakfastId = recipeGenerator.id;
+        breakfast_dish_name.setText(recipeGenerator.title.trim());
         breakfast_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         breakfast_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
         breakfast_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
@@ -310,7 +400,8 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     }
 
     private void lunch_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
-        lunch_dish_name.setText(recipeGenerator.title);
+        this.lunchId = recipeGenerator.id;
+        lunch_dish_name.setText(recipeGenerator.title.trim());
         lunch_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         lunch_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
         lunch_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
@@ -318,13 +409,19 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     }
 
     private void dinner_RecipeUI(Recipe recipeGenerator, Nutrition nutrition) {
-        dinner_dish_name.setText(recipeGenerator.title);
+        this.dinnerId = recipeGenerator.id;
+        dinner_dish_name.setText(recipeGenerator.title.trim());
         dinner_calories.setText("Calories: "+nutrition.calories.amount+" "+ nutrition.calories.unit);
         dinner_protein.setText("Protein: "+nutrition.protein.amount +" " + nutrition.protein.unit);
         dinner_fat.setText("Fat: "+nutrition.fat.amount +" " + nutrition.fat.unit);
         dinner_carbs.setText("Carbohydrates: "+ nutrition.carbs.amount +" " +  nutrition.carbs.unit);
     }
 
+
+    public void openRecipeInformationDialog(String recipeInformation){
+        RecipeInformationDialog recipeInformationDialog = new RecipeInformationDialog(recipeInformation);
+        recipeInformationDialog.show(getSupportFragmentManager(),"recipe info dialog");
+    }
 
     public void openDialog(){
         PreferenceDialog preferenceDialog = new PreferenceDialog();
