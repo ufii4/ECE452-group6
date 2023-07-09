@@ -53,3 +53,4 @@
 | 2023/07/07 |           |            |        |          | 5           |           | Create App Logo, Remove StartActivity, Add background color, EditText polish                                                                                                            |
 | 2023/07/07 | 9         |            |        |          |             |           | Requesting Youtube search for rec list refresh, retrieving and parsing the JSON response file, updating the video cover and title, as well as re-linking the video display activites
 | 2023/07/07 |          |            |        |          |             |10           | Recipe information
+| 2023/07/09 | 9         |            |        |          |             |           | Removing rec list button in the homepage navbar, and assigning random YouTube search keywords for each refresh action

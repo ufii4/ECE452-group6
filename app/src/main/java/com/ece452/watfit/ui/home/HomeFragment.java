@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class HomeFragment extends Fragment {
 
@@ -50,7 +51,38 @@ public class HomeFragment extends Fragment {
     String videoDes3 = "20 min Fat Burning Workout for TOTAL BEGINNERS (Achievable, No Equipment)";
     String videoDes4 = "20 MINUTE CARDIO AND ABS WORKOUT [FAT MELTING ROUTINE]";
     String videoDes5 = "The PERFECT Beginner Workout (Sets and Reps Included)";
-    String SearchURL = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=fitness&type=video&key=AIzaSyDVM_9P55ILrYROYZo7ioyKvyqH8hdAg0E";
+    String SearchURL1 = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=";
+    String[] SearchURL_keyword = {"Fitness",
+            "Workout_routines",
+            "Weightlifting",
+            "Cardio_exercises",
+            "Body-weight_workouts",
+            "Strength_training",
+            "Yoga_workouts",
+            "Pilates_exercises",
+            "CrossFit_workouts",
+            "Fitness_challenges",
+            "Muscle_building",
+            "Fat_loss",
+            "Home_workouts",
+            "Gym_workouts",
+            "Abs/core_exercises",
+            "Flexibility_training",
+            "Nutrition_tips",
+            "Healthy_recipes",
+            "Fitness_equipment_reviews",
+            "Exercise_tutorials",
+            "Weight_loss_tips",
+            "Swimming",
+            "Resistance_training",
+            "Calisthenics_workouts",
+            "Stretching_exercises",
+            "Bodybuilding_tips",
+            "Functional_training",
+            "Injury_prevention",
+            "Exercise_modifications",
+            "Mind-body_workouts"};
+    String SearchURL2 = "&type=video&key=AIzaSyDVM_9P55ILrYROYZo7ioyKvyqH8hdAg0E";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -222,7 +254,7 @@ public class HomeFragment extends Fragment {
                 String response = "";
                 URL searchUrl = null;
                 try {
-                    searchUrl = new URL(SearchURL);
+                    searchUrl = new URL((SearchURL1+SearchURL_keyword[ThreadLocalRandom.current().nextInt(0, 30)]+SearchURL2));
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
