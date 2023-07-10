@@ -475,8 +475,10 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:drawableLeft="@drawable/ic_refresh_24dp"
+            android:textColor="@color/gold_4"
+            android:textStyle="bold"
+            android:background="@drawable/button_rounded_corner_bg"
             android:text="@string/button_Regenerate"
-            android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>
 
