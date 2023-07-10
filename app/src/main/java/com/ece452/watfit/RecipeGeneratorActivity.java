@@ -65,9 +65,6 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     TextView dinner_fat;
     Button bt_regenerate;
     Button bt_preferencebar;
-    Button breakfast_recipe_btn;
-    Button lunch_recipe_btn;
-    Button dinner_recipe_btn;
     static String breakfastId ;
     static String lunchId;
     static String dinnerId;
@@ -123,26 +120,22 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
         bt_regenerate = findViewById(R.id.bt_regenerate_recipe);
 
-        ///// recipe information
-        breakfast_recipe_btn= breakfast_recipe_linearlayout.findViewById(R.id.breakfast_recipe_btn);
-        lunch_recipe_btn= lunch_recipe_linearlayout.findViewById(R.id.lunch_recipe_btn);
-        dinner_recipe_btn= dinner_recipe_linearlayout.findViewById(R.id.dinner_recipe_btn);
-
-        breakfast_recipe_btn.setOnClickListener(new View.OnClickListener() {
+        // display recipe information when user click on a meal card
+        breakfast_recipe_linearlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recipeGenerateBtnClick(breakfastId);
             }
         });
 
-        lunch_recipe_btn.setOnClickListener(new View.OnClickListener() {
+        lunch_recipe_linearlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recipeGenerateBtnClick(lunchId);
             }
         });
 
-        dinner_recipe_btn.setOnClickListener(new View.OnClickListener() {
+        dinner_recipe_linearlayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                recipeGenerateBtnClick(dinnerId);

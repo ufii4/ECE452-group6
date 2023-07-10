@@ -78,17 +78,6 @@
                         android:gravity="left"
                         android:text="Breakfast"
                         android:textSize="15sp" />
-
-                    <Button
-                        android:id="@+id/breakfast_recipe_btn"
-                        android:layout_width="69dp"
-                        android:layout_height="29dp"
-                        android:gravity="center"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/recipe"
-                        android:textColor="@color/black"
-                        android:textSize="9sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -190,16 +179,6 @@
                     android:gravity="left"
                     android:text="Lunch"
                     android:textSize="15sp" />
-                <Button
-                    android:id="@+id/lunch_recipe_btn"
-                    android:layout_width="69dp"
-                    android:layout_height="29dp"
-                    android:gravity="center"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="@string/recipe"
-                    android:textColor="@color/black"
-                    android:textSize="9sp" />
             </LinearLayout>
 
                 <LinearLayout
@@ -301,16 +280,6 @@
                         android:gravity="left"
                         android:text="Dinner"
                         android:textSize="15sp" />
-                <Button
-                    android:id="@+id/dinner_recipe_btn"
-                    android:layout_width="69dp"
-                    android:layout_height="29dp"
-                    android:gravity="center"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="@string/recipe"
-                    android:textColor="@color/black"
-                    android:textSize="9sp" />
             </LinearLayout>
 
                 <LinearLayout
