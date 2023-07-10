@@ -49,6 +49,9 @@
         android:layout_marginTop="50dp"
         android:drawableLeft="@drawable/ic_login"
         android:text="LOGIN"
+        android:textColor="@color/gold_4"
+        android:textStyle="bold"
+        android:background="@drawable/button_rounded_corner_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_1" />
