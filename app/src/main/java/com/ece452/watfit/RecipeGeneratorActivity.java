@@ -3,6 +3,7 @@ package com.ece452.watfit;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -210,23 +211,25 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
 
     private void recipeGenerateBtnClick(String id){
-        CompletableFuture<String> future =getRecipeInformation(id);
+        CompletableFuture<Pair <String , String>> future =getRecipeInformation(id);
         try {
-            String recipeInformation = future.get();
-            openRecipeInformationDialog(recipeInformation);
+            Pair <String , String> titleAndRes = future.get();
+            openRecipeInformationDialog(titleAndRes.first, titleAndRes.second);
         } catch (InterruptedException | ExecutionException | CancellationException e) {
             e.printStackTrace();
         }
 
     }
-    private CompletableFuture<String> getRecipeInformation(String id){
+    private CompletableFuture<Pair <String , String>> getRecipeInformation(String id){
         Log.d("recipe information", "getRecipeInformation: recipe id is"+id);
-        CompletableFuture<String> future = new CompletableFuture<>();
+        CompletableFuture<Pair <String , String>> future = new CompletableFuture<>();
 
         recipeService.searchRecipeInformation(id)
                 .subscribe(
                         result -> {
                             RecipeInformation recipeInformation = result;
+                            String recipeTitle = recipeInformation.title;
+
                             ArrayList<ExtendedIngredient> extendedIngredients= recipeInformation.extendedIngredients;
                             StringBuilder res = new StringBuilder("");
                             for(ExtendedIngredient extendedIngredient: extendedIngredients){
@@ -236,7 +239,9 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
                             Log.d("getRecipeInformation", res.toString());
 
-                            future.complete(res.toString());
+                            Pair<String, String> titleAndRes = new Pair<>(res.toString(), recipeTitle);
+
+                            future.complete(titleAndRes);
                         },
                         error -> {
                             Log.e("RecipeGeneratorActivity", "onFailure: " + error.getLocalizedMessage());
@@ -437,13 +442,11 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
 
             }
         });
-
-
     }
 
 
-    public void openRecipeInformationDialog(String recipeInformation){
-        RecipeInformationDialog recipeInformationDialog = new RecipeInformationDialog(recipeInformation);
+    public void openRecipeInformationDialog(String recipeInformation, String recipeTitle){
+        RecipeInformationDialog recipeInformationDialog = new RecipeInformationDialog(recipeInformation, recipeTitle);
         recipeInformationDialog.show(getSupportFragmentManager(),"recipe info dialog");
     }
 
