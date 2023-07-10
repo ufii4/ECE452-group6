@@ -41,27 +41,27 @@
     <string name="recipe">Recipe</string>
     <string-array name="calorie_list">
         <item>Select a range...</item>
-        <item>480~860</item>
-        <item>860~1620</item>
-        <item>1620~2000</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
     </string-array>
     <string-array name="protein_list">
         <item>Select a range...</item>
-        <item>1~40</item>
-        <item>40~80</item>
-        <item>80~120</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
     </string-array>
     <string-array name="fat_list">
         <item>Select a range...</item>
-        <item>1~40</item>
-        <item>40~80</item>
-        <item>80~120</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
     </string-array>
     <string-array name="carbohydrates_list">
         <item>Select a range...</item>
-        <item>1~40</item>
-        <item>40~80</item>
-        <item>80~120</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
     </string-array>
     <string name="dietary_exercise_log_chart">Intake and Exercise Trend</string>
 </resources>
