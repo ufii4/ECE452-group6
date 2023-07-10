@@ -85,6 +85,7 @@ public class CalorieFragment extends Fragment {
     private List<Integer> ingredientIDList;
     private String selectedUnit;
     private double dailyCalorie = 0;
+    private double dailyCalorieDisplay = 0;
     private Timestamp localDate = null;
     private List<Double> calorieList = new ArrayList<>();
     private List<Ingredient> foodList = new ArrayList<>();
@@ -110,6 +111,7 @@ public class CalorieFragment extends Fragment {
         calorieTotal.setText(Double.toString(dailyCalorie));
         Button submitButton = root.findViewById(R.id.submitButton);
         submitButton.setOnClickListener(v -> submit());
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -173,9 +175,14 @@ public class CalorieFragment extends Fragment {
                             if (n.name.equals("Calories")) {
                                 TextView calorieInput = root.findViewById(R.id.calorieInput);
                                 calorieList.add(n.amount);
+                                //update total calorie
+                                dailyCalorieDisplay+=n.amount;
+                                TextView calorieTotal = root.findViewById(R.id.calorieTotal);
+                                calorieTotal.setText(Double.toString(dailyCalorieDisplay));
                                 calorieInput.setText(Double.toString(n.amount));
+
                                 // Display on the page
-                                calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, n.unit);
+                                calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, n.unit,dailyCalorieDisplay,calorieTotal);
                                 ListView listView = root.findViewById(R.id.foodSelectList);
                                 listView.setAdapter(calorieAdapter);
                             }
@@ -213,6 +220,7 @@ public class CalorieFragment extends Fragment {
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
                                 if (logDate != null && isSameDate(logDate, localDate)) {
                                     double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
+                                    dailyCalorieDisplay = dailyCalorie;
                                     List<Map<String, Object>> foodListData = (List<Map<String, Object>>) documentSnapshot.get("foodList");
                                     foodList = new ArrayList<>();
                                     for (Map<String, Object> foodMap : foodListData) {
@@ -225,9 +233,9 @@ public class CalorieFragment extends Fragment {
                                     calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
                                     TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                    calorieTotal.setText(Double.toString(dailyCalorie));
+                                    calorieTotal.setText(Double.toString(dailyCalorieDisplay));
                                     ListView listView = root.findViewById(R.id.foodSelectList);
-                                    calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal");
+                                    calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorieDisplay,calorieTotal);
                                     listView.setAdapter(calorieAdapter);
                                     break; // Exit the loop after finding the matching document
                                 }
@@ -275,6 +283,7 @@ public class CalorieFragment extends Fragment {
                                                         Date logDate = documentSnapshot.getTimestamp("date").toDate();
                                                         if (logDate != null) {
                                                             double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
+                                                            dailyCalorieDisplay = dailyCalorie;
                                                             List<Map<String, Object>> foodListData = (List<Map<String, Object>>) documentSnapshot.get("foodList");
                                                             foodList = new ArrayList<>();
                                                             for (Map<String, Object> foodMap : foodListData) {
@@ -287,9 +296,9 @@ public class CalorieFragment extends Fragment {
                                                             calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
                                                             TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                                            calorieTotal.setText(Double.toString(dailyCalorie));
+                                                            calorieTotal.setText(Double.toString(dailyCalorieDisplay));
                                                             ListView listView = root.findViewById(R.id.foodSelectList);
-                                                            calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal");
+                                                            calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorieDisplay,calorieTotal);
                                                             listView.setAdapter(calorieAdapter);
                                                             break; // Exit the loop after finding the matching document
                                                         }
@@ -303,7 +312,7 @@ public class CalorieFragment extends Fragment {
                                                     calorieTotal.setText(Double.toString(dailyCalorie));
                                                     ListView listView = root.findViewById(R.id.foodSelectList);
                                                     listView.setAdapter(null);
-                                                    CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal");
+                                                    CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorieDisplay,calorieTotal);
                                                     listView.setAdapter(adapter);
                                                 }
                                             }

@@ -15,29 +15,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/navbar_recommendations"
-            android:layout_width="103dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:drawableTop="@drawable/baseline_video_library_28" />
-
-        <Button
             android:id="@+id/navbar_social_sharing"
-            android:layout_width="103dp"
+            android:layout_width="138dp"
             android:layout_height="50dp"
             android:layout_gravity="right"
             android:drawableTop="@drawable/baseline_share_28" />
 
         <Button
             android:id="@+id/navbar_recipe_generator"
-            android:layout_width="103dp"
+            android:layout_width="138dp"
             android:layout_height="50dp"
             android:layout_gravity="right"
             android:drawableTop="@drawable/baseline_dinner_dining_28" />
 
         <Button
             android:id="@+id/navbar_fitness_generator"
-            android:layout_width="103dp"
+            android:layout_width="138dp"
             android:layout_height="50dp"
             android:layout_gravity="right"
             android:drawableTop="@drawable/baseline_fitness_center_28" />
