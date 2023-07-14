@@ -22,6 +22,8 @@ import com.ece452.watfit.data.RecipeInformation;
 import com.ece452.watfit.data.UserProfile;
 import com.ece452.watfit.data.source.remote.RecipeService;
 import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
+import com.ece452.watfit.ui.post.MealPlanEditPostActivity;
+import com.ece452.watfit.ui.post.PostActivityHelper;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -69,7 +71,6 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
     static String breakfastId ;
     static String lunchId;
     static String dinnerId;
-
     static List<Recipe> breakfast_recipes;
     static List<Recipe> lunch_recipes;
     static List<Recipe> dinner_recipes;
@@ -275,9 +276,10 @@ public class RecipeGeneratorActivity extends AppCompatActivity implements Prefer
             return true;
         }
         if(item.getItemId() == R.id.share_post_button) {
-            // handle share button click
-            // TODO: take a screenshot on the RecipeGeneratorActivity before navigate to EditPostActivity
-            startActivity(new Intent(RecipeGeneratorActivity.this, EditPostActivity.class));
+            PostActivityHelper.startEditPostActivity(
+                    new Intent(RecipeGeneratorActivity.this, MealPlanEditPostActivity.class),
+                    getWindow().getDecorView().getRootView(), this
+            );
             return true;
         }
 

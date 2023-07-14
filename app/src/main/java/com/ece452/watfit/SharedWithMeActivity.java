@@ -33,7 +33,6 @@ public class SharedWithMeActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back_arrow);
         }
 
-        // TODO: Dynamically display post preview cards if there is at least 1 privately shared post by friend
         adapter = new PostInboxAdapter(posts);
         rv_inbox = findViewById(R.id.rv_inbox);
         rv_inbox.setAdapter(adapter);

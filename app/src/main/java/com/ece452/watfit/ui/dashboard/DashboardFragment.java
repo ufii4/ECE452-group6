@@ -26,6 +26,7 @@ import com.ece452.watfit.databinding.FragmentDashboardBinding;
 import com.ece452.watfit.ui.dashboard.CircleDiagramView;
 import dagger.hilt.android.AndroidEntryPoint;
 
+import com.ece452.watfit.ui.post.PostActivityHelper;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -191,9 +192,7 @@ public class DashboardFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         // share button is clicked
         if (item.getItemId() == R.id.share_post_button) {
-            // handle account button click
-            // TODO: take a screenshot on the current Dashboard fragment before navigate to EditPostActivity
-            startActivity(new Intent(getActivity(), EditPostActivity.class));
+            PostActivityHelper.startEditPostActivity(new Intent(getActivity(), EditPostActivity.class), getView(), getActivity());
             return true;
         }
         return super.onOptionsItemSelected(item);

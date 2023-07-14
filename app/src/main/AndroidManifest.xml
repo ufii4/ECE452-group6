@@ -28,6 +28,10 @@
             android:exported="false"
             android:label="@string/title_edit_post" />
         <activity
+            android:name=".ui.post.MealPlanEditPostActivity"
+            android:exported="false"
+            android:label="@string/title_edit_post" />
+        <activity
             android:name=".PostContentActivity"
             android:exported="false"
             android:label="@string/title_null" />

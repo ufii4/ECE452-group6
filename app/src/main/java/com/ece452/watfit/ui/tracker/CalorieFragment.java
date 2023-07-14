@@ -24,31 +24,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.ece452.watfit.AccountActivity;
-import com.ece452.watfit.BasicDiameterActivity;
 import com.ece452.watfit.CalorieDisplayAdapter;
 import com.ece452.watfit.CalorieSearchAdapter;
 import com.ece452.watfit.EditPostActivity;
 import com.ece452.watfit.R;
 import com.ece452.watfit.data.CalorieLog;
-import com.ece452.watfit.data.FitnessGoal;
 import com.ece452.watfit.data.Ingredient;
 import com.ece452.watfit.data.Nutrition;
-import com.ece452.watfit.data.Recipe;
 import com.ece452.watfit.data.source.remote.IngredientService;
 import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
 import com.ece452.watfit.databinding.FragmentCalorieIntakeBinding;
-import com.ece452.watfit.ui.dashboard.DashboardFragment;
-import com.ece452.watfit.ui.home.HomeFragment;
+import com.ece452.watfit.ui.post.PostActivityHelper;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -56,27 +45,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import org.reactivestreams.Subscription;
-
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.inject.Inject;
-
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.FlowableSubscriber;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import io.reactivex.rxjava3.subscribers.DisposableSubscriber;
-import io.reactivex.rxjava3.subscribers.TestSubscriber;
 
 public class CalorieFragment extends Fragment {
     private FragmentCalorieIntakeBinding binding;
@@ -401,9 +378,7 @@ public class CalorieFragment extends Fragment {
         }
         // share button is clicked
         if (item.getItemId() == R.id.share_post_button) {
-            // handle account button click
-            // TODO: take a screenshot on the current Calorie fragment before navigate to EditPostActivity
-            startActivity(new Intent(getActivity(), EditPostActivity.class));
+            PostActivityHelper.startEditPostActivity(new Intent(getActivity(), EditPostActivity.class), getView(), getActivity());
             return true;
         }
 
