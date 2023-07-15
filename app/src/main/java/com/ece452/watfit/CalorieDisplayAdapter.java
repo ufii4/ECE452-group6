@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
     private List<Double> calorie;
     private TextView calorieTotal;
     private Double dailyCalorieDisplay;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     String unit;
     private OnDeleteButtonClickListener onDeleteButtonClickListener;
 
@@ -66,7 +68,7 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
             public void onClick(View v) {
                 // Handle delete button click here
                 dailyCalorieDisplay -= calorie.get(position);
-                calorieTotal.setText(Double.toString(dailyCalorieDisplay));
+                calorieTotal.setText(df.format(dailyCalorieDisplay));
                 itemList.remove(position);
                 calorie.remove(position);
                 notifyDataSetChanged();

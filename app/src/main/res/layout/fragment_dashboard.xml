@@ -6,12 +6,13 @@
     android:layout_height="wrap_content"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp"
+    android:layout_marginBottom="60dp"
     android:fillViewport="true">
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <TextView
@@ -84,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@id/graphTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <com.github.mikephil.charting.charts.BarChart
+    <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/barChartExercise"
         android:layout_width="400dp"
         android:layout_height="300dp"
@@ -93,14 +94,12 @@
         app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
         android:id="@+id/weightTrend"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/dietary_exercise_log_chart"
-        android:textSize="25sp"
-        android:textStyle="bold"
+        android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@id/barChartExercise"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -48,6 +48,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,7 +65,9 @@ public class DashboardFragment extends Fragment {
     private List<Double> dailyCalorie = new ArrayList<>();
     private List<Double> exerciseCalorie = new ArrayList<>();
     private List<BarEntry> calorieEntries = new ArrayList<>();
-    private List<BarEntry> exerciseEntries = new ArrayList<>();
+    private List<Entry> exerciseEntries = new ArrayList<>();
+    private double exerciseCalorieTotal = 0;
+    private double dailyCalorieTotal = 0;
 
     @Inject
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -91,6 +94,7 @@ public class DashboardFragment extends Fragment {
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
                                 if (logDate != null && isSameDate(logDate)) {
                                     dailyCalorie.add(documentSnapshot.getDouble("dailyCalorie"));
+                                    dailyCalorieTotal+=documentSnapshot.getDouble("dailyCalorie");
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                     String formattedDate = dateFormat.format(logDate);
                                     dateEntries.add(formattedDate);
@@ -126,6 +130,8 @@ public class DashboardFragment extends Fragment {
                         }
                     }
                 });
+        //Add date to entries
+        List<String> dateEntriesExercise = new ArrayList<>();
         docRef.collection("exerciseLogs").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -136,16 +142,18 @@ public class DashboardFragment extends Fragment {
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
                                 if (logDate != null && isSameDate(logDate)) {
                                     exerciseCalorie.add(documentSnapshot.getDouble("dailyCalorie"));
+//                                    exerciseCalorieTotal+=documentSnapshot.getDouble("dailyCalorie");
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                     String formattedDate = dateFormat.format(logDate);
-                                    dateEntries.add(formattedDate);
+                                    dateEntriesExercise.add(formattedDate);
                                 }
                             }
+                            handleWeightForecast(db,root);
                             // Add data to the chart
                             for (int i = 0; i < exerciseCalorie.size(); i++) {
-                                exerciseEntries.add(new BarEntry(i,exerciseCalorie.get(i).floatValue()));
+                                exerciseEntries.add(new Entry(i,exerciseCalorie.get(i).floatValue()));
                             }
-                            BarChart barChart = root.findViewById(R.id.barChartExercise);
+                            LineChart barChart = root.findViewById(R.id.barChartExercise);
                             // Configure the chart
                             barChart.setTouchEnabled(true);
                             barChart.setDragEnabled(true);
@@ -157,21 +165,20 @@ public class DashboardFragment extends Fragment {
                             xAxis.setTextSize(12f);
                             xAxis.setEnabled(true);
                             xAxis.setDrawAxisLine(true);
-                            xAxis.setValueFormatter(new IndexAxisValueFormatter(dateEntries));
+                            xAxis.setValueFormatter(new IndexAxisValueFormatter(dateEntriesExercise));
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
                             // Customize the Y-axis
                             YAxis yAxis = barChart.getAxisLeft();
-                            BarDataSet dataSet = new BarDataSet (exerciseEntries, "Exercise");
+                            LineDataSet dataSet = new LineDataSet (exerciseEntries, "Exercise");
                             dataSet.setColor(Color.GREEN);
                             dataSet.setValueTextColor(Color.RED);
-                            BarData barData = new BarData(dataSet);
+                            LineData barData = new LineData(dataSet);
                             barChart.setData(barData);
                             barChart.invalidate();
                         }
                     }
                 });
-
         return root;
     }
 
@@ -219,4 +226,44 @@ public class DashboardFragment extends Fragment {
 
         return (year1 == year2 && month1 == month2 && (day1 >= day2-6));
     }
+    private void handleWeightForecast(FirebaseFirestore db, View root) {
+        // Use the updated variable here
+        for (Double e:
+             exerciseCalorie) {
+            exerciseCalorieTotal+=e;
+        }
+        for (Double d:
+                dailyCalorie) {
+            dailyCalorieTotal+=d;
+        }
+        db.collection("users")
+                .document(FirebaseAuth.getInstance().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String gender = documentSnapshot.get("gender").toString();
+                        double height = documentSnapshot.getDouble("height");
+                        int age = documentSnapshot.getLong("age").intValue();
+                        double weight = documentSnapshot.getDouble("weight");
+                        double BMR = 0.0;
+                        if(gender.equals("Male")){
+                            BMR = 88.362 + (13.397 *weight)+(4.799*height)-(5.677*age);
+                        } else if (gender.equals("Female")) {
+                            BMR = 447.593 + (9.247 *weight)+(3.098*height)-(4.330*age);
+                        }
+                        double calorieLoss = BMR*7+exerciseCalorieTotal-dailyCalorieTotal;
+                        double poundLoss = calorieLoss/3500;
+                        TextView weightTrend = root.findViewById(R.id.weightTrend);
+                        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                        if(calorieLoss >0) {
+                            weightTrend.setText("You will lose "+decimalFormat.format(poundLoss)+" pound next week. Good job!");
+                        }else{
+                            weightTrend.setText("You will gain "+decimalFormat.format(poundLoss)+" pound next week. Don't worry! Keep your healthy lifestyle!");
+                        }
+                        System.out.println(poundLoss);
+                    }
+                });
+        System.out.println("Updated variable: " + exerciseCalorieTotal);
+        System.out.println("Updated variable: " + dailyCalorieTotal);
+    }
+
 }
