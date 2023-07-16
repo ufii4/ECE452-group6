@@ -28,6 +28,10 @@
             android:exported="false"
             android:label="@string/title_edit_post" />
         <activity
+            android:name=".ui.post.MealPlanEditPostActivity"
+            android:exported="false"
+            android:label="@string/title_edit_post" />
+        <activity
             android:name=".PostContentActivity"
             android:exported="false"
             android:label="@string/title_null" />
@@ -39,6 +43,10 @@
             android:name=".RecipeGeneratorActivity"
             android:exported="false"
             android:label="@string/title_recipe_generator" />
+        <activity
+            android:name=".PublicPostingActivity"
+            android:exported="false"
+            android:label="@string/title_public_posting" />
         <activity
             android:name=".SharedWithMeActivity"
             android:exported="false"

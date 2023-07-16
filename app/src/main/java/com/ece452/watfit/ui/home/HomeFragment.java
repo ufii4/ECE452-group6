@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ece452.watfit.FitnessSchedulerActivity;
-import com.ece452.watfit.MainActivity;
+import com.ece452.watfit.PublicPostingActivity;
 import com.ece452.watfit.R;
 import com.ece452.watfit.RecVideoDisplayActivity;
 import com.ece452.watfit.RecipeGeneratorActivity;
@@ -96,6 +96,12 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        Button socialSharingButton = (Button) root.findViewById(R.id.navbar_social_sharing);
+        socialSharingButton.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), PublicPostingActivity.class);
+            startActivity(intent);
+        });
 
         ///////The Recipe Generator Button
         Button recipeGeneratorButton = (Button) root.findViewById(R.id.navbar_recipe_generator);

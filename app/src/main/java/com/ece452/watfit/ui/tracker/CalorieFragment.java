@@ -24,31 +24,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.ece452.watfit.AccountActivity;
-import com.ece452.watfit.BasicDiameterActivity;
 import com.ece452.watfit.CalorieDisplayAdapter;
 import com.ece452.watfit.CalorieSearchAdapter;
 import com.ece452.watfit.EditPostActivity;
 import com.ece452.watfit.R;
 import com.ece452.watfit.data.CalorieLog;
-import com.ece452.watfit.data.FitnessGoal;
 import com.ece452.watfit.data.Ingredient;
 import com.ece452.watfit.data.Nutrition;
-import com.ece452.watfit.data.Recipe;
 import com.ece452.watfit.data.source.remote.IngredientService;
 import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
 import com.ece452.watfit.databinding.FragmentCalorieIntakeBinding;
-import com.ece452.watfit.ui.dashboard.DashboardFragment;
-import com.ece452.watfit.ui.home.HomeFragment;
+import com.ece452.watfit.ui.post.PostActivityHelper;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -56,27 +45,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import org.reactivestreams.Subscription;
-
-import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.inject.Inject;
-
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.FlowableSubscriber;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import io.reactivex.rxjava3.subscribers.DisposableSubscriber;
-import io.reactivex.rxjava3.subscribers.TestSubscriber;
 
 public class CalorieFragment extends Fragment {
     private FragmentCalorieIntakeBinding binding;
@@ -85,10 +63,11 @@ public class CalorieFragment extends Fragment {
     private List<Integer> ingredientIDList;
     private String selectedUnit;
     private double dailyCalorie = 0;
-    private double dailyCalorieDisplay = 0;
+//    private double dailyCalorieDisplay = 0;
     private Timestamp localDate = null;
     private List<Double> calorieList = new ArrayList<>();
     private List<Ingredient> foodList = new ArrayList<>();
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     private CalorieDisplayAdapter calorieAdapter;
 
     @Inject
@@ -176,13 +155,15 @@ public class CalorieFragment extends Fragment {
                                 TextView calorieInput = root.findViewById(R.id.calorieInput);
                                 calorieList.add(n.amount);
                                 //update total calorie
-                                dailyCalorieDisplay+=n.amount;
+//                                dailyCalorieDisplay+=n.amount;
                                 TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                calorieTotal.setText(Double.toString(dailyCalorieDisplay));
-                                calorieInput.setText(Double.toString(n.amount));
+                                dailyCalorie = Double.parseDouble(calorieTotal.getText().toString());
+                                dailyCalorie+=n.amount;
+                                calorieTotal.setText(df.format(dailyCalorie));
+                                calorieInput.setText(df.format(n.amount));
 
                                 // Display on the page
-                                calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, n.unit,dailyCalorieDisplay,calorieTotal);
+                                calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, n.unit,dailyCalorie,calorieTotal);
                                 ListView listView = root.findViewById(R.id.foodSelectList);
                                 listView.setAdapter(calorieAdapter);
                             }
@@ -219,8 +200,8 @@ public class CalorieFragment extends Fragment {
                             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
                                 if (logDate != null && isSameDate(logDate, localDate)) {
-                                    double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
-                                    dailyCalorieDisplay = dailyCalorie;
+                                    double dailyCalorie_fire = documentSnapshot.getDouble("dailyCalorie");
+                                    dailyCalorie = dailyCalorie_fire;
                                     List<Map<String, Object>> foodListData = (List<Map<String, Object>>) documentSnapshot.get("foodList");
                                     foodList = new ArrayList<>();
                                     for (Map<String, Object> foodMap : foodListData) {
@@ -233,9 +214,9 @@ public class CalorieFragment extends Fragment {
                                     calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
                                     TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                    calorieTotal.setText(Double.toString(dailyCalorieDisplay));
+                                    calorieTotal.setText(df.format(dailyCalorie));
                                     ListView listView = root.findViewById(R.id.foodSelectList);
-                                    calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorieDisplay,calorieTotal);
+                                    calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorie,calorieTotal);
                                     listView.setAdapter(calorieAdapter);
                                     break; // Exit the loop after finding the matching document
                                 }
@@ -270,7 +251,6 @@ public class CalorieFragment extends Fragment {
                                 selectedCalendar.set(Calendar.MILLISECOND, 0);
                                 localDate = new Timestamp(selectedCalendar.getTimeInMillis());
 
-
                                 // Retrieve data from Firebase
                                 docRef.collection("calorieLogs")
                                         .whereEqualTo("date", localDate)
@@ -283,7 +263,7 @@ public class CalorieFragment extends Fragment {
                                                         Date logDate = documentSnapshot.getTimestamp("date").toDate();
                                                         if (logDate != null) {
                                                             double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
-                                                            dailyCalorieDisplay = dailyCalorie;
+                                                            dailyCalorie = dailyCalorie;
                                                             List<Map<String, Object>> foodListData = (List<Map<String, Object>>) documentSnapshot.get("foodList");
                                                             foodList = new ArrayList<>();
                                                             for (Map<String, Object> foodMap : foodListData) {
@@ -296,9 +276,9 @@ public class CalorieFragment extends Fragment {
                                                             calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
                                                             TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                                            calorieTotal.setText(Double.toString(dailyCalorieDisplay));
+                                                            calorieTotal.setText(df.format(dailyCalorie));
                                                             ListView listView = root.findViewById(R.id.foodSelectList);
-                                                            calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorieDisplay,calorieTotal);
+                                                            calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorie,calorieTotal);
                                                             listView.setAdapter(calorieAdapter);
                                                             break; // Exit the loop after finding the matching document
                                                         }
@@ -309,10 +289,10 @@ public class CalorieFragment extends Fragment {
                                                     calorieList.clear();
                                                     dailyCalorie = 0;
                                                     TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                                    calorieTotal.setText(Double.toString(dailyCalorie));
+                                                    calorieTotal.setText(df.format(dailyCalorie));
                                                     ListView listView = root.findViewById(R.id.foodSelectList);
                                                     listView.setAdapter(null);
-                                                    CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorieDisplay,calorieTotal);
+                                                    CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorie,calorieTotal);
                                                     listView.setAdapter(adapter);
                                                 }
                                             }
@@ -343,7 +323,7 @@ public class CalorieFragment extends Fragment {
                     dailyCalorie += d;
                 }
                 TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                calorieTotal.setText(Double.toString(dailyCalorie));
+                calorieTotal.setText(df.format(dailyCalorie));
                 List<CalorieLog> calorieLogList = new ArrayList<>();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(localDate.getTime());
@@ -401,9 +381,7 @@ public class CalorieFragment extends Fragment {
         }
         // share button is clicked
         if (item.getItemId() == R.id.share_post_button) {
-            // handle account button click
-            // TODO: take a screenshot on the current Calorie fragment before navigate to EditPostActivity
-            startActivity(new Intent(getActivity(), EditPostActivity.class));
+            PostActivityHelper.startEditPostActivity(new Intent(getActivity(), EditPostActivity.class), getView(), getActivity());
             return true;
         }
 

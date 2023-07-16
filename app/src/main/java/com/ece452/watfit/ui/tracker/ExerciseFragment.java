@@ -34,6 +34,7 @@ import com.ece452.watfit.data.source.remote.NinjaDataSource;
 import com.ece452.watfit.ExerciseDisplayAdapter;
 import com.ece452.watfit.ExerciseSearchAdapter;
 
+import com.ece452.watfit.ui.post.PostActivityHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -356,7 +357,7 @@ public class ExerciseFragment extends Fragment {
             return true;
         }
         if (item.getItemId() == R.id.share_post_button) {
-            startActivity(new Intent(getActivity(), EditPostActivity.class));
+            PostActivityHelper.startEditPostActivity(new Intent(getActivity(), EditPostActivity.class), getView(), getActivity());
             return true;
         }
         return super.onOptionsItemSelected(item);

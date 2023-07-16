@@ -58,7 +58,7 @@
 
                 <TextView
                     android:id="@+id/Monday_title"
-                    android:layout_width="102dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Monday"
@@ -120,7 +120,7 @@
 
                 <TextView
                     android:id="@+id/Tuesday_title"
-                    android:layout_width="102dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Tuesday"
@@ -182,7 +182,7 @@
 
                 <TextView
                     android:id="@+id/Wednesday_title"
-                    android:layout_width="102dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Wednesday"
@@ -244,7 +244,7 @@
 
                 <TextView
                     android:id="@+id/Thursday_title"
-                    android:layout_width="102dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Thursday"
@@ -306,7 +306,7 @@
 
                 <TextView
                     android:id="@+id/Friday_title"
-                    android:layout_width="102dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Friday"
@@ -368,7 +368,7 @@
 
                 <TextView
                     android:id="@+id/Saturday_title"
-                    android:layout_width="102dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Saturday"
@@ -430,7 +430,7 @@
 
                 <TextView
                     android:id="@+id/Sunday_title"
-                    android:layout_width="102dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:gravity="left"
                     android:text="Sunday"
@@ -469,7 +469,7 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/bt_regenerate_recipe"
+            android:id="@+id/bt_regenerate_schedule"
             android:layout_width="199dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

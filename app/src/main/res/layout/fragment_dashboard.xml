@@ -6,12 +6,13 @@
     android:layout_height="wrap_content"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="1dp"
+    android:layout_marginBottom="60dp"
     android:fillViewport="true">
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.dashboard.DashboardFragment">
 
     <TextView
@@ -36,36 +37,42 @@
 
     <TextView
         android:id="@+id/text_suggestion1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Eat plenty of fruits and vegetables"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/circle_diagram"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <TextView
         android:id="@+id/text_suggestion2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Exercise Regularly and Be Physically Active"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/text_suggestion1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <TextView
         android:id="@+id/text_suggestion3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Drink Water and Stay Hydrated"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/text_suggestion2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
     <TextView
         android:id="@+id/graphTitle"
         android:layout_width="wrap_content"
@@ -84,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@id/graphTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-    <com.github.mikephil.charting.charts.BarChart
+    <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/barChartExercise"
         android:layout_width="400dp"
         android:layout_height="300dp"
@@ -93,14 +100,12 @@
         app:layout_constraintEnd_toEndOf="parent"/>
     <TextView
         android:id="@+id/weightTrend"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/dietary_exercise_log_chart"
-        android:textSize="25sp"
-        android:textStyle="bold"
+        android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@id/barChartExercise"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

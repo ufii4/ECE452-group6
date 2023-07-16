@@ -8,53 +8,10 @@
     tools:layout_editor_absoluteY="1dp"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".PostContentActivity">
-
-        <TextView
-            android:id="@+id/lb_title_pc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
-            android:maxLength="111"
-            android:text="Post Title"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/lb_content_pc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lb_title_pc"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
-            android:text="Post Content: This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content This is the post content"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lb_title_pc" />
-
-        <ImageView
-            android:id="@+id/iv_post_image_pc"
-            android:layout_width="300dp"
-            android:layout_height="500dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lb_content_pc"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/default_post_img" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        tools:context=".PostContentActivity" />
 </ScrollView>
