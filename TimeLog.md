@@ -61,4 +61,5 @@
 | 2023/07/10 |           |            |        |          |             | 6         | recipe recommendation preference to level                                                                                                                                               |   
 | 2023/07/14 |           |            |        | 4        |             |           | Implemented screenshot and firebase storage for post sharing                                                                                                                            |
 | 2023/07/14 |           | 4          |        |          |             |           | Dashboard charts and weight trend implementation                                                                                                                                        |
-| 2023/07/15 |           |            |        | 3        |             |           | Implemented public social sharing                                                                                                                                                       |
+| 2023/07/15 |           |            |        | 3        |             |           | Implemented public social sharing
+| 2023/07/15 | 7         |            |        |          |             |2          | Implementing the basic functionalities of the fitness scheduler
