@@ -44,6 +44,10 @@
             android:exported="false"
             android:label="@string/title_recipe_generator" />
         <activity
+            android:name=".PublicPostingActivity"
+            android:exported="false"
+            android:label="@string/title_public_posting" />
+        <activity
             android:name=".SharedWithMeActivity"
             android:exported="false"
             android:label="@string/title_shared_with_me" />

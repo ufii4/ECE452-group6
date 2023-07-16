@@ -13,11 +13,10 @@ import com.ece452.watfit.data.DietaryLogPost;
 import com.ece452.watfit.data.Post;
 import com.ece452.watfit.ui.post.DietaryLogPostFragment;
 import com.ece452.watfit.ui.post.PostFragment;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 public class PostContentActivity extends AppCompatActivity {
-    public static final String POST_ID = "postId";
+    public static final String POST = "post";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +31,13 @@ public class PostContentActivity extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
-        String postId = intent.getStringExtra(POST_ID);
-        FirebaseFirestore.getInstance().collection("posts").document(postId).get().addOnSuccessListener(documentSnapshot -> {
-            Post post = documentSnapshot.toObject(Post.class);
-            FirebaseStorage.getInstance().getReference().child("posts/images/" + postId + ".png").getDownloadUrl().addOnSuccessListener(uri -> {
-                displayPost(post, uri);
-            })
-            .addOnFailureListener(e -> {
-                displayPost(post, null);
-            });
+        Post post = (Post) intent.getSerializableExtra(POST);
+
+        FirebaseStorage.getInstance().getReference().child("posts/images/" + post.id + ".png").getDownloadUrl().addOnSuccessListener(uri -> {
+            displayPost(post, uri);
+        })
+        .addOnFailureListener(e -> {
+            displayPost(post, null);
         });
     }
 

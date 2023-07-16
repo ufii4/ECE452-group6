@@ -1,17 +1,18 @@
 package com.ece452.watfit.data;
 
-import java.time.LocalDate;
+import java.io.Serializable;
+import java.time.Instant;
 
-public class Post {
+public class Post implements Serializable {
     public Post() {
-        this.date = LocalDate.now().toString();
+        this.timestamp = Instant.now().toString();
     }
 
     public Post(String authorId, String title, String description) {
         this.author = authorId;
         this.title = title;
         this.description = description;
-        this.date = LocalDate.now().toString();
+        this.timestamp = Instant.now().toString();
     }
 
     public enum PostType {
@@ -30,9 +31,11 @@ public class Post {
 
     public String author;
 
-    public String date;
+    public String timestamp;
 
     public Boolean isPublic = false;
 
     public PostType type = PostType.OTHER;
+
+    public String id;
 }

@@ -31,6 +31,7 @@
     <string name="title_password_reset">Change Your Password</string>
     <string name="title_account">My Profile</string>
     <string name="title_fitness_goal">Set Fitness Goals</string>
+    <string name="title_public_posting">Public Posting</string>
     <string name="title_shared_with_me">Shared With Me</string>
     <string name="button_Regenerate">Regenerate</string>
     <string name="button_Preference_bar">Set Preference</string>

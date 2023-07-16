@@ -19,10 +19,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
 public class PostInboxAdapter extends RecyclerView.Adapter<PostInboxAdapter.InboxViewHolder> {
-    private List<String> postIds;
+    private List<Post> posts;
 
-    public PostInboxAdapter(List<String> postIds) {
-        this.postIds = postIds;
+    public PostInboxAdapter(List<Post> posts) {
+        this.posts = posts;
     }
 
     @NonNull
@@ -34,35 +34,32 @@ public class PostInboxAdapter extends RecyclerView.Adapter<PostInboxAdapter.Inbo
 
     @Override
     public void onBindViewHolder(@NonNull PostInboxAdapter.InboxViewHolder holder, int position) {
-        String postId = postIds.get(position);
-        FirebaseFirestore.getInstance().collection("posts").document(postId).get().addOnSuccessListener(documentSnapshot -> {
-            Post post = documentSnapshot.toObject(Post.class);
-            FirebaseFirestore.getInstance().collection("users").document(post.author).get().addOnSuccessListener(documentSnapshot1 -> {
-                UserProfile author = documentSnapshot1.toObject(UserProfile.class);
-                holder.title.setText(post.title);
-                holder.description.setText(post.description);
-                holder.author.setText(author.name);
-                switch (post.type) {
-                    case MEAL_PLAN:
-                        holder.type.setImageResource(R.drawable.baseline_dinner_dining_28);
-                        break;
-                    case DIETARY_LOG:
-                        holder.type.setImageResource(R.drawable.ic_fitness_tracker);
-                        break;
-                    case FITNESS_DASHBOARD:
-                        holder.type.setImageResource(R.drawable.ic_fitness_dashboard);
-                        break;
-                    default:
-                        holder.type.setImageResource(R.drawable.ic_about);
-                        break;
-                }
-            });
+        Post post = posts.get(position);
+        FirebaseFirestore.getInstance().collection("users").document(post.author).get().addOnSuccessListener(documentSnapshot1 -> {
+            UserProfile author = documentSnapshot1.toObject(UserProfile.class);
+            holder.title.setText(post.title);
+            holder.description.setText(post.description);
+            holder.author.setText(author.name);
+            switch (post.type) {
+                case MEAL_PLAN:
+                    holder.type.setImageResource(R.drawable.baseline_dinner_dining_28);
+                    break;
+                case DIETARY_LOG:
+                    holder.type.setImageResource(R.drawable.ic_fitness_tracker);
+                    break;
+                case FITNESS_DASHBOARD:
+                    holder.type.setImageResource(R.drawable.ic_fitness_dashboard);
+                    break;
+                default:
+                    holder.type.setImageResource(R.drawable.ic_about);
+                    break;
+            }
         });
     }
 
     @Override
     public int getItemCount() {
-        return postIds.size();
+        return posts.size();
     }
 
     public class InboxViewHolder extends RecyclerView.ViewHolder {
@@ -77,7 +74,7 @@ public class PostInboxAdapter extends RecyclerView.Adapter<PostInboxAdapter.Inbo
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     Intent intent = new Intent(v.getContext(), PostContentActivity.class);
-                    intent.putExtra(PostContentActivity.POST_ID, postIds.get(position));
+                    intent.putExtra(PostContentActivity.POST, posts.get(position));
                     startActivity(v.getContext(), intent, null);
                 }
             });

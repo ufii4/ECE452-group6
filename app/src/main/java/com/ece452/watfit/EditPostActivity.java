@@ -86,35 +86,23 @@ public class EditPostActivity extends AppCompatActivity {
             });
         }
 
-        Bitmap finalScreenShot = screenShot;
         bt_submit.setOnClickListener(view -> {
             String email = et_email.getText().toString();
             String title = et_title.getText().toString();
             String content = et_content.getText().toString();
-            db.collection("users").whereEqualTo("email", email).get().addOnSuccessListener(queryDocumentSnapshots -> {
-                if (queryDocumentSnapshots.isEmpty()) {
-                    Toast.makeText(this, "Could not find user with email: " + email, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String recipientId = queryDocumentSnapshots.getDocuments().get(0).getId();
-
-                Post post = getPost(FirebaseAuth.getInstance().getUid(), title, content, finalScreenShot);
-                db.collection("posts").add(post).addOnSuccessListener(documentReference -> {
-                    String postId = documentReference.getId();
-                    PostInbox data = new PostInbox();
-                    data.postId = postId;
-                    data.authorId = post.author;
-                    db.collection("users").document(recipientId).collection("inbox").add(data);
-                    if (image != null) {
-                        StorageReference postImageRef = FirebaseStorage.getInstance().getReference("posts/images/" + postId + ".png");
-                        postImageRef.putBytes(image).addOnSuccessListener(taskSnapshot -> {
-                            Toast.makeText(this, "Post shared with " + email, Toast.LENGTH_SHORT).show();
-                        });
-                    } else {
-                        Toast.makeText(this, "Post shared with " + email, Toast.LENGTH_SHORT).show();
+            if (email.isEmpty()) {
+                savePost(title, content, image, null, null);
+            } else {
+                db.collection("users").whereEqualTo("email", email).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        Toast.makeText(this, "Could not find user with email: " + email, Toast.LENGTH_SHORT).show();
+                        return;
                     }
+                    String recipientId = queryDocumentSnapshots.getDocuments().get(0).getId();
+                    savePost(title, content, image, email, recipientId);
                 });
-            });
+            }
+
         });
     }
 
@@ -124,6 +112,40 @@ public class EditPostActivity extends AppCompatActivity {
         post.title = title;
         post.description = description;
         return post;
+    }
+
+    protected void savePost(String title, String content, byte[] image, String email, String recipientId) {
+        Bitmap screenShot = null;
+        if (image != null) {
+            screenShot = BitmapFactory.decodeByteArray(image, 0, image.length);
+        }
+        Post post = getPost(FirebaseAuth.getInstance().getUid(), title, content, screenShot);
+        if (recipientId != null) {
+            post.isPublic = false;
+        } else {
+            post.isPublic = true;
+        }
+        db.collection("posts").add(post).addOnSuccessListener(documentReference -> {
+            String postId = documentReference.getId();
+            PostInbox data = new PostInbox();
+            data.postId = postId;
+            data.authorId = post.author;
+            if (recipientId != null) {
+                db.collection("users").document(recipientId).collection("inbox").add(data);
+            }
+            StringBuilder message = new StringBuilder("Post shared");
+            if (email != null) {
+                message.append(" with ").append(email);
+            }
+            if (image != null) {
+                StorageReference postImageRef = FirebaseStorage.getInstance().getReference("posts/images/" + postId + ".png");
+                postImageRef.putBytes(image).addOnSuccessListener(taskSnapshot -> {
+                    Toast.makeText(this, message.toString(), Toast.LENGTH_SHORT).show();
+                });
+            } else {
+                Toast.makeText(this, post.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // nav to previous screen when back button is clicked
