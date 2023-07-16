@@ -71,6 +71,13 @@ public class FitnessSchedulerActivity extends AppCompatActivity {
                 generateList();
             }
         });
+        Button bt_fitness_preference_bar = findViewById(R.id.fitness_preferencebar);
+        bt_fitness_preference_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
     }
 
     protected void generateList() {
@@ -116,5 +123,10 @@ public class FitnessSchedulerActivity extends AppCompatActivity {
         Fri2.setText("Duration/Calories Burnt: "+String.valueOf(t5*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_5])+"cal");
         Sat2.setText("Duration/Calories Burnt: "+String.valueOf(t6*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_6])+"cal");
         Sun2.setText("Duration/Calories Burnt: "+String.valueOf(t7*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_7])+"cal");
+    }
+
+    public void openDialog(){
+        PreferenceDialog preferenceDialog = new PreferenceDialog();
+        preferenceDialog.show(getSupportFragmentManager(),"preference dialog");
     }
 }
