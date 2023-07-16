@@ -49,19 +49,47 @@ public class PreferenceDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(!edit_calorie_spinner.getSelectedItem().toString().equalsIgnoreCase("Select a range...")){
-                            calorie = edit_calorie_spinner.getSelectedItem().toString();
+                           String calorieLevel= edit_calorie_spinner.getSelectedItem().toString();
+                           if(calorieLevel.equals("Low")){
+                               calorie="480~860";
+                           }else if(calorieLevel.equals("Medium")){
+                               calorie="860~1620";
+                           }else if(calorieLevel.equals("High")){
+                               calorie="1620~2000";
+                           }
                         }
 
                         if(!edit_protein_spinner.getSelectedItem().toString().equalsIgnoreCase("Select a range...")){
-                            protein = edit_protein_spinner.getSelectedItem().toString();
+                            String proteinLevel = edit_protein_spinner.getSelectedItem().toString();
+                            if(proteinLevel.equals("Low")){
+                                protein="1~40";
+                            }else if(proteinLevel.equals("Medium")){
+                                protein="40~80";
+                            }else if(proteinLevel.equals("High")){
+                                protein="80~120";
+                            }
                         }
 
                         if(!edit_fat_spinner.getSelectedItem().toString().equalsIgnoreCase("Select a range...")){
-                            fat = edit_fat_spinner.getSelectedItem().toString();
+                            String fatLevel = edit_fat_spinner.getSelectedItem().toString();
+                            if(fatLevel.equals("Low")){
+                                fat="1~40";
+                            }else if(fatLevel.equals("Medium")){
+                                fat="40~80";
+                            }else if(fatLevel.equals("High")){
+                                fat="80~120";
+                            }
                         }
 
                         if(!edit_carbohydrates_spinner.getSelectedItem().toString().equalsIgnoreCase("Select a range...")){
-                            carbohydrates = edit_carbohydrates_spinner.getSelectedItem().toString();
+                            String carbohydratesLevel = edit_carbohydrates_spinner.getSelectedItem().toString();
+                            if(carbohydratesLevel.equals("Low")){
+                                carbohydrates="1~40";
+                            }else if(carbohydratesLevel.equals("Medium")){
+                                carbohydrates="40~80";
+                            }else if(carbohydratesLevel.equals("High")){
+                                carbohydrates="80~120";
+                            }
                         }
 
                         preferenceDialogListener.applyTexts(calorie, protein, fat, carbohydrates);
