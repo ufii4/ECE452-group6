@@ -1,13 +1,22 @@
 package com.ece452.watfit;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ece452.watfit.ui.post.MealPlanEditPostActivity;
+import com.ece452.watfit.ui.post.PostActivityHelper;
+
 import java.util.concurrent.ThreadLocalRandom;
+
+import io.reactivex.rxjava3.annotations.NonNull;
 
 public class FitnessSchedulerActivity extends AppCompatActivity {
     String[] indoor_low = {"Walking in place",
@@ -63,12 +72,27 @@ public class FitnessSchedulerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitness_scheduler);
+
+        // add back button to the top-left corner
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_back_arrow);
+        }
+
         generateList();
         Button regenButton = (Button) findViewById(R.id.bt_regenerate_schedule);
         regenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 generateList();
+            }
+        });
+        Button bt_fitness_preference_bar = findViewById(R.id.fitness_preferencebar);
+        bt_fitness_preference_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
             }
         });
     }
@@ -116,5 +140,41 @@ public class FitnessSchedulerActivity extends AppCompatActivity {
         Fri2.setText("Duration/Calories Burnt: "+String.valueOf(t5*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_5])+"cal");
         Sat2.setText("Duration/Calories Burnt: "+String.valueOf(t6*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_6])+"cal");
         Sun2.setText("Duration/Calories Burnt: "+String.valueOf(t7*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_7])+"cal");
+    }
+
+    public void openDialog(){
+        PreferenceDialog preferenceDialog = new PreferenceDialog();
+        preferenceDialog.show(getSupportFragmentManager(),"preference dialog");
+    }
+
+    // add Account & Sharing button to action bar (header)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_account_button, menu);
+        getMenuInflater().inflate(R.menu.menu_share_button, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            // go back to previous activity
+            finish();
+            return true;
+        }
+        if(item.getItemId() == R.id.account_button) {
+            // handle account button click
+            startActivity(new Intent(FitnessSchedulerActivity.this, AccountActivity.class));
+            return true;
+        }
+        if(item.getItemId() == R.id.share_post_button) {
+            PostActivityHelper.startEditPostActivity(
+                    new Intent(FitnessSchedulerActivity.this, EditPostActivity.class),
+                    getWindow().getDecorView().getRootView(), this
+            );
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

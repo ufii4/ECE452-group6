@@ -119,6 +119,17 @@ public class ExerciseFragment extends Fragment {
 
         localDate = new Timestamp(calendar.getTimeInMillis());
 
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                // Your UI updates here.
+                calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                ListView listView = root.findViewById(R.id.exerciseSelectList);
+                ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
+                listView.setAdapter(ExerciseDisplayAdapter);
+            }
+        });
+
         docRef.collection("exerciseLogs").whereEqualTo("date", localDate)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -130,17 +141,16 @@ public class ExerciseFragment extends Fragment {
                                 if (logDate != null && isSameDate(logDate, localDate)) {
                                     double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
                                     List<Map<String, Object>> exerciseListData = (List<Map<String, Object>>) documentSnapshot.get("exerciseList");
-                                    exerciseList = new ArrayList<>();
                                     for (Map<String, Object> exerciseMap : exerciseListData) {
                                         String name = (String) exerciseMap.get("name");
                                         Exercise exercise = new Exercise(name);
-                                        exerciseList.add(exercise);
+                                        selectedExerciseList.add(exercise);
                                     }
                                     calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
                                     calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
                                     ListView listView = root.findViewById(R.id.exerciseSelectList);
-                                    ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), exerciseList, calorieList);
+                                    ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
                                     listView.setAdapter(ExerciseDisplayAdapter);
                                     break; // Exit the loop after finding the matching document
                                 }
@@ -176,15 +186,14 @@ public class ExerciseFragment extends Fragment {
         exerciseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                exerciseListView.setAdapter(null);
                 displayElementExceptList(root);
                 textViewExerciseSelected.setText(exerciseList.get(i).name);
                 addButtonExercise.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         //get calorie information from api
-                        selectedExerciseList.add(exerciseList.get(i));
                         List<Caloriesburned> burnedList = exerciseService.getCaloriesburned("skiing", null, estimateTimeEditText.getText().toString()).blockingFirst();
+                        selectedExerciseList.add(exerciseList.get(i));
                         for (int j = 0; j < 10; j++) {
                             if(j == i){
                                 TextView calorieExercise = root.findViewById(R.id.calorieExercise);
@@ -203,7 +212,6 @@ public class ExerciseFragment extends Fragment {
                 exerciseSearchView.setQuery("",false);
             }
         });
-        exerciseListView.setAdapter(null);
 
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,31 +251,28 @@ public class ExerciseFragment extends Fragment {
                                                         if (logDate != null) {
                                                             double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
                                                             List<Map<String, Object>> exerciseListData = (List<Map<String, Object>>) documentSnapshot.get("exerciseList");
-                                                            exerciseList = new ArrayList<>();
                                                             for (Map<String, Object> foodMap : exerciseListData) {
                                                                 String name = (String) foodMap.get("name");
                                                                 Exercise exercise = new Exercise(name);
-                                                                exerciseList.add(exercise);
+                                                                selectedExerciseList.add(exercise);
                                                             }
                                                             calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
                                                             calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
                                                             ListView listView = root.findViewById(R.id.exerciseSelectList);
-                                                            ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), exerciseList, calorieList);
+                                                            ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
                                                             listView.setAdapter(ExerciseDisplayAdapter);
                                                             break; // Exit the loop after finding the matching document
                                                         }
                                                     }
                                                 } else {
                                                     // No matching document found, update the UI accordingly
-                                                    exerciseList.clear();
+                                                    selectedExerciseList.clear();
                                                     calorieList.clear();
                                                     dailyCalorie = 0;
                                                     calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
                                                     ListView listView = root.findViewById(R.id.exerciseSelectList);
                                                     listView.setAdapter(null);
-                                                    ExerciseDisplayAdapter adapter = new ExerciseDisplayAdapter(root.getContext(), exerciseList, calorieList);
-                                                    listView.setAdapter(adapter);
                                                 }
                                             }
                                         });
@@ -366,7 +371,6 @@ public class ExerciseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        exerciseList.clear();
     }
 
     private boolean isSameDate(Date date1, Date date2) {
