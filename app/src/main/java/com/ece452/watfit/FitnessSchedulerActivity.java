@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 
-public class FitnessSchedulerActivity extends AppCompatActivity {
+public class FitnessSchedulerActivity extends AppCompatActivity implements FitnessSchedulerPreferenceDialog.FitnessSchedulerPreferenceDialogListener {
     String[] indoor_low = {"Walking in place",
             "Yoga",
             "Pilates",
@@ -143,8 +144,8 @@ public class FitnessSchedulerActivity extends AppCompatActivity {
     }
 
     public void openDialog(){
-        PreferenceDialog preferenceDialog = new PreferenceDialog();
-        preferenceDialog.show(getSupportFragmentManager(),"preference dialog");
+        FitnessSchedulerPreferenceDialog preferenceDialog = new FitnessSchedulerPreferenceDialog();
+        preferenceDialog.show(getSupportFragmentManager(),"fitness schedular preference dialog");
     }
 
     // add Account & Sharing button to action bar (header)
@@ -176,5 +177,10 @@ public class FitnessSchedulerActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void applyTexts(String exercise_type, String intensity) {
+        Log.d("!!!!!!!!!!!!", "applyTexts: "+ exercise_type+"  "+intensity);
     }
 }
