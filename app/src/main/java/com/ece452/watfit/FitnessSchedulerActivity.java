@@ -31,6 +31,17 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
             "Dancing",
             "Stretching"
             };
+    String[] indoor_medium = {"Elliptical training",
+            "Low-impact aerobics",
+            "Stair-stepping",
+            "Rowing machine",
+            "Jumping jacks",
+            "High knees",
+            "Low-impact Zumba",
+            "TRX suspension",
+            "Stability ball",
+            "Core workouts"
+    };
     String[] indoor_high = {"Jumping rope",
             "HIIT",
             "Circuit training",
@@ -53,6 +64,17 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
             "Outdoor Yoga",
             "Pilates classes"
     };
+    String[] outdoor_medium = {"Brisk walking",
+            "Recreational cycling",
+            "Rollerblading",
+            "Tennis",
+            "Badminton",
+            "Paddleboarding",
+            "Soccer",
+            "Frisbee",
+            "Volleyball",
+            "Rock climbing"
+    };
     String[] outdoor_high = {"Running",
             "Jogging",
             "Cycling",
@@ -65,8 +87,10 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
             "Outdoor HIIT"
     };
     int[] indoor_low_cal = {4,3,3,4,5,3,5,4,5,3};
+    int[] indoor_medium_cal = {7,6,6,7,9,9,6,6,5,6};
     int[] indoor_high_cal = {10,10,8,8,7,8,8,7,8,7};
     int[] outdoor_low_cal = {4,5,5,5,4,3,3,4,2,3};
+    int[] outdoor_medium_cal = {5,5,6,6,5,5,6,4,6,7};
     int[] outdoor_high_cal = {11,10,8,11,9,9,9,11,9,10};
 
     @Override
