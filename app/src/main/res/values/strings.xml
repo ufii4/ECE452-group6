@@ -65,4 +65,16 @@
         <item>High</item>
     </string-array>
     <string name="dietary_exercise_log_chart">Intake and Exercise Trend</string>
+    <string-array name="exercise_type_list">
+        <item>Select an exercise type</item>
+        <item>indoor</item>
+        <item>outdoor</item>
+    </string-array>
+    <string-array name="intensity_list">
+        <item>Select an intensity level</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+
 </resources>
