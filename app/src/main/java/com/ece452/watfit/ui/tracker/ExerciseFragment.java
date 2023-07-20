@@ -123,7 +123,7 @@ public class ExerciseFragment extends Fragment {
             @Override
             public void run() {
                 // Your UI updates here.
-                calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                 ListView listView = root.findViewById(R.id.exerciseSelectList);
                 ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
                 listView.setAdapter(ExerciseDisplayAdapter);
@@ -148,7 +148,7 @@ public class ExerciseFragment extends Fragment {
                                     }
                                     calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
-                                    calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                                    calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                                     ListView listView = root.findViewById(R.id.exerciseSelectList);
                                     ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
                                     listView.setAdapter(ExerciseDisplayAdapter);
@@ -159,7 +159,7 @@ public class ExerciseFragment extends Fragment {
                     }
                 });
 
-        calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+        calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
 
         exerciseSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -197,13 +197,13 @@ public class ExerciseFragment extends Fragment {
                         for (int j = 0; j < 10; j++) {
                             if(j == i){
                                 TextView calorieExercise = root.findViewById(R.id.calorieExercise);
-                                calorieExercise.setText(burnedList.get(j).total_calories);
+                                calorieExercise.setText(burnedList.get(j).total_calories+"kcal");
                                 calorieList.add(Double.parseDouble(burnedList.get(j).total_calories));
                                 //display on the page
                                 ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(),selectedExerciseList,calorieList);
                                 exerciseDisplayList.setAdapter(ExerciseDisplayAdapter);
                                 dailyCalorie += Double.parseDouble(burnedList.get(j).total_calories);
-                                calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                                calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                             }
                         }
                     }
@@ -258,7 +258,7 @@ public class ExerciseFragment extends Fragment {
                                                             }
                                                             calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
-                                                            calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                                                            calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                                                             ListView listView = root.findViewById(R.id.exerciseSelectList);
                                                             ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
                                                             listView.setAdapter(ExerciseDisplayAdapter);
@@ -270,7 +270,7 @@ public class ExerciseFragment extends Fragment {
                                                     selectedExerciseList.clear();
                                                     calorieList.clear();
                                                     dailyCalorie = 0;
-                                                    calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie));
+                                                    calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                                                     ListView listView = root.findViewById(R.id.exerciseSelectList);
                                                     listView.setAdapter(null);
                                                 }
@@ -320,6 +320,7 @@ public class ExerciseFragment extends Fragment {
         calendar.set(Calendar.MILLISECOND, 0);
         localDate = new Timestamp(calendar.getTimeInMillis());
         exerciseLogList.add(new ExerciseLog(dailyCalorie, calorieList, selectedExerciseList, localDate));
+        calorieTotalExerciseTextView.setText(dailyCalorie+"kcal");
         db.collection("users")
         .document(FirebaseAuth.getInstance().getUid()).collection("exerciseLogs")
         .whereEqualTo("date", localDate)

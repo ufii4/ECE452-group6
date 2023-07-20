@@ -18,7 +18,7 @@
     <string name="exercise_search_hint">Enter your exercise</string>
     <string name="exercise_time_hint">Enter your exercise time</string>
     <string name="exercise_calorie">Estimated calorie burnt:</string>
-    <string name="daily_exercise_calorie">Your daily calorie consumption is:</string>
+    <string name="daily_exercise_calorie">Your daily consumption is:</string>
     <string name="total_calorie">Your daily calorie intake is:</string>
     <string name="title_recipe_generator">Recipe Generator</string>
     <string name="title_training_scheduler">Training Scheduler</string>

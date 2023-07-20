@@ -87,7 +87,7 @@ public class CalorieFragment extends Fragment {
         // Search ingredients
         SearchView searchView = root.findViewById(R.id.searchViewCalorie);
         TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-        calorieTotal.setText(Double.toString(dailyCalorie));
+        calorieTotal.setText(Double.toString(dailyCalorie)+"kcal");
         Button submitButton = root.findViewById(R.id.submitButton);
         submitButton.setOnClickListener(v -> submit());
 
@@ -159,8 +159,8 @@ public class CalorieFragment extends Fragment {
                                 TextView calorieTotal = root.findViewById(R.id.calorieTotal);
                                 dailyCalorie = Double.parseDouble(calorieTotal.getText().toString());
                                 dailyCalorie+=n.amount;
-                                calorieTotal.setText(df.format(dailyCalorie));
-                                calorieInput.setText(df.format(n.amount));
+                                calorieTotal.setText(df.format(dailyCalorie)+"kcal");
+                                calorieInput.setText(df.format(n.amount)+"kcal");
 
                                 // Display on the page
                                 calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, n.unit,dailyCalorie,calorieTotal);
@@ -214,7 +214,7 @@ public class CalorieFragment extends Fragment {
                                     calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
                                     TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                    calorieTotal.setText(df.format(dailyCalorie));
+                                    calorieTotal.setText(df.format(dailyCalorie)+"kcal");
                                     ListView listView = root.findViewById(R.id.foodSelectList);
                                     calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorie,calorieTotal);
                                     listView.setAdapter(calorieAdapter);
@@ -276,7 +276,7 @@ public class CalorieFragment extends Fragment {
                                                             calorieList = (List<Double>) documentSnapshot.get("calorieList");
 
                                                             TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                                            calorieTotal.setText(df.format(dailyCalorie));
+                                                            calorieTotal.setText(df.format(dailyCalorie)+"kcal");
                                                             ListView listView = root.findViewById(R.id.foodSelectList);
                                                             calorieAdapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorie,calorieTotal);
                                                             listView.setAdapter(calorieAdapter);
@@ -289,7 +289,7 @@ public class CalorieFragment extends Fragment {
                                                     calorieList.clear();
                                                     dailyCalorie = 0;
                                                     TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                                    calorieTotal.setText(df.format(dailyCalorie));
+                                                    calorieTotal.setText(df.format(dailyCalorie)+"kcal");
                                                     ListView listView = root.findViewById(R.id.foodSelectList);
                                                     listView.setAdapter(null);
                                                     CalorieDisplayAdapter adapter = new CalorieDisplayAdapter(root.getContext(), foodList, calorieList, "kcal",dailyCalorie,calorieTotal);
@@ -323,7 +323,7 @@ public class CalorieFragment extends Fragment {
                     dailyCalorie += d;
                 }
                 TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                calorieTotal.setText(df.format(dailyCalorie));
+                calorieTotal.setText(df.format(dailyCalorie)+"kcal");
                 List<CalorieLog> calorieLogList = new ArrayList<>();
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(localDate.getTime());

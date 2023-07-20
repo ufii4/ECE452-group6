@@ -121,11 +121,11 @@
 
         <TextView
             android:id="@+id/calorieInput"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center"
             android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
+            app:layout_constraintEnd_toStartOf="@+id/addButton"
             app:layout_constraintStart_toEndOf="@+id/calorieHint"
             app:layout_constraintTop_toBottomOf="@+id/estimateCalorie"
             app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_1"/>
@@ -170,15 +170,15 @@
 
         <TextView
             android:id="@+id/calorieTotal"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginBottom="40dp"
             android:gravity="center"
             android:textSize="15sp"
             app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_3"
             app:layout_constraintBottom_toTopOf="@id/submitButton"
-            app:layout_constraintEnd_toEndOf="@+id/guideline_vertical"
-            app:layout_constraintStart_toEndOf="@+id/calorieTotalText" />
+            app:layout_constraintStart_toEndOf="@+id/calorieTotalText"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <Button
             android:id="@+id/submitButton"

@@ -228,6 +228,7 @@ public class DashboardFragment extends Fragment {
                             xAxis.setTextSize(12f);
                             xAxis.setEnabled(true);
                             xAxis.setDrawAxisLine(true);
+                            xAxis.setLabelCount(dateEntries.size());
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(dateEntries));
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
@@ -236,6 +237,7 @@ public class DashboardFragment extends Fragment {
                             BarDataSet dataSet = new BarDataSet (calorieEntries, "Calorie Intake");
                             dataSet.setColor(Color.BLUE);
                             dataSet.setValueTextColor(Color.RED);
+                            dataSet.setValueTextSize(12f);
                             BarData barData = new BarData(dataSet);
                             barChart.setData(barData);
                             barChart.invalidate();
@@ -276,6 +278,7 @@ public class DashboardFragment extends Fragment {
                             xAxis.setLabelRotationAngle(45f);
                             xAxis.setTextSize(12f);
                             xAxis.setEnabled(true);
+                            xAxis.setLabelCount(dateEntriesExercise.size());
                             xAxis.setDrawAxisLine(true);
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(dateEntriesExercise));
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -287,6 +290,7 @@ public class DashboardFragment extends Fragment {
                             dataSet.setValueTextColor(Color.RED);
                             LineData barData = new LineData(dataSet);
                             barChart.setData(barData);
+                            dataSet.setValueTextSize(12f);
                             barChart.invalidate();
                         }
                     }
@@ -367,7 +371,11 @@ public class DashboardFragment extends Fragment {
                         TextView weightTrend = root.findViewById(R.id.weightTrend);
                         DecimalFormat decimalFormat = new DecimalFormat("#.##");
                         if(calorieLoss >0) {
-                            weightTrend.setText("You will lose "+decimalFormat.format(poundLoss)+" pound next week. Good job!");
+                            if(poundLoss > 2){
+                                weightTrend.setText("You will lose "+decimalFormat.format(poundLoss)+" pound next week. You are losing too much weight! Remember to have a healthy diet!");
+                            }else{
+                                weightTrend.setText("You will lose "+decimalFormat.format(poundLoss)+" pound next week. Good job!");
+                            }
                         }else{
                             weightTrend.setText("You will gain "+decimalFormat.format(poundLoss)+" pound next week. Don't worry! Keep your healthy lifestyle!");
                         }
