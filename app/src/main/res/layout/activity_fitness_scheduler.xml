@@ -7,15 +7,12 @@
     tools:context=".FitnessSchedulerActivity"
     >
 
-
-
-
     <LinearLayout
         android:id="@+id/header_linearlayout_nav"
         android:layout_width="406dp"
         android:layout_height="720dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="5dp"
         android:orientation="vertical"
         android:paddingLeft="10dp"
@@ -40,7 +37,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_Monday"
             android:layout_width="352dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
@@ -102,7 +99,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_Tuesday"
             android:layout_width="352dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
@@ -164,7 +161,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_Wednesday"
             android:layout_width="352dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
@@ -226,7 +223,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_Thursday"
             android:layout_width="352dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
@@ -288,7 +285,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_Friday"
             android:layout_width="352dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
@@ -350,7 +347,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_Saturday"
             android:layout_width="352dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"
@@ -412,7 +409,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_Sunday"
             android:layout_width="352dp"
-            android:layout_height="60dp"
+            android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             app:cardBackgroundColor="@color/gold_1"

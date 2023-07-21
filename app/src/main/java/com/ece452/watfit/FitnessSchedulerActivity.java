@@ -93,6 +93,8 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
     int[] outdoor_medium_cal = {5,5,6,6,5,5,6,4,6,7};
     int[] outdoor_high_cal = {11,10,8,11,9,9,9,11,9,10};
 
+    private static String exerciseType = "indoor";
+    private static String intensity ="low";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +125,45 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
     }
 
     protected void generateList() {
+        String[] selectedArray;
+        int [] selectCalArray;
+        int floor = 1;
+        int ceiling = 4;
+
+        if (exerciseType.equals("indoor") && intensity.equals("low")) {
+            selectedArray = indoor_low;
+            selectCalArray = indoor_low_cal;
+            floor = 1;
+            ceiling = 4;
+        } else if (exerciseType.equals("indoor") && intensity.equals("medium")) {
+            selectedArray = indoor_medium;
+            selectCalArray = indoor_medium_cal;
+            floor = 5;
+            ceiling = 8;
+        } else if (exerciseType.equals("indoor") && intensity.equals("high")) {
+            selectedArray = indoor_high;
+            selectCalArray = indoor_high_cal;
+            floor = 9;
+            ceiling = 12;
+        } else if (exerciseType.equals("outdoor") && intensity.equals("low")) {
+            selectedArray = outdoor_low;
+            selectCalArray = outdoor_low_cal;
+            floor = 1;
+            ceiling = 4;
+        } else if (exerciseType.equals("outdoor") && intensity.equals("medium")) {
+            selectedArray = outdoor_medium;
+            selectCalArray = outdoor_medium_cal;
+            floor = 5;
+            ceiling = 8;
+        } else if (exerciseType.equals("outdoor") && intensity.equals("high")) {
+            selectedArray = outdoor_high;
+            selectCalArray = outdoor_high_cal;
+            floor = 9;
+            ceiling = 12;
+        } else {
+            return;
+        }
+
         TextView Mon1 = (TextView)findViewById(R.id.Monday_exercise_description);
         TextView Mon2 = (TextView)findViewById(R.id.Monday_exercise_Calories);
         TextView Tue1 = (TextView)findViewById(R.id.Tuesday_exercise_description);
@@ -137,13 +178,13 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
         TextView Sat2 = (TextView)findViewById(R.id.Saturday_exercise_Calories);
         TextView Sun1 = (TextView)findViewById(R.id.Sunday_exercise_description);
         TextView Sun2 = (TextView)findViewById(R.id.Sunday_exercise_Calories);
-        int t1 = ThreadLocalRandom.current().nextInt(1, 4);
-        int t2 = ThreadLocalRandom.current().nextInt(1, 4);
-        int t3 = ThreadLocalRandom.current().nextInt(1, 4);
-        int t4 = ThreadLocalRandom.current().nextInt(1, 4);
-        int t5 = ThreadLocalRandom.current().nextInt(1, 4);
-        int t6 = ThreadLocalRandom.current().nextInt(1, 4);
-        int t7 = ThreadLocalRandom.current().nextInt(1, 4);
+        int t1 = ThreadLocalRandom.current().nextInt(floor, ceiling);
+        int t2 = ThreadLocalRandom.current().nextInt(floor, ceiling);
+        int t3 = ThreadLocalRandom.current().nextInt(floor, ceiling);
+        int t4 = ThreadLocalRandom.current().nextInt(floor, ceiling);
+        int t5 = ThreadLocalRandom.current().nextInt(floor, ceiling);
+        int t6 = ThreadLocalRandom.current().nextInt(floor, ceiling);
+        int t7 = ThreadLocalRandom.current().nextInt(floor, ceiling);
         int t1_1 = ThreadLocalRandom.current().nextInt(0, 10);
         int t1_2 = ThreadLocalRandom.current().nextInt(0, 10);
         int t1_3 = ThreadLocalRandom.current().nextInt(0, 10);
@@ -151,20 +192,20 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
         int t1_5 = ThreadLocalRandom.current().nextInt(0, 10);
         int t1_6 = ThreadLocalRandom.current().nextInt(0, 10);
         int t1_7 = ThreadLocalRandom.current().nextInt(0, 10);
-        Mon1.setText("Exercise: "+indoor_low[t1_1]);
-        Tue1.setText("Exercise: "+indoor_low[t1_2]);
-        Wed1.setText("Exercise: "+indoor_low[t1_3]);
-        Thu1.setText("Exercise: "+indoor_low[t1_4]);
-        Fri1.setText("FExercise: "+indoor_low[t1_5]);
-        Sat1.setText("Exercise: "+indoor_low[t1_6]);
-        Sun1.setText("Exercise: "+indoor_low[t1_7]);
-        Mon2.setText("Duration/Calories Burnt: "+String.valueOf(t1*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_1])+"cal");
-        Tue2.setText("Duration/Calories Burnt: "+String.valueOf(t2*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_2])+"cal");
-        Wed2.setText("Duration/Calories Burnt: "+String.valueOf(t3*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_3])+"cal");
-        Thu2.setText("Duration/Calories Burnt: "+String.valueOf(t4*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_4])+"cal");
-        Fri2.setText("Duration/Calories Burnt: "+String.valueOf(t5*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_5])+"cal");
-        Sat2.setText("Duration/Calories Burnt: "+String.valueOf(t6*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_6])+"cal");
-        Sun2.setText("Duration/Calories Burnt: "+String.valueOf(t7*10)+"min / "+String.valueOf(t1*10*indoor_low_cal[t1_7])+"cal");
+        Mon1.setText("Exercise: "+selectedArray[t1_1]);
+        Tue1.setText("Exercise: "+selectedArray[t1_2]);
+        Wed1.setText("Exercise: "+selectedArray[t1_3]);
+        Thu1.setText("Exercise: "+selectedArray[t1_4]);
+        Fri1.setText("Exercise: "+selectedArray[t1_5]);
+        Sat1.setText("Exercise: "+selectedArray[t1_6]);
+        Sun1.setText("Exercise: "+selectedArray[t1_7]);
+        Mon2.setText("Duration/Calories Burnt: "+String.valueOf(t1*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_1])+"cal");
+        Tue2.setText("Duration/Calories Burnt: "+String.valueOf(t2*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_2])+"cal");
+        Wed2.setText("Duration/Calories Burnt: "+String.valueOf(t3*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_3])+"cal");
+        Thu2.setText("Duration/Calories Burnt: "+String.valueOf(t4*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_4])+"cal");
+        Fri2.setText("Duration/Calories Burnt: "+String.valueOf(t5*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_5])+"cal");
+        Sat2.setText("Duration/Calories Burnt: "+String.valueOf(t6*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_6])+"cal");
+        Sun2.setText("Duration/Calories Burnt: "+String.valueOf(t7*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_7])+"cal");
     }
 
     public void openDialog(){
@@ -206,5 +247,10 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
     @Override
     public void applyTexts(String exercise_type, String intensity) {
         Log.d("!!!!!!!!!!!!", "applyTexts: "+ exercise_type+"  "+intensity);
+        this.exerciseType = exercise_type.trim().toLowerCase();
+        this.intensity = intensity.trim().toLowerCase();
+        generateList();
+
+
     }
 }
