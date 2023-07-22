@@ -157,7 +157,8 @@ public class CalorieFragment extends Fragment {
                                 //update total calorie
 //                                dailyCalorieDisplay+=n.amount;
                                 TextView calorieTotal = root.findViewById(R.id.calorieTotal);
-                                dailyCalorie = Double.parseDouble(calorieTotal.getText().toString());
+                                String calorieText = calorieTotal.getText().toString();
+                                dailyCalorie = Double.parseDouble(calorieText.substring(0,calorieText.length()-4));
                                 dailyCalorie+=n.amount;
                                 calorieTotal.setText(df.format(dailyCalorie)+"kcal");
                                 calorieInput.setText(df.format(n.amount)+"kcal");

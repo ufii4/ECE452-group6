@@ -125,7 +125,7 @@ public class ExerciseFragment extends Fragment {
                 // Your UI updates here.
                 calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                 ListView listView = root.findViewById(R.id.exerciseSelectList);
-                ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
+                ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList,dailyCalorie,calorieTotalExerciseTextView);
                 listView.setAdapter(ExerciseDisplayAdapter);
             }
         });
@@ -139,7 +139,8 @@ public class ExerciseFragment extends Fragment {
                             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
                                 if (logDate != null && isSameDate(logDate, localDate)) {
-                                    double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
+                                    double dailyCalorie_fire = documentSnapshot.getDouble("dailyCalorie");
+                                    dailyCalorie = dailyCalorie_fire;
                                     List<Map<String, Object>> exerciseListData = (List<Map<String, Object>>) documentSnapshot.get("exerciseList");
                                     for (Map<String, Object> exerciseMap : exerciseListData) {
                                         String name = (String) exerciseMap.get("name");
@@ -150,7 +151,7 @@ public class ExerciseFragment extends Fragment {
 
                                     calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                                     ListView listView = root.findViewById(R.id.exerciseSelectList);
-                                    ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
+                                    ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList,dailyCalorie,calorieTotalExerciseTextView);
                                     listView.setAdapter(ExerciseDisplayAdapter);
                                     break; // Exit the loop after finding the matching document
                                 }
@@ -200,10 +201,15 @@ public class ExerciseFragment extends Fragment {
                                 calorieExercise.setText(burnedList.get(j).total_calories+"kcal");
                                 calorieList.add(Double.parseDouble(burnedList.get(j).total_calories));
                                 //display on the page
-                                ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(),selectedExerciseList,calorieList);
+                                ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(),selectedExerciseList,calorieList,dailyCalorie,calorieTotalExerciseTextView);
                                 exerciseDisplayList.setAdapter(ExerciseDisplayAdapter);
+                                String calorieText = calorieTotalExerciseTextView.getText().toString();
+                                dailyCalorie = Double.parseDouble(calorieText.substring(0,calorieText.length()-4));
                                 dailyCalorie += Double.parseDouble(burnedList.get(j).total_calories);
                                 calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
+                                ListView listView = root.findViewById(R.id.exerciseSelectList);
+                                ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList,dailyCalorie,calorieTotalExerciseTextView);
+                                listView.setAdapter(ExerciseDisplayAdapter);
                             }
                         }
                     }
@@ -249,7 +255,8 @@ public class ExerciseFragment extends Fragment {
                                                     for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                                         Date logDate = documentSnapshot.getTimestamp("date").toDate();
                                                         if (logDate != null) {
-                                                            double dailyCalorie = documentSnapshot.getDouble("dailyCalorie");
+                                                            double dailyCalorie_fire = documentSnapshot.getDouble("dailyCalorie");
+                                                            dailyCalorie = dailyCalorie_fire;
                                                             List<Map<String, Object>> exerciseListData = (List<Map<String, Object>>) documentSnapshot.get("exerciseList");
                                                             for (Map<String, Object> foodMap : exerciseListData) {
                                                                 String name = (String) foodMap.get("name");
@@ -260,7 +267,7 @@ public class ExerciseFragment extends Fragment {
 
                                                             calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                                                             ListView listView = root.findViewById(R.id.exerciseSelectList);
-                                                            ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList);
+                                                            ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(), selectedExerciseList, calorieList,dailyCalorie,calorieTotalExerciseTextView);
                                                             listView.setAdapter(ExerciseDisplayAdapter);
                                                             break; // Exit the loop after finding the matching document
                                                         }

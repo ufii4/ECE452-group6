@@ -68,7 +68,7 @@ public class CalorieDisplayAdapter extends ArrayAdapter<Ingredient> {
             public void onClick(View v) {
                 // Handle delete button click here
                 dailyCalorieDisplay -= calorie.get(position);
-                calorieTotal.setText(df.format(dailyCalorieDisplay));
+                calorieTotal.setText(df.format(dailyCalorieDisplay)+"kcal");
                 itemList.remove(position);
                 calorie.remove(position);
                 notifyDataSetChanged();
