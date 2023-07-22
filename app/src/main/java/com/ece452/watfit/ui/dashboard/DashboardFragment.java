@@ -52,6 +52,8 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +69,7 @@ public class DashboardFragment extends Fragment {
     private TextView suggestion2;
     private TextView suggestion3;
     private Timestamp localDate = null;
-    private List<Double> dailyCalorie = new ArrayList<>();
+    private List<Double> dailyCalorie = new ArrayList<>(7);
     private List<Double> exerciseCalorie = new ArrayList<>();
     private List<BarEntry> calorieEntries = new ArrayList<>();
     private List<Entry> exerciseEntries = new ArrayList<>();
@@ -87,7 +89,7 @@ public class DashboardFragment extends Fragment {
         DocumentReference docRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
 
         //Add date to entries
-        List<String> dateEntries = new ArrayList<>();
+        List<String> dateEntries = new ArrayList<>(7);
 
         List<String> eatSuggestions = new ArrayList<>(Arrays.asList(
             "Try incorporating more fruits and vegetables into your meals for added nutrients.",
@@ -204,7 +206,9 @@ public class DashboardFragment extends Fragment {
                             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 //is it possible to have an empty collection?
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
-                                if (logDate != null && isSameDate(logDate)) {
+                                long daysDifference = isSameDate(logDate);
+                                // Check if the date is within 7 days
+                                if (logDate != null && (daysDifference <= 7 && daysDifference >= 0)) {
                                     dailyCalorie.add(documentSnapshot.getDouble("dailyCalorie"));
                                     dailyCalorieTotal+=documentSnapshot.getDouble("dailyCalorie");
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -212,6 +216,21 @@ public class DashboardFragment extends Fragment {
                                     dateEntries.add(formattedDate);
                                 }
                             }
+                            // Sort the ArrayList
+                            Collections.sort(dateEntries);
+
+                            // Create a temporary ArrayList of doubles to store the sorted order
+                            ArrayList<Double> sortedDoubleList = new ArrayList<>();
+
+                            // Reorder the ArrayList of doubles based on the sorted order of strings
+                            for (String str : dateEntries) {
+                                int index = dateEntries.indexOf(str); // Get the index of the string in the sorted list
+                                sortedDoubleList.add(dailyCalorie.get(index)); // Add the corresponding double to the sorted list
+                            }
+
+                            // Update the original ArrayList of doubles with the sorted values
+                            dailyCalorie.clear();
+                            dailyCalorie.addAll(sortedDoubleList);
                             // Add data to the chart
                             for (int i = 0; i < dailyCalorie.size(); i++) {
                                 calorieEntries.add(new BarEntry(i,dailyCalorie.get(i).floatValue()));
@@ -254,15 +273,32 @@ public class DashboardFragment extends Fragment {
                             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 //is it possible to have an empty collection?
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
-                                if (logDate != null && isSameDate(logDate)) {
+                                long daysDifference = isSameDate(logDate);
+                                // Check if the date is within 7 days
+                                if (logDate != null && (daysDifference <= 7 && daysDifference >= 0)) {
                                     exerciseCalorie.add(documentSnapshot.getDouble("dailyCalorie"));
-//                                    exerciseCalorieTotal+=documentSnapshot.getDouble("dailyCalorie");
+                                    exerciseCalorieTotal+=documentSnapshot.getDouble("dailyCalorie");
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                     String formattedDate = dateFormat.format(logDate);
                                     dateEntriesExercise.add(formattedDate);
                                 }
                             }
                             handleWeightForecast(db,root);
+                            // Sort the ArrayList
+                            Collections.sort(dateEntriesExercise);
+
+                            // Create a temporary ArrayList of doubles to store the sorted order
+                            ArrayList<Double> sortedDoubleList = new ArrayList<>();
+
+                            // Reorder the ArrayList of doubles based on the sorted order of strings
+                            for (String str : dateEntriesExercise) {
+                                int index = dateEntriesExercise.indexOf(str); // Get the index of the string in the sorted list
+                                sortedDoubleList.add(exerciseCalorie.get(index)); // Add the corresponding double to the sorted list
+                            }
+
+                            // Update the original ArrayList of doubles with the sorted values
+                            exerciseCalorie.clear();
+                            exerciseCalorie.addAll(sortedDoubleList);
                             // Add data to the chart
                             for (int i = 0; i < exerciseCalorie.size(); i++) {
                                 exerciseEntries.add(new Entry(i,exerciseCalorie.get(i).floatValue()));
@@ -278,7 +314,7 @@ public class DashboardFragment extends Fragment {
                             xAxis.setLabelRotationAngle(45f);
                             xAxis.setTextSize(12f);
                             xAxis.setEnabled(true);
-                            xAxis.setLabelCount(dateEntriesExercise.size());
+                            xAxis.setLabelCount(dateEntriesExercise.size()+1);
                             xAxis.setDrawAxisLine(true);
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(dateEntriesExercise));
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -327,20 +363,13 @@ public class DashboardFragment extends Fragment {
         binding = null;
     }
     //decide whether the date is within 7 days
-    private boolean isSameDate(Date date1) {
+    private long isSameDate(Date date1) {
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date1);
         Calendar cal2 = Calendar.getInstance();
-
-        int year1 = cal1.get(Calendar.YEAR);
-        int month1 = cal1.get(Calendar.MONTH);
-        int day1 = cal1.get(Calendar.DAY_OF_MONTH);
-
-        int year2 = cal2.get(Calendar.YEAR);
-        int month2 = cal2.get(Calendar.MONTH);
-        int day2 = cal2.get(Calendar.DAY_OF_MONTH);
-
-        return (year1 == year2 && month1 == month2 && (day1 >= day2-6));
+        long timeDifferenceInMillis = Math.abs(cal2.getTimeInMillis()-cal1.getTimeInMillis());
+        long daysDifference = timeDifferenceInMillis / (1000 * 60 * 60 * 24);
+        return daysDifference;
     }
     private void handleWeightForecast(FirebaseFirestore db, View root) {
         // Use the updated variable here
