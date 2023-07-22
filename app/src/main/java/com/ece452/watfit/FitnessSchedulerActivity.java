@@ -272,13 +272,13 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
         int t6_time = a6[1];
         int t7_time = a7[1];
 
-        Mon2.setText("Duration/Calories Burnt: "+String.valueOf(t1_time)+"min / "+String.valueOf(t1_cal)+"cal");
-        Tue2.setText("Duration/Calories Burnt: "+String.valueOf(t2_time)+"min / "+String.valueOf(t2_cal)+"cal");
-        Wed2.setText("Duration/Calories Burnt: "+String.valueOf(t3_time)+"min / "+String.valueOf(t3_cal)+"cal");
-        Thu2.setText("Duration/Calories Burnt: "+String.valueOf(t4_time)+"min / "+String.valueOf(t4_cal)+"cal");
-        Fri2.setText("Duration/Calories Burnt: "+String.valueOf(t5_time)+"min / "+String.valueOf(t5_cal)+"cal");
-        Sat2.setText("Duration/Calories Burnt: "+String.valueOf(t6_time)+"min / "+String.valueOf(t6_cal)+"cal");
-        Sun2.setText("Duration/Calories Burnt: "+String.valueOf(t7_time)+"min / "+String.valueOf(t7_cal)+"cal");
+        Mon2.setText("Duration/Calories Burnt: "+String.valueOf(t1_time)+"min / "+String.valueOf(t1_cal)+"kcal");
+        Tue2.setText("Duration/Calories Burnt: "+String.valueOf(t2_time)+"min / "+String.valueOf(t2_cal)+"kcal");
+        Wed2.setText("Duration/Calories Burnt: "+String.valueOf(t3_time)+"min / "+String.valueOf(t3_cal)+"kcal");
+        Thu2.setText("Duration/Calories Burnt: "+String.valueOf(t4_time)+"min / "+String.valueOf(t4_cal)+"kcal");
+        Fri2.setText("Duration/Calories Burnt: "+String.valueOf(t5_time)+"min / "+String.valueOf(t5_cal)+"kcal");
+        Sat2.setText("Duration/Calories Burnt: "+String.valueOf(t6_time)+"min / "+String.valueOf(t6_cal)+"kcal");
+        Sun2.setText("Duration/Calories Burnt: "+String.valueOf(t7_time)+"min / "+String.valueOf(t7_cal)+"kcal");
     }
 
 
