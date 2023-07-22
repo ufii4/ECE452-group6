@@ -115,7 +115,6 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AccountActivity.this, BasicDiameterActivity.class));
-                finish();
             }
         });
 
@@ -140,7 +139,6 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AccountActivity.this, SharedWithMeActivity.class));
-                finish();
             }
         });
 
