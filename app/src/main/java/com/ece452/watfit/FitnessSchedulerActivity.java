@@ -135,11 +135,12 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
             if (documentSnapshot.exists()) {
                 List<Map<String, Object>> goals = (List<Map<String, Object>>) documentSnapshot.get("goals");
                 if (goals != null) {
+                    boolean isFitnessGoalCC = false;
                     for (Map<String, Object> goalMap : goals) {
                         if((FitnessGoal.Type.valueOf((String) goalMap.get("type"))== FitnessGoal.Type.CALORIE_CONSUMPTION)){
                             int calorie_Consumption = ((Long) goalMap.get("value")).intValue();
                             Log.d("HIHIHI", "calorie_Consumption:  "+calorie_Consumption);
-
+                            isFitnessGoalCC = true;
 
                             generateList(calorie_Consumption);
 
@@ -154,6 +155,18 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
 
 
                         }
+                    }
+
+                    if(!isFitnessGoalCC){
+                        generateList(Integer.MIN_VALUE);
+                        Button regenButton = (Button) findViewById(R.id.bt_regenerate_schedule);
+                        regenButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                generateList(Integer.MIN_VALUE);
+                            }
+                        });
+
                     }
                 }
             }
