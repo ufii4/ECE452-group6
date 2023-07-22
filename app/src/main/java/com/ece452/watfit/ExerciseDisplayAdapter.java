@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.ece452.watfit.R;
 import com.ece452.watfit.data.Exercise;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +22,18 @@ public class ExerciseDisplayAdapter extends ArrayAdapter<Exercise> {
     private List<Exercise> itemList;
     private List<Exercise> filteredItemList;
     private List<Double> calorie;
+    private Double dailyCalorie;
+    private TextView calorieTotalExerciseTextView;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
-    public ExerciseDisplayAdapter(Context context, List<Exercise> itemList, List<Double> calorie) {
+    public ExerciseDisplayAdapter(Context context, List<Exercise> itemList, List<Double> calorie,Double dailyCalorie,TextView calorieTotalExerciseTextView) {
         super(context, R.layout.exercise_listview, itemList);
         this.context = context;
         this.itemList = itemList;
         this.filteredItemList = itemList;
         this.calorie = calorie;
+        this.dailyCalorie = dailyCalorie;
+        this.calorieTotalExerciseTextView = calorieTotalExerciseTextView;
     }
 
     @Override
@@ -43,7 +49,7 @@ public class ExerciseDisplayAdapter extends ArrayAdapter<Exercise> {
         TextView descriptionTextView = convertView.findViewById(R.id.exerciseCalorie);
 
         titleTextView.setText(item.name);
-        descriptionTextView.setText(String.valueOf(calorie.get(position)));
+        descriptionTextView.setText(Double.toString(calorie.get(position))+"kcal");
 
 
         Button btnDelete = convertView.findViewById(R.id.btnDeleteExercise);
@@ -54,6 +60,8 @@ public class ExerciseDisplayAdapter extends ArrayAdapter<Exercise> {
                 // Handle delete button click here
                 // You can access the clicked item position using the 'position' parameter
                 // For example:
+                dailyCalorie-=calorie.get(position);
+                calorieTotalExerciseTextView.setText(Double.toString(dailyCalorie)+"kcal");
                 itemList.remove(position);
                 calorie.remove(position);
                 notifyDataSetChanged();
