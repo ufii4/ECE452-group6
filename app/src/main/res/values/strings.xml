@@ -16,7 +16,7 @@
     <string name="add_button_text">Add</string>
     <string name="submit_button_text">Submit</string>
     <string name="exercise_search_hint">Enter your exercise</string>
-    <string name="exercise_time_hint">Enter your exercise time</string>
+    <string name="exercise_time_hint">Exercise time in minutes</string>
     <string name="exercise_calorie">Estimated calorie burnt:</string>
     <string name="daily_exercise_calorie">Your daily consumption is:</string>
     <string name="total_calorie">Your daily calorie intake is:</string>

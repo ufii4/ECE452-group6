@@ -81,6 +81,7 @@ public class ExerciseFragment extends Fragment {
     private double dailyCalorie = 0;
     private Timestamp localDate = null;
     private List<Double> calorieList = new ArrayList<>();
+    private String searchQuery;
     @Inject
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -193,7 +194,7 @@ public class ExerciseFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         //get calorie information from api
-                        List<Caloriesburned> burnedList = exerciseService.getCaloriesburned("skiing", null, estimateTimeEditText.getText().toString()).blockingFirst();
+                        List<Caloriesburned> burnedList = exerciseService.getCaloriesburned(searchQuery.valueOf(searchQuery.charAt(0)), null, estimateTimeEditText.getText().toString()).blockingFirst();
                         selectedExerciseList.add(exerciseList.get(i));
                         for (int j = 0; j < 10; j++) {
                             if(j == i){
@@ -304,6 +305,7 @@ public class ExerciseFragment extends Fragment {
         exerciseService = ninjaDataSource.exerciseService;
         List<Exercise> exercises = exerciseService.getExercises(query, null, null, null).blockingFirst();
         if (exercises != null) {
+            searchQuery = query;
             exerciseList.clear();
             exerciseList.addAll(exercises);
         }
