@@ -12,13 +12,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ece452.watfit.data.FitnessGoal;
 import com.ece452.watfit.ui.post.MealPlanEditPostActivity;
 import com.ece452.watfit.ui.post.PostActivityHelper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.annotations.NonNull;
+@AndroidEntryPoint
 public class FitnessSchedulerActivity extends AppCompatActivity implements FitnessSchedulerPreferenceDialog.FitnessSchedulerPreferenceDialogListener {
     String[] indoor_low = {"Walking in place",
             "Yoga",
@@ -95,6 +104,11 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
 
     private static String exerciseType = "indoor";
     private static String intensity ="low";
+
+
+    @Inject
+    FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,14 +121,6 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
             actionBar.setHomeAsUpIndicator(R.drawable.ic_back_arrow);
         }
 
-        generateList();
-        Button regenButton = (Button) findViewById(R.id.bt_regenerate_schedule);
-        regenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                generateList();
-            }
-        });
         Button bt_fitness_preference_bar = findViewById(R.id.fitness_preferencebar);
         bt_fitness_preference_bar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,9 +128,39 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
                 openDialog();
             }
         });
+
+        ///fitness goal
+        DocumentReference ref = db.collection("users").document(FirebaseAuth.getInstance().getUid());
+        ref.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                List<Map<String, Object>> goals = (List<Map<String, Object>>) documentSnapshot.get("goals");
+                if (goals != null) {
+                    for (Map<String, Object> goalMap : goals) {
+                        if((FitnessGoal.Type.valueOf((String) goalMap.get("type"))== FitnessGoal.Type.CALORIE_CONSUMPTION)){
+                            int calorie_Consumption = ((Long) goalMap.get("value")).intValue();
+                            Log.d("HIHIHI", "calorie_Consumption:  "+calorie_Consumption);
+
+
+                            generateList(calorie_Consumption);
+
+
+                            Button regenButton = (Button) findViewById(R.id.bt_regenerate_schedule);
+                            regenButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    generateList(calorie_Consumption);
+                                }
+                            });
+
+
+                        }
+                    }
+                }
+            }
+        });
     }
 
-    protected void generateList() {
+    protected void generateList(int calorie_Consumption) {
         String[] selectedArray;
         int [] selectCalArray;
         int floor = 1;
@@ -199,13 +235,49 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
         Fri1.setText("Exercise: "+selectedArray[t1_5]);
         Sat1.setText("Exercise: "+selectedArray[t1_6]);
         Sun1.setText("Exercise: "+selectedArray[t1_7]);
-        Mon2.setText("Duration/Calories Burnt: "+String.valueOf(t1*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_1])+"cal");
-        Tue2.setText("Duration/Calories Burnt: "+String.valueOf(t2*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_2])+"cal");
-        Wed2.setText("Duration/Calories Burnt: "+String.valueOf(t3*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_3])+"cal");
-        Thu2.setText("Duration/Calories Burnt: "+String.valueOf(t4*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_4])+"cal");
-        Fri2.setText("Duration/Calories Burnt: "+String.valueOf(t5*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_5])+"cal");
-        Sat2.setText("Duration/Calories Burnt: "+String.valueOf(t6*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_6])+"cal");
-        Sun2.setText("Duration/Calories Burnt: "+String.valueOf(t7*10)+"min / "+String.valueOf(t1*10*selectCalArray[t1_7])+"cal");
+
+        int [] a1 = calorie_calc(t1, selectCalArray[t1_1], calorie_Consumption);
+        int [] a2 = calorie_calc(t2, selectCalArray[t1_2], calorie_Consumption);
+        int [] a3 = calorie_calc(t3, selectCalArray[t1_3], calorie_Consumption);
+        int [] a4 = calorie_calc(t4, selectCalArray[t1_4], calorie_Consumption);
+        int [] a5 = calorie_calc(t5, selectCalArray[t1_5], calorie_Consumption);
+        int [] a6 = calorie_calc(t6, selectCalArray[t1_6], calorie_Consumption);
+        int [] a7 = calorie_calc(t7, selectCalArray[t1_7], calorie_Consumption);
+
+        int t1_cal = a1[0];
+        int t2_cal = a2[0];
+        int t3_cal = a3[0];
+        int t4_cal = a4[0];
+        int t5_cal = a5[0];
+        int t6_cal = a6[0];
+        int t7_cal = a7[0];
+        int t1_time = a1[1];
+        int t2_time = a2[1];
+        int t3_time = a3[1];
+        int t4_time = a4[1];
+        int t5_time = a5[1];
+        int t6_time = a6[1];
+        int t7_time = a7[1];
+
+        Mon2.setText("Duration/Calories Burnt: "+String.valueOf(t1_time)+"min / "+String.valueOf(t1_cal)+"cal");
+        Tue2.setText("Duration/Calories Burnt: "+String.valueOf(t2_time)+"min / "+String.valueOf(t2_cal)+"cal");
+        Wed2.setText("Duration/Calories Burnt: "+String.valueOf(t3_time)+"min / "+String.valueOf(t3_cal)+"cal");
+        Thu2.setText("Duration/Calories Burnt: "+String.valueOf(t4_time)+"min / "+String.valueOf(t4_cal)+"cal");
+        Fri2.setText("Duration/Calories Burnt: "+String.valueOf(t5_time)+"min / "+String.valueOf(t5_cal)+"cal");
+        Sat2.setText("Duration/Calories Burnt: "+String.valueOf(t6_time)+"min / "+String.valueOf(t6_cal)+"cal");
+        Sun2.setText("Duration/Calories Burnt: "+String.valueOf(t7_time)+"min / "+String.valueOf(t7_cal)+"cal");
+    }
+
+
+    private int[] calorie_calc(int t, int calArray_val , int calorie_Consumption){
+        int calo = t * 10 * calArray_val;
+        int time = t * 10;
+
+        if(calorie_Consumption>calo){
+            return new int[] {calorie_Consumption, (calorie_Consumption / calo) *time };
+        }
+
+        return new int[] {calo, time};
     }
 
     public void openDialog(){
@@ -249,8 +321,7 @@ public class FitnessSchedulerActivity extends AppCompatActivity implements Fitne
         Log.d("!!!!!!!!!!!!", "applyTexts: "+ exercise_type+"  "+intensity);
         this.exerciseType = exercise_type.trim().toLowerCase();
         this.intensity = intensity.trim().toLowerCase();
-        generateList();
-
-
+        generateList(Integer.MIN_VALUE);
     }
 }
+
