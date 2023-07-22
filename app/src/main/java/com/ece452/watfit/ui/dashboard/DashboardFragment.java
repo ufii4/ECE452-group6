@@ -216,6 +216,8 @@ public class DashboardFragment extends Fragment {
                                     dateEntries.add(formattedDate);
                                 }
                             }
+                            List<String> unsortedDate = new ArrayList<>();
+                            unsortedDate.addAll(dateEntries);
                             // Sort the ArrayList
                             Collections.sort(dateEntries);
 
@@ -224,7 +226,7 @@ public class DashboardFragment extends Fragment {
 
                             // Reorder the ArrayList of doubles based on the sorted order of strings
                             for (String str : dateEntries) {
-                                int index = dateEntries.indexOf(str); // Get the index of the string in the sorted list
+                                int index = unsortedDate.indexOf(str); // Get the index of the string in the sorted list
                                 sortedDoubleList.add(dailyCalorie.get(index)); // Add the corresponding double to the sorted list
                             }
 
@@ -284,6 +286,8 @@ public class DashboardFragment extends Fragment {
                                 }
                             }
                             handleWeightForecast(db,root);
+                            List<String> unsortedDate = new ArrayList<>();
+                            unsortedDate.addAll(dateEntriesExercise);
                             // Sort the ArrayList
                             Collections.sort(dateEntriesExercise);
 
@@ -292,7 +296,7 @@ public class DashboardFragment extends Fragment {
 
                             // Reorder the ArrayList of doubles based on the sorted order of strings
                             for (String str : dateEntriesExercise) {
-                                int index = dateEntriesExercise.indexOf(str); // Get the index of the string in the sorted list
+                                int index = unsortedDate.indexOf(str); // Get the index of the string in the sorted list
                                 sortedDoubleList.add(exerciseCalorie.get(index)); // Add the corresponding double to the sorted list
                             }
 
