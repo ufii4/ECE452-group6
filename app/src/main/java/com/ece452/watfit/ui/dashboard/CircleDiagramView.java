@@ -106,6 +106,15 @@ public class CircleDiagramView extends View {
                         // Calculate the score based on the fetched data
                         calculateScore(dailyCalorie, exerciseCalorie, age, height, hip, waist, weight, gender);
                         setScore(score);
+                        if (score >= 80) {
+                            fillPaint.setColor(Color.GREEN);
+                        } else if (score >= 60) {
+                            fillPaint.setColor(Color.YELLOW);
+                        } else if (score >= 40) {
+                            fillPaint.setColor(Color.parseColor("#A52A2A")); // Brown color
+                        } else {
+                            fillPaint.setColor(Color.RED);
+                        }
                     }
                 });
 

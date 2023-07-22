@@ -5,17 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class CalorieLog {
 
     private double dailyCalorie = 0;
     private List<Double> calorieList = new ArrayList<>();
     private List<Ingredient>  foodList = new ArrayList<>();
-    public Timestamp date = null;
+    public Date date = null;
 
     public CalorieLog() {}
 
-    public CalorieLog(double dailyCalorie, List<Double> calorieList, List<Ingredient> foodList, Timestamp date) {
+    public CalorieLog(double dailyCalorie, List<Double> calorieList, List<Ingredient> foodList, Date date) {
         this.dailyCalorie = dailyCalorie;
         this.calorieList = calorieList;
         this.foodList = foodList;
@@ -58,11 +59,11 @@ public class CalorieLog {
         this.foodList = foodList;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public Timestamp getDate(){
+    public Date getDate(){
         return date != null ? date : null;
     }
 }

@@ -21,9 +21,16 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.ece452.watfit.CalorieDisplayAdapter;
 import com.ece452.watfit.EditPostActivity;
 import com.ece452.watfit.R;
+import com.ece452.watfit.data.Choice;
+import com.ece452.watfit.data.Exercise;
 import com.ece452.watfit.data.Ingredient;
+import com.ece452.watfit.data.CalorieLog;
+import com.ece452.watfit.data.ExerciseLog;
+import com.ece452.watfit.data.Suggestion;
 import com.ece452.watfit.databinding.FragmentDashboardBinding;
 import com.ece452.watfit.ui.dashboard.CircleDiagramView;
+import com.ece452.watfit.data.source.remote.OpenAIDataSource;
+import com.ece452.watfit.data.source.remote.SuggestionService;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import com.ece452.watfit.ui.post.PostActivityHelper;
@@ -46,6 +53,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
@@ -53,6 +62,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -89,112 +99,139 @@ public class DashboardFragment extends Fragment {
         //Add date to entries
         List<String> dateEntries = new ArrayList<>();
 
-        List<String> eatSuggestions = new ArrayList<>(Arrays.asList(
-            "Try incorporating more fruits and vegetables into your meals for added nutrients.",
-            "Experiment with different spices and herbs to enhance the flavors of your dishes.",
-            "Include a source of protein in each of your meals, such as lean meats, tofu, or legumes.",
-            "Opt for whole grain options like brown rice or whole wheat bread for added fiber.",
-            "Don't forget to stay hydrated by drinking plenty of water throughout the day.",
-            "Try to limit processed foods and opt for fresh, whole foods instead.",
-            "Consider trying a new recipe or cooking technique to keep meals exciting.",
-            "Include healthy fats in your diet, such as avocados, nuts, and olive oil.",
-            "Balance your plate with a variety of colors by including different types of fruits and vegetables.",
-            "Practice portion control to ensure you're eating an appropriate amount for your needs.",
-            "Enjoy a balanced breakfast to kickstart your day with energy and nutrients.",
-            "Pack nutritious snacks like cut-up veggies or trail mix to have on hand when hunger strikes.",
-            "Try to limit sugary drinks and opt for water, herbal tea, or infused water instead.",
-            "Don't skip meals, as it can lead to overeating later on.",
-            "Listen to your body's hunger and fullness cues to guide your eating habits.",
-            "Include probiotic-rich foods like yogurt or sauerkraut to support gut health.",
-            "Plan and prepare your meals ahead of time to avoid unhealthy food choices on busy days.",
-            "Choose lean sources of protein, such as fish or skinless poultry, for heart-healthy options.",
-            "Enjoy a variety of different cuisines to explore new flavors and ingredients.",
-            "Engage in mindful eating by savoring each bite and paying attention to your body's signals.",
-            "Opt for homemade meals whenever possible, so you have control over the ingredients used.",
-            "Try to include a source of calcium, such as dairy products or fortified plant-based alternatives.",
-            "Consider reducing your sodium intake by seasoning your meals with herbs and spices instead.",
-            "Include high-fiber foods like legumes, whole grains, and vegetables to support digestion.",
-            "Experiment with meatless meals by incorporating plant-based proteins like tofu or lentils.",
-            "Enjoy occasional treats in moderation to satisfy cravings without overindulging.",
-            "Stay mindful of your eating environment by sitting down at a table and minimizing distractions.",
-            "Incorporate healthy snacks like fresh fruit, nuts, or yogurt for a balanced diet.",
-            "Practice gratitude for the food you eat and appreciate the nourishment it provides.",
-            "Consult with a registered dietitian for personalized dietary recommendations and guidance."
-        ));
-        List<String> exerciseSuggestions = new ArrayList<>(Arrays.asList(
-            "Embrace the joy of movement and dance your way to fitness.",
-            "Discover the exhilarating world of outdoor cycling for a refreshing workout.",
-            "Strengthen your core with invigorating Pilates sessions.",
-            "Engage in uplifting group workouts to foster a sense of community.",
-            "Unleash your inner athlete with a challenging HIIT routine.",
-            "Find solace in serene yoga sessions that nurture your mind and body.",
-            "Take a plunge into the pool for a refreshing and low-impact exercise experience.",
-            "Power up your day with an energizing morning jog or run.",
-            "Embrace the art of calisthenics to sculpt and tone your body.",
-            "Challenge yourself with martial arts for a dynamic and empowering workout.",
-            "Channel your inner child and jump rope your way to fitness and fun.",
-            "Explore the beauty of nature through hiking for a revitalizing workout.",
-            "Push your limits and conquer obstacles with thrilling obstacle course training.",
-            "Engage in mindfulness and strengthen your muscles with Tai Chi.",
-            "Get your heart pumping and body moving with exhilarating Zumba classes.",
-            "Bask in the endorphin rush of a high-energy kickboxing workout.",
-            "Boost your flexibility and balance with the graceful practice of ballet-inspired exercises.",
-            "Discover the benefits of meditation and movement with gentle Tai Chi flows.",
-            "Indulge in the freedom of aerial yoga and find tranquility while suspended in the air.",
-            "Find your rhythm and groove with rhythmic gymnastics-inspired workouts.",
-            "Experience the thrill of rock climbing and challenge your strength and agility.",
-            "Tone and sculpt your body with the power of barre workouts.",
-            "Dive into the world of aquatic fitness and enjoy a refreshing and joint-friendly exercise.",
-            "Embrace the uplifting beats of a cardio dance class to get your heart rate up.",
-            "Break a sweat and boost your endurance with a high-intensity indoor cycling class.",
-            "Unleash your inner yogi with a challenging and empowering hot yoga session.",
-            "Rejuvenate your mind and body with a peaceful and meditative nature walk.",
-            "Strengthen your muscles and improve your posture with Pilates reformer workouts.",
-            "Embrace the serenity of paddleboarding and work your core while connecting with nature.",
-            "Get your groove on and burn calories with fun-filled dance workouts like salsa or hip-hop."
-        ));
-        ArrayList<String> healthySuggestions = new ArrayList<>(Arrays.asList(
-            "Embrace the joy of fresh fruits and vegetables.",
-            "Engage in invigorating outdoor activities for a vibrant lifestyle.",
-            "Prioritize a good night's sleep for optimal well-being.",
-            "Savor the flavors of wholesome, homemade meals.",
-            "Cultivate mindfulness and find peace in the present moment.",
-            "Stay hydrated and let water be your refreshing companion.",
-            "Enjoy the benefits of regular exercise and feel the energy surge.",
-            "Discover new recipes that nourish your body and tantalize your taste buds.",
-            "Surround yourself with positive, supportive people who uplift your spirits.",
-            "Take time to relax and rejuvenate through self-care activities.",
-            "Explore the world of herbal teas for soothing and healing experiences.",
-            "Practice gratitude daily to foster a positive mindset.",
-            "Challenge yourself to try new, nutritious foods and expand your palate.",
-            "Breathe deeply and feel the tranquility that flows within.",
-            "Engage in creative endeavors that bring you joy and fulfillment.",
-            "Share laughter with loved ones and embrace the healing power of humor.",
-            "Step outside and bask in the warm embrace of sunlight.",
-            "Find a physical activity you love and make it a part of your routine.",
-            "Nourish your mind with books, podcasts, and stimulating conversations.",
-            "Indulge in the sweetness of life while maintaining balance.",
-            "Take breaks from screens and reconnect with the world around you.",
-            "Set achievable goals and celebrate every milestone along the way.",
-            "Explore different forms of meditation to find inner peace.",
-            "Connect with nature and find solace in its beauty.",
-            "Practice acts of kindness and experience the joy of giving.",
-            "Embrace the power of positive affirmations to uplift your spirits.",
-            "Seek professional help and guidance when needed for holistic well-being.",
-            "Engage in hobbies that challenge your mind and spark your curiosity.",
-            "Maintain a clean and organized living space for a calm and focused mind.",
-            "Embrace a healthy work-life balance and prioritize self-care."
-        ));
-        Random random = new Random();
-        suggestion1 = root.findViewById(R.id.text_suggestion1);
-        int randomNumber = random.nextInt(30);
-        suggestion1.setText(eatSuggestions.get(randomNumber));
-        suggestion2 = root.findViewById(R.id.text_suggestion2);
-        randomNumber = random.nextInt(30);
-        suggestion2.setText(exerciseSuggestions.get(randomNumber));
-        suggestion3 = root.findViewById(R.id.text_suggestion3);
-        randomNumber = random.nextInt(30);
-        suggestion3.setText(healthySuggestions.get(randomNumber));
+        // Get the current date
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        // Calculate the date 7 days ago
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        Date sevenDaysAgo = calendar.getTime();
+
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    com.google.firebase.Timestamp suggestionTime = documentSnapshot.getTimestamp("suggestionDate");
+                    Date suggestionDate = (suggestionTime != null)?suggestionTime.toDate() : currentDate;
+                    if (suggestionTime != null && isSameDate(suggestionDate)) {
+                        ArrayList suggestions = (ArrayList) documentSnapshot.get("suggestions");
+                        suggestion1 = root.findViewById(R.id.text_suggestion1);
+                        suggestion1.setText((String)suggestions.get(0));
+                        suggestion2 = root.findViewById(R.id.text_suggestion2);
+                        suggestion2.setText((String)suggestions.get(1));
+                        suggestion3 = root.findViewById(R.id.text_suggestion3);
+                        suggestion3.setText((String)suggestions.get(2));
+                    } else {
+                        Task<QuerySnapshot> calorieTask = docRef.collection("calorieLogs")
+                        .whereGreaterThanOrEqualTo("date", sevenDaysAgo)
+                        .whereLessThanOrEqualTo("date", currentDate)
+                        .get();
+    
+                        // Fetch exercise logs within 7 days
+                        Task<QuerySnapshot> exerciseTask = docRef.collection("exerciseLogs")
+                                .whereGreaterThanOrEqualTo("date", sevenDaysAgo)
+                                .whereLessThanOrEqualTo("date", currentDate)
+                                .get();
+            
+                        // Fetch user information
+                        Task<DocumentSnapshot> userTask = docRef.get();
+            
+                        // Combine all tasks
+                        Task<List<Object>> combinedTask = Tasks.whenAllSuccess(calorieTask, exerciseTask, userTask)
+                                .addOnSuccessListener(new OnSuccessListener<List<Object>>() {
+                                    @Override
+                                    public void onSuccess(List<Object> results) {
+                                        QuerySnapshot foodQuery = (QuerySnapshot) results.get(0);
+                                        QuerySnapshot exerciseQuery = (QuerySnapshot) results.get(1);
+                                        DocumentSnapshot userSnapshot = (DocumentSnapshot) results.get(2);
+                                        int age = userSnapshot.getDouble("age").intValue();
+                                        int height = userSnapshot.getDouble("height").intValue();
+                                        int hip = userSnapshot.getDouble("hip").intValue();
+                                        int waist = userSnapshot.getDouble("waist").intValue();
+                                        int weight = userSnapshot.getDouble("weight").intValue();
+                                        String gender = userSnapshot.getString("gender");
+            
+                                        // Generating the food list sentence
+                                        StringBuilder foodSentence = new StringBuilder("The foods I have taken are ");
+                                        for (DocumentSnapshot documentSnapshot : foodQuery.getDocuments()) {
+                                            ArrayList foodList = (ArrayList) documentSnapshot.get("foodList");
+                                            for (int j = 0; j < foodList.size(); j++) {
+                                                HashMap food = (HashMap) foodList.get(j);
+                                                foodSentence.append(food.get("name"));
+                                                if (j < foodList.size() - 1) {
+                                                    foodSentence.append(", ");
+                                                }
+                                            }
+                                        }
+            
+                                        // Generating the exercise list sentence
+                                        StringBuilder exerciseSentence = new StringBuilder("The exercise I have taken is ");
+                                        for (DocumentSnapshot documentSnapshot : exerciseQuery.getDocuments()) {
+                                            ArrayList exerciseList = (ArrayList) documentSnapshot.get("exerciseList");
+                                            for (int j = 0; j < exerciseList.size(); j++) {
+                                                HashMap exerciseData = (HashMap) exerciseList.get(j);
+                                                exerciseSentence.append(exerciseData.get("name"));
+                                                if (j < exerciseList.size() - 1) {
+                                                    exerciseSentence.append(" and ");
+                                                }
+                                            }
+                                        }
+            
+                                        // Calculate average daily calorie intake
+                                        double totalDailyCalorieIntake = foodQuery.getDocuments().stream()
+                                        .mapToDouble(dc -> dc.getDouble("dailyCalorie"))
+                                        .average()
+                                        .orElse(0);
+            
+                                        // Calculate average daily calorie consumption
+                                        double totalDailyCalorieConsumption = exerciseQuery.getDocuments().stream()
+                                        .mapToDouble(ec -> ec.getDouble("dailyCalorie"))
+                                        .average()
+                                        .orElse(0);
+            
+                                        // Generating the final complete sentence with average values
+                                        String finalSentence = "I am a " + age + " years old " + gender + ", with " + height + " height, " + hip + " hip, " +
+                                        waist + " waist, " + weight + " weight, having an average daily Calorie intake of " +
+                                        totalDailyCalorieIntake + " and an average daily Calorie consumption of " +
+                                        totalDailyCalorieConsumption + ". " + foodSentence.toString() + ". " +
+                                        exerciseSentence.toString() + ". Could you provide me 3 health suggestions with 3 bullets (3 short sentences less than 12 words without other sentences)?";
+                                        System.out.print(finalSentence);
+                                        OpenAIDataSource openAIDataSource = new OpenAIDataSource();
+                                        SuggestionService suggestionService = openAIDataSource.suggestionService;
+                                        List<SuggestionService.ChatMessage> messages = new ArrayList<>();
+                                        messages.add(new SuggestionService.ChatMessage("user", finalSentence));
+                                        Suggestion suggest = suggestionService.getSuggestions(new SuggestionService.ReqBody("gpt-3.5-turbo", messages)).blockingFirst();
+                                        List<Choice> choices = suggest.choices;
+                                        String answer = choices.get(0).message.content;
+                                        List<String> lines = Arrays.asList(answer.split("\\n"));
+                                        for (int i = 0; i < lines.size(); i++) {
+                                            lines.set(i,lines.get(i).replaceAll("^\\d+\\.\\s+", ""));
+                                        }
+                                        docRef.update("suggestions", lines);
+                                        docRef.update("suggestionDate", currentDate);
+                                        suggestion1 = root.findViewById(R.id.text_suggestion1);
+                                        suggestion1.setText(lines.get(0));
+                                        suggestion2 = root.findViewById(R.id.text_suggestion2);
+                                        suggestion2.setText(lines.get(1));
+                                        suggestion3 = root.findViewById(R.id.text_suggestion3);
+                                        suggestion3.setText(lines.get(2));
+                                    }
+                                });
+            
+                        // Execute the combined task
+                        combinedTask.addOnCompleteListener(task -> {
+                            // Handle completion if needed
+                        });
+                    }
+                }
+            }
+        });
+        
+
+
+        if (false) {
+            
+        }
 
         docRef.collection("calorieLogs").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -204,7 +241,7 @@ public class DashboardFragment extends Fragment {
                             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 //is it possible to have an empty collection?
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
-                                if (logDate != null && isSameDate(logDate)) {
+                                if (logDate != null && isIn7Days(logDate)) {
                                     dailyCalorie.add(documentSnapshot.getDouble("dailyCalorie"));
                                     dailyCalorieTotal+=documentSnapshot.getDouble("dailyCalorie");
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -254,7 +291,7 @@ public class DashboardFragment extends Fragment {
                             for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                                 //is it possible to have an empty collection?
                                 Date logDate = documentSnapshot.getTimestamp("date").toDate();
-                                if (logDate != null && isSameDate(logDate)) {
+                                if (logDate != null && isIn7Days(logDate)) {
                                     exerciseCalorie.add(documentSnapshot.getDouble("dailyCalorie"));
 //                                    exerciseCalorieTotal+=documentSnapshot.getDouble("dailyCalorie");
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -327,7 +364,7 @@ public class DashboardFragment extends Fragment {
         binding = null;
     }
     //decide whether the date is within 7 days
-    private boolean isSameDate(Date date1) {
+    private boolean isIn7Days(Date date1) {
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date1);
         Calendar cal2 = Calendar.getInstance();
@@ -342,6 +379,23 @@ public class DashboardFragment extends Fragment {
 
         return (year1 == year2 && month1 == month2 && (day1 >= day2-6));
     }
+
+    private boolean isSameDate(Date date1) {
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+
+        int year1 = cal1.get(Calendar.YEAR);
+        int month1 = cal1.get(Calendar.MONTH);
+        int day1 = cal1.get(Calendar.DAY_OF_MONTH);
+
+        int year2 = cal2.get(Calendar.YEAR);
+        int month2 = cal2.get(Calendar.MONTH);
+        int day2 = cal2.get(Calendar.DAY_OF_MONTH);
+
+        return (year1 == year2 && month1 == month2 && day1 == day2);
+    }
+
     private void handleWeightForecast(FirebaseFirestore db, View root) {
         // Use the updated variable here
         for (Double e:
