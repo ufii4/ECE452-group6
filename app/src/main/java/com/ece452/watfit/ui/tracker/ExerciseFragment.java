@@ -227,13 +227,13 @@ public class ExerciseFragment extends Fragment {
                 int year = calendar.get(Calendar.YEAR);
                 int month = calendar.get(Calendar.MONTH);
                 int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-                selectedExerciseList = new ArrayList<>();
                 // Create a DatePickerDialog instance and set the listener
                 DatePickerDialog datePickerDialog = new DatePickerDialog(root.getContext(),
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                 // Update the dateEditText with the selected date
+                                selectedExerciseList = new ArrayList<>();
                                 String selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                                 dateButton.setText(selectedDate);
                                 Calendar selectedCalendar = Calendar.getInstance();
