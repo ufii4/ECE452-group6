@@ -251,7 +251,7 @@ public class DashboardFragment extends Fragment {
                                 }
                             }
                             TextView calorieSummary = root.findViewById(R.id.calorieIntakeSummary);
-                            calorieSummary.setText("Your weekly total intake is "+dailyCalorieTotal+ " kcal, your daily average intake is "+df.format(dailyCalorieTotal/7)+" kcal");
+                            calorieSummary.setText("Your weekly total intake is "+df.format(dailyCalorieTotal)+ " kcal, your daily average intake is "+df.format(dailyCalorieTotal/7)+" kcal");
                             List<String> unsortedDate = new ArrayList<>();
                             unsortedDate.addAll(dateEntries);
                             // Sort the ArrayList
@@ -327,7 +327,7 @@ public class DashboardFragment extends Fragment {
                                 }
                             }
                             TextView calorieSummary = root.findViewById(R.id.exerciseCalorieSummary);
-                            calorieSummary.setText("Your weekly total consumption is "+exerciseCalorieTotal+ " kcal, your daily average exercise consumption is "+df.format(exerciseCalorieTotal/7)+" kcal");
+                            calorieSummary.setText("Your weekly total consumption is "+df.format(exerciseCalorieTotal)+ " kcal, your daily average exercise consumption is "+df.format(exerciseCalorieTotal/7)+" kcal");
                             String exercise_str = "You have done ";
                             for (String e: exercises) {
                                 exercise_str+=e;
