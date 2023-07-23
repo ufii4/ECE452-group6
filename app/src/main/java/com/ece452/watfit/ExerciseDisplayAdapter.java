@@ -49,7 +49,7 @@ public class ExerciseDisplayAdapter extends ArrayAdapter<Exercise> {
         TextView descriptionTextView = convertView.findViewById(R.id.exerciseCalorie);
 
         titleTextView.setText(item.name);
-        descriptionTextView.setText(Double.toString(calorie.get(position))+"kcal");
+        descriptionTextView.setText(Double.toString(this.calorie.get(position))+"kcal");
 
 
         Button btnDelete = convertView.findViewById(R.id.btnDeleteExercise);
