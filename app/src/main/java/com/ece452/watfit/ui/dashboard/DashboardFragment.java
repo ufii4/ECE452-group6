@@ -65,10 +65,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Arrays;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -85,6 +87,7 @@ public class DashboardFragment extends Fragment {
     private List<Entry> exerciseEntries = new ArrayList<>();
     private double exerciseCalorieTotal = 0;
     private double dailyCalorieTotal = 0;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
 
     @Inject
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -128,16 +131,16 @@ public class DashboardFragment extends Fragment {
                         .whereGreaterThanOrEqualTo("date", sevenDaysAgo)
                         .whereLessThanOrEqualTo("date", currentDate)
                         .get();
-    
+
                         // Fetch exercise logs within 7 days
                         Task<QuerySnapshot> exerciseTask = docRef.collection("exerciseLogs")
                                 .whereGreaterThanOrEqualTo("date", sevenDaysAgo)
                                 .whereLessThanOrEqualTo("date", currentDate)
                                 .get();
-            
+
                         // Fetch user information
                         Task<DocumentSnapshot> userTask = docRef.get();
-            
+
                         // Combine all tasks
                         Task<List<Object>> combinedTask = Tasks.whenAllSuccess(calorieTask, exerciseTask, userTask)
                                 .addOnSuccessListener(new OnSuccessListener<List<Object>>() {
@@ -152,7 +155,7 @@ public class DashboardFragment extends Fragment {
                                         int waist = userSnapshot.getDouble("waist").intValue();
                                         int weight = userSnapshot.getDouble("weight").intValue();
                                         String gender = userSnapshot.getString("gender");
-            
+
                                         // Generating the food list sentence
                                         StringBuilder foodSentence = new StringBuilder("The foods I have taken are ");
                                         for (DocumentSnapshot documentSnapshot : foodQuery.getDocuments()) {
@@ -165,7 +168,7 @@ public class DashboardFragment extends Fragment {
                                                 }
                                             }
                                         }
-            
+
                                         // Generating the exercise list sentence
                                         StringBuilder exerciseSentence = new StringBuilder("The exercise I have taken is ");
                                         for (DocumentSnapshot documentSnapshot : exerciseQuery.getDocuments()) {
@@ -178,19 +181,19 @@ public class DashboardFragment extends Fragment {
                                                 }
                                             }
                                         }
-            
+
                                         // Calculate average daily calorie intake
                                         double totalDailyCalorieIntake = foodQuery.getDocuments().stream()
                                         .mapToDouble(dc -> dc.getDouble("dailyCalorie"))
                                         .average()
                                         .orElse(0);
-            
+
                                         // Calculate average daily calorie consumption
                                         double totalDailyCalorieConsumption = exerciseQuery.getDocuments().stream()
                                         .mapToDouble(ec -> ec.getDouble("dailyCalorie"))
                                         .average()
                                         .orElse(0);
-            
+
                                         // Generating the final complete sentence with average values
                                         String finalSentence = "I am a " + age + " years old " + gender + ", with " + height + " height, " + hip + " hip, " +
                                         waist + " waist, " + weight + " weight, having an average daily Calorie intake of " +
@@ -219,7 +222,7 @@ public class DashboardFragment extends Fragment {
                                         suggestion3.setText(lines.get(2));
                                     }
                                 });
-            
+
                         // Execute the combined task
                         combinedTask.addOnCompleteListener(task -> {
                             // Handle completion if needed
@@ -247,6 +250,8 @@ public class DashboardFragment extends Fragment {
                                     dateEntries.add(formattedDate);
                                 }
                             }
+                            TextView calorieSummary = root.findViewById(R.id.calorieIntakeSummary);
+                            calorieSummary.setText("Your weekly total intake is "+df.format(dailyCalorieTotal)+ " kcal, your daily average intake is "+df.format(dailyCalorieTotal/7)+" kcal");
                             List<String> unsortedDate = new ArrayList<>();
                             unsortedDate.addAll(dateEntries);
                             // Sort the ArrayList
@@ -298,6 +303,7 @@ public class DashboardFragment extends Fragment {
                 });
         //Add date to entries
         List<String> dateEntriesExercise = new ArrayList<>();
+        Set<String> exercises = new HashSet<>();
         docRef.collection("exerciseLogs").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -310,12 +316,27 @@ public class DashboardFragment extends Fragment {
                                 // Check if the date is within 7 days
                                 if (logDate != null && (daysDifference <= 7 && daysDifference >= 0)) {
                                     exerciseCalorie.add(documentSnapshot.getDouble("dailyCalorie"));
+                                    List<Map<String,String>>exerciseList = (List<Map<String, String>>) documentSnapshot.get("exerciseList");
+                                    for (Map<String,String> e: exerciseList) {
+                                        exercises.add(e.get("name"));
+                                    }
                                     exerciseCalorieTotal+=documentSnapshot.getDouble("dailyCalorie");
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                     String formattedDate = dateFormat.format(logDate);
                                     dateEntriesExercise.add(formattedDate);
                                 }
                             }
+                            TextView calorieSummary = root.findViewById(R.id.exerciseCalorieSummary);
+                            calorieSummary.setText("Your weekly total consumption is "+df.format(exerciseCalorieTotal)+ " kcal, your daily average exercise consumption is "+df.format(exerciseCalorieTotal/7)+" kcal");
+                            String exercise_str = "You have done ";
+                            for (String e: exercises) {
+                                exercise_str+=e;
+                                exercise_str+=", ";
+                            }
+                            exercise_str.substring(0,exercise_str.length()-2);
+                            exercise_str+=" this week. Good job and keep going!";
+                            TextView exerciseSummary = root.findViewById(R.id.exerciseSummary);
+                            exerciseSummary.setText(exercise_str);
                             handleWeightForecast(db,root);
                             List<String> unsortedDate = new ArrayList<>();
                             unsortedDate.addAll(dateEntriesExercise);

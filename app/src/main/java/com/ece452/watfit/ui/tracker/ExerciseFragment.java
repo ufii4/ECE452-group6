@@ -202,8 +202,8 @@ public class ExerciseFragment extends Fragment {
                                 calorieExercise.setText(burnedList.get(j).total_calories+"kcal");
                                 calorieList.add(Double.parseDouble(burnedList.get(j).total_calories));
                                 //display on the page
-                                ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(),selectedExerciseList,calorieList,dailyCalorie,calorieTotalExerciseTextView);
-                                exerciseDisplayList.setAdapter(ExerciseDisplayAdapter);
+//                                ExerciseDisplayAdapter = new ExerciseDisplayAdapter(root.getContext(),selectedExerciseList,calorieList,dailyCalorie,calorieTotalExerciseTextView);
+//                                exerciseDisplayList.setAdapter(ExerciseDisplayAdapter);
                                 String calorieText = calorieTotalExerciseTextView.getText().toString();
                                 dailyCalorie = Double.parseDouble(calorieText.substring(0,calorieText.length()-4));
                                 dailyCalorie += Double.parseDouble(burnedList.get(j).total_calories);
@@ -258,6 +258,7 @@ public class ExerciseFragment extends Fragment {
                                                         if (logDate != null) {
                                                             double dailyCalorie_fire = documentSnapshot.getDouble("dailyCalorie");
                                                             dailyCalorie = dailyCalorie_fire;
+                                                            selectedExerciseList = new ArrayList<>();
                                                             List<Map<String, Object>> exerciseListData = (List<Map<String, Object>>) documentSnapshot.get("exerciseList");
                                                             for (Map<String, Object> foodMap : exerciseListData) {
                                                                 String name = (String) foodMap.get("name");
