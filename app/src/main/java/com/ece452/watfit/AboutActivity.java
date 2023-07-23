@@ -19,6 +19,7 @@ public class AboutActivity extends AppCompatActivity {
     private TextView spoonacularTextView;
     private TextView apiNinjasTextView;
     private TextView ytbDataApiTextView;
+    private TextView openaiApiTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class AboutActivity extends AppCompatActivity {
         spoonacularTextView = findViewById(R.id.lb_spoonacular);
         apiNinjasTextView = findViewById(R.id.lb_api_ninjas);
         ytbDataApiTextView = findViewById(R.id.lb_ytb_data_api);
+        openaiApiTextView = findViewById(R.id.lb_openai_api);
 
         // add back button to the top-left corner
         ActionBar actionBar = getSupportActionBar();
@@ -95,6 +97,15 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String url = "https://developers.google.com/youtube/v3";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        openaiApiTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://openai.com/blog/openai-api";
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             }

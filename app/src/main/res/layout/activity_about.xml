@@ -192,12 +192,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="88dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="30dp"
             android:text="Home Page Videos"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/lb_ytb_data_api"
             app:layout_constraintTop_toTopOf="@+id/lb_ytb_data_api"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/lb_openai_api"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="8dp"
+            android:text="OpenAI API:"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textStyle="bold"
+            app:autoSizeMaxTextSize="18sp"
+            app:autoSizeMinTextSize="12sp"
+            app:autoSizeStepGranularity="2sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lb_ytb_data_api" />
+
+        <TextView
+            android:id="@+id/lb_openai_api_description_ab"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="127dp"
+            android:layout_marginBottom="30dp"
+            android:text="Health Dashboard Recommendations"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lb_openai_api"
+            app:layout_constraintTop_toTopOf="@+id/lb_openai_api"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/about_img_ac"
