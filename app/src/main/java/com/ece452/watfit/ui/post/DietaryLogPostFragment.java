@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.ece452.watfit.data.DietaryLogPost;
+import com.ece452.watfit.data.models.DietaryLogPost;
 
 public class DietaryLogPostFragment extends PostFragment {
     public DietaryLogPostFragment(DietaryLogPost post) {

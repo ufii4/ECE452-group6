@@ -6,7 +6,7 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.ece452.watfit.data.DietaryLog;
+import com.ece452.watfit.data.models.DietaryLog;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 

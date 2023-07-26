@@ -1,18 +1,13 @@
 package com.ece452.watfit.ui.dashboard;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ece452.watfit.data.DietaryLogWithEntries;
 import com.ece452.watfit.data.DietaryRepository;
-
-import java.time.LocalDate;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.core.Flowable;
 
 @HiltViewModel
 public class DashboardViewModel extends ViewModel {

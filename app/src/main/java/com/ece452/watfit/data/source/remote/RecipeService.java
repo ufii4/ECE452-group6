@@ -1,18 +1,15 @@
 package com.ece452.watfit.data.source.remote;
 
-import com.ece452.watfit.data.Recipe;
-import com.ece452.watfit.data.RecipeInformation;
+import com.ece452.watfit.data.RecipeRepository;
+import com.ece452.watfit.data.models.Recipe;
+import com.ece452.watfit.data.models.RecipeInformation;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.http.GET;
 
-public interface RecipeService {
-    class Result<T> {
-        public List<Recipe> results;
-    }
-
+public interface RecipeService extends RecipeRepository {
     @GET("recipes/{id}/information")
     Flowable<RecipeInformation> searchRecipeInformation(
             @retrofit2.http.Path("id") String id

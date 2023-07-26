@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.ece452.watfit.data.DietaryLogEntry;
+import com.ece452.watfit.data.models.DietaryLogEntry;
 
 @Dao
 public interface DietaryLogEntryDao {

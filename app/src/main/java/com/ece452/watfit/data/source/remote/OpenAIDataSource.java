@@ -33,7 +33,7 @@ public class OpenAIDataSource {
     private Response addApiKeyToRequests(Interceptor.Chain chain) throws IOException {
         Request.Builder request = chain.request().newBuilder();
         request.addHeader("Content-Type", "application/json");
-        request.addHeader("Authorization", "Bearer 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");
+        request.addHeader("Authorization", "Bearer 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");
         return chain.proceed(request.build());
     }
 }

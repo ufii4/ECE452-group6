@@ -3,10 +3,8 @@ package com.ece452.watfit.ui.post;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
-import com.ece452.watfit.EditPostActivity;
-import com.ece452.watfit.data.MealPlanPost;
-import com.ece452.watfit.data.Post;
-import com.ece452.watfit.data.Recipe;
+import com.ece452.watfit.data.models.MealPlanPost;
+import com.ece452.watfit.data.models.Post;
 
 public class MealPlanEditPostActivity extends EditPostActivity {
     public static final String BREAKFAST = "breakfast";

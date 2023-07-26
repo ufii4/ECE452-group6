@@ -5,23 +5,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.ece452.watfit.data.DietaryRepository;
-import com.ece452.watfit.ui.dashboard.DashboardFragment;
-import com.ece452.watfit.ui.home.HomeFragment;
-import com.ece452.watfit.ui.tracker.TrackerFragment;
+import com.ece452.watfit.ui.account.AccountActivity;
+import com.ece452.watfit.ui.account.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.ece452.watfit.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,13 +25,6 @@ import com.google.firebase.auth.FirebaseUser;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-
-import androidx.annotation.NonNull;
-import com.google.android.material.navigation.NavigationBarView;
-import android.widget.LinearLayout;
-import android.view.ViewGroup;
-import android.util.Log;
-import android.view.LayoutInflater;
 
 @AndroidEntryPoint
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
