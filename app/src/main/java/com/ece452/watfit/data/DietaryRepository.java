@@ -1,9 +1,8 @@
 package com.ece452.watfit.data;
 
-import com.ece452.watfit.data.DietaryLog;
+import com.ece452.watfit.data.models.DietaryLog;
 import com.ece452.watfit.data.source.local.DietaryLogDao;
 import com.ece452.watfit.data.source.local.DietaryLogEntryDao;
-import com.ece452.watfit.data.DietaryLogWithEntries;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Completable;

@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.view.View;
 
-import com.ece452.watfit.EditPostActivity;
 import com.ece452.watfit.R;
 
 import java.io.ByteArrayOutputStream;

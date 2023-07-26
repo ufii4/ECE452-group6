@@ -1,7 +1,6 @@
 package com.ece452.watfit.data.source.remote;
 
-import com.ece452.watfit.data.Ingredient;
-import com.ece452.watfit.data.MenuItem;
+import com.ece452.watfit.data.models.Ingredient;
 
 import java.util.List;
 

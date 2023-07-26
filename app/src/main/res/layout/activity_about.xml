@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".AboutActivity">
+        tools:context=".ui.account.AboutActivity">
 
         <TextView
             android:id="@+id/lb_disclaimer_ab"

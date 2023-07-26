@@ -1,6 +1,5 @@
 package com.ece452.watfit.ui.post;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.ece452.watfit.R;
-import com.ece452.watfit.data.Post;
+import com.ece452.watfit.data.models.Post;
 import com.stfalcon.imageviewer.StfalconImageViewer;
 import com.stfalcon.imageviewer.loader.ImageLoader;
 

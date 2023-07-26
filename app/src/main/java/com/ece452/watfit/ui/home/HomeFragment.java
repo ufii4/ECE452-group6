@@ -16,11 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ece452.watfit.FitnessSchedulerActivity;
-import com.ece452.watfit.PublicPostingActivity;
 import com.ece452.watfit.R;
-import com.ece452.watfit.RecVideoDisplayActivity;
-import com.ece452.watfit.RecipeGeneratorActivity;
 import com.ece452.watfit.databinding.FragmentHomeBinding;
 
 import org.json.JSONArray;

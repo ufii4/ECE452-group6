@@ -1,13 +1,14 @@
 package com.ece452.watfit.data.source.remote;
 
-import com.ece452.watfit.data.MenuItem;
+import com.ece452.watfit.data.FoodRepository;
+import com.ece452.watfit.data.models.MenuItem;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.http.GET;
 
-public interface FoodService {
+public interface FoodService extends FoodRepository {
     class Result<T> {
         int offset;
         int number;

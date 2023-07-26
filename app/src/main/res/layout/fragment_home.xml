@@ -43,7 +43,7 @@
         android:layout_marginTop="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".BasicDiameterActivity">
+        tools:context=".ui.account.BasicDiameterActivity">
 
         <!--<VideoView
             android:id="@+id/rec_v1"

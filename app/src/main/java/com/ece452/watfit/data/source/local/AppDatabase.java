@@ -4,8 +4,8 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.ece452.watfit.data.DietaryLog;
-import com.ece452.watfit.data.DietaryLogEntry;
+import com.ece452.watfit.data.models.DietaryLog;
+import com.ece452.watfit.data.models.DietaryLogEntry;
 
 @Database(entities = {DietaryLog.class, DietaryLogEntry.class}, version = 1)
 @TypeConverters({Converters.class})

@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".AccountActivity">
+        tools:context=".ui.account.AccountActivity">
 
         <Button
             android:id="@+id/bt_editprofile_ac"

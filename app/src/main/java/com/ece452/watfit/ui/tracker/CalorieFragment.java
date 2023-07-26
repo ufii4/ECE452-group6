@@ -26,13 +26,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.ece452.watfit.CalorieDisplayAdapter;
-import com.ece452.watfit.CalorieSearchAdapter;
-import com.ece452.watfit.EditPostActivity;
+import com.ece452.watfit.ui.post.EditPostActivity;
 import com.ece452.watfit.R;
-import com.ece452.watfit.data.CalorieLog;
-import com.ece452.watfit.data.Ingredient;
-import com.ece452.watfit.data.Nutrition;
+import com.ece452.watfit.data.models.CalorieLog;
+import com.ece452.watfit.data.models.Ingredient;
+import com.ece452.watfit.data.models.Nutrition;
 import com.ece452.watfit.data.source.remote.IngredientService;
 import com.ece452.watfit.data.source.remote.SpoonacularDataSource;
 import com.ece452.watfit.databinding.FragmentCalorieIntakeBinding;

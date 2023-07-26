@@ -2,9 +2,8 @@ package com.ece452.watfit.data.source.remote;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.ece452.watfit.data.MenuItem;
-import com.ece452.watfit.data.Nutrition;
-import com.ece452.watfit.data.Recipe;
+import com.ece452.watfit.data.models.MenuItem;
+import com.ece452.watfit.data.models.Nutrition;
 
 import org.junit.Before;
 import org.junit.Test;

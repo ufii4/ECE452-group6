@@ -6,19 +6,14 @@ import static org.junit.Assert.fail;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.ece452.watfit.data.Ingredient;
-import com.ece452.watfit.data.MenuItem;
-import com.ece452.watfit.data.Nutrition;
+import com.ece452.watfit.data.models.Ingredient;
+import com.ece452.watfit.data.models.Nutrition;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @RunWith(AndroidJUnit4.class)
 public class IngredientServiceTest {

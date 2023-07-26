@@ -1,14 +1,15 @@
 package com.ece452.watfit.data.source.remote;
 
-import com.ece452.watfit.data.Exercise;
-import com.ece452.watfit.data.Caloriesburned;
+import com.ece452.watfit.data.ExerciseRepository;
+import com.ece452.watfit.data.models.Exercise;
+import com.ece452.watfit.data.models.Caloriesburned;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 import retrofit2.http.GET;
 
-public interface ExerciseService {
+public interface ExerciseService extends ExerciseRepository {
     @GET("v1/exercises")
     Flowable<List<Exercise>> getExercises(
             @retrofit2.http.Query("name") String name,

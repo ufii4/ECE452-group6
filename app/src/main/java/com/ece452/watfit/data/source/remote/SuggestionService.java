@@ -1,6 +1,6 @@
 package com.ece452.watfit.data.source.remote;
 
-import com.ece452.watfit.data.Suggestion;
+import com.ece452.watfit.data.models.Suggestion;
 
 import java.util.List;
 

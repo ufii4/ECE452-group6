@@ -24,15 +24,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.ece452.watfit.EditPostActivity;
+import com.ece452.watfit.ui.post.EditPostActivity;
 import com.ece452.watfit.R;
-import com.ece452.watfit.data.ExerciseLog;
-import com.ece452.watfit.data.Exercise;
-import com.ece452.watfit.data.Caloriesburned;
+import com.ece452.watfit.data.models.ExerciseLog;
+import com.ece452.watfit.data.models.Exercise;
+import com.ece452.watfit.data.models.Caloriesburned;
 import com.ece452.watfit.data.source.remote.ExerciseService;
 import com.ece452.watfit.data.source.remote.NinjaDataSource;
-import com.ece452.watfit.ExerciseDisplayAdapter;
-import com.ece452.watfit.ExerciseSearchAdapter;
 
 import com.ece452.watfit.ui.post.PostActivityHelper;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,21 +44,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.inject.Inject;
-
-import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.FlowableSubscriber;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import io.reactivex.rxjava3.subscribers.DisposableSubscriber;
-import io.reactivex.rxjava3.subscribers.TestSubscriber;
 
 public class ExerciseFragment extends Fragment {
 

@@ -4,13 +4,10 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Transaction;
 
-import com.ece452.watfit.data.DietaryLog;
-import com.ece452.watfit.data.DietaryLogWithEntries;
+import com.ece452.watfit.data.models.DietaryLog;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
